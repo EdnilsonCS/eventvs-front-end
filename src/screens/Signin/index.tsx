@@ -1,15 +1,16 @@
 import React from 'react'
-import { Button, Text, View } from 'react-native'
+import { Button } from 'react-native'
+import Input from '../../components/Input'
+import { ButtonContainer, Container } from './styles'
 
-export default function Signin({navigation}) {
+export default function Signin({ navigation }: any) {
     return (
-        <View>
-            <Text>
-                Login
-            </Text>
-                <Button title='btn' onPress={() => navigation.push('Navigation')}>
-                  <Text>Isso é um button</Text>   
-                </Button>
-        </View>
+        <Container>
+            <Input label='Email' autoCapitalize='none'/>
+            <Input label='Senha' autoCapitalize='none' secureTextEntry/>
+            <ButtonContainer>
+                <Button title='Entrar' onPress={() => navigation.push('Navigation')} />
+            </ButtonContainer>
+        </Container>
     )
 }

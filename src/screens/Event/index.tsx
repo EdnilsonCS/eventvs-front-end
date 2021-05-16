@@ -51,7 +51,7 @@ const DATA = [
     }
 ]
 
-export default function Explore(): JSX.Element {
+export default function Event(): JSX.Element {
     return (
         <Container>
             <FlatList

@@ -2,12 +2,13 @@ import React from "react"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { createStackNavigator } from '@react-navigation/stack'
 
-import Entypo from 'react-native-vector-icons/Entypo'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Octicons from 'react-native-vector-icons/Octicons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Feather from 'react-native-vector-icons/Feather'
 
 import HomeScreen from './screens/Home'
-import ExploreScreen from './screens/Explore'
-import SettingsScreen from './screens/Settings'
+import EventScreen from './screens/Event'
+import ProfileScreen from './screens/Profile'
 import SigninScreen from './screens/Signin'
 
 const Tab = createBottomTabNavigator()
@@ -15,49 +16,56 @@ const Stack = createStackNavigator()
 
 const icons: any = {
     Home: {
-        lib: Entypo,
-        name: 'home'
+        lib: Octicons,
+        name: 'browser'
     },
-    Explore: {
-        lib: Ionicons,
-        name: 'compass'
+    Event: {
+        lib: MaterialCommunityIcons,
+        name: 'calendar-month-outline'
     },
-    Settings: {
-        lib: Ionicons,
-        name: 'settings'
+    Profile: {
+        lib: Feather,
+        name: 'user'
     }
 }
 
 function ButtonNavigation(): JSX.Element {
     return (
         <Tab.Navigator
-        initialRouteName='Explore'
+        initialRouteName='Home'
         screenOptions={({ route, navigation }) => ({
             tabBarIcon: ({ color, size, focused }) => {
                 const { lib: Icon, name } = icons[route.name]
                 return <Icon name={name} size={size} color={color} />
             }
         })}
+        tabBarOptions={{
+            style: {
+                backgroundColor: '#6A2ABA',
+            },
+            activeTintColor: '#FFFFFF',
+            inactiveTintColor: '#AF7BED'
+        }}
         >
             <Tab.Screen
-                name='Explore'
-                component={ExploreScreen}
+                name='Event'
+                component={EventScreen}
                 options={{
-                    title: 'Explorar'
+                    title: 'Eventos'
                 }}
                 />
             <Tab.Screen
                 name='Home'
                 component={HomeScreen}
                 options={{
-                    title: 'Início'
+                    title: 'Minhas inscrições'
                 }}
                 />
             <Tab.Screen
-                name='Settings'
-                component={SettingsScreen}
+                name='Profile'
+                component={ProfileScreen}
                 options={{
-                    title: 'Configurações'
+                    title: 'Perfil'
                 }}
                 />
         </Tab.Navigator>
@@ -68,7 +76,7 @@ export default function Navigation() {
     return (
         <Stack.Navigator initialRouteName='Login'>
             <Stack.Screen name='Login' component={SigninScreen} options={{headerShown:false}}/>
-            <Stack.Screen name='Navigation' component={ButtonNavigation}/>
+            <Stack.Screen name='Navigation' component={ButtonNavigation} options={{headerShown:false}}/>
         </Stack.Navigator>
     )
 }
