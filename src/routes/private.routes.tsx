@@ -5,7 +5,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 
-import HomeScreen from '../screens/Home';
+import SubscribesScreen from '../screens/Subscribes';
 import EventScreen from '../screens/Event';
 import ProfileScreen from '../screens/Profile';
 import { PrivateRoutesConstants } from './constants.routes';
@@ -13,13 +13,13 @@ import { PrivateRoutesConstants } from './constants.routes';
 export type RootTabParamList = {
   [PrivateRoutesConstants.Profile]: undefined;
   [PrivateRoutesConstants.Event]: undefined;
-  [PrivateRoutesConstants.Home]: undefined;
+  [PrivateRoutesConstants.Subscribes]: undefined;
 };
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const icons: any = {
-  [PrivateRoutesConstants.Home]: {
+  [PrivateRoutesConstants.Subscribes]: {
     lib: Octicons,
     name: 'browser',
   },
@@ -36,7 +36,7 @@ const icons: any = {
 const ButtonNavigation: React.FC = () => {
   return (
     <Tab.Navigator
-      initialRouteName={PrivateRoutesConstants.Home}
+      initialRouteName={PrivateRoutesConstants.Subscribes}
       screenOptions={({ route, navigation }) => ({
         tabBarIcon: ({ color, size, focused }) => {
           const { lib: Icon, name } = icons[route.name];
@@ -59,8 +59,8 @@ const ButtonNavigation: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name={PrivateRoutesConstants.Home}
-        component={HomeScreen}
+        name={PrivateRoutesConstants.Subscribes}
+        component={SubscribesScreen}
         options={{
           title: 'Minhas inscrições',
         }}

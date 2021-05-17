@@ -6,6 +6,6 @@ export enum PublicRoutesConstants {
 
 export enum PrivateRoutesConstants {
   Profile = 'Profile',
-  Home = 'Home',
+  Subscribes = 'Subscribes',
   Event = 'Event',
 }
