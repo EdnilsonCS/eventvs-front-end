@@ -8,7 +8,8 @@ export default function Input({ errorText, ...props }: any) {
         mode="outlined"
         returnKeyType="next"
         underlineColor="transparent"
-        selectionColor="#338f1d"
+        selectionColor="#AAA"
+        left={<BaseInput.Icon {...props} />}
         {...props}
       />
       {errorText ? <Error>{errorText}</Error> : null}
