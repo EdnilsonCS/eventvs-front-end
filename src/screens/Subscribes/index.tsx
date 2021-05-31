@@ -7,10 +7,10 @@ import SearchInput from '../../components/SearchInput';
 const Subscribes = (): JSX.Element => {
   return (
     <Container>
-      <Header>Inscrições</Header>
+      <Header>Minhas Inscrições</Header>
       <SearchInput placeholder="Pesquisar..." placeholderTextColor="#FFFFFF" />
-      <Card title="Calourada na UFS" />
-      <Card title="Calourada na UFS" />
+      <Card title="Calourada na UFS" btnTitle="Cancelar" btnColor="#DE0B20" />
+      <Card title="Calourada na UFS" btnTitle="Cancelar" btnColor="#DE0B20" />
     </Container>
   );
 };

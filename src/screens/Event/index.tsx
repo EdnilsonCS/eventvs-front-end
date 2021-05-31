@@ -1,7 +1,8 @@
 import React from 'react';
-import { FlatList } from 'react-native';
 
-import { Bold, Container, ItemContainer } from './styles';
+import Card from '../../components/Card';
+import SearchInput from '../../components/SearchInput';
+import { Container, Header, Wrapper } from './styles';
 
 const DATA = [
   {
@@ -54,15 +55,18 @@ const DATA = [
 export default function Event(): JSX.Element {
   return (
     <Container>
-      <FlatList
-        data={DATA}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <ItemContainer>
-            <Bold>{item.title}</Bold>
-          </ItemContainer>
-        )}
-      />
+      <Header>Eventvs</Header>
+      <SearchInput placeholder="Pesquisar..." placeholderTextColor="white" />
+      <Wrapper>
+        {DATA.map(({ title }) => (
+          <Card
+            key={Math.random().toString()}
+            title={title}
+            btnColor="#6d43a1"
+            btnTitle="Inscrever"
+          />
+        ))}
+      </Wrapper>
     </Container>
   );
 }

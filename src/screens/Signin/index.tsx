@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button } from 'react-native';
 import MaterialCommunityiIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Input from '../../components/Input';
 import {
   ButtonContainer,
+  LoginButton,
   Container,
   Header,
   CreateAccountContainer,
@@ -29,7 +29,12 @@ export default function Signin({ navigation }: any) {
         color="#6d43a1"
       />
       <ButtonContainer>
-        <Button title="Login" onPress={() => navigation.push('Navigation')} />
+        <LoginButton
+          mode="contained"
+          onPress={() => navigation.push('Navigation')}
+        >
+          Login
+        </LoginButton>
       </ButtonContainer>
       <CreateAccountContainer onPress={() => navigation.push('CreateAccount')}>
         <CreateAccountText>Criar nova conta</CreateAccountText>

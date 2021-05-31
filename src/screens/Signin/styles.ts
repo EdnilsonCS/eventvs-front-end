@@ -1,12 +1,19 @@
 import styled from 'styled-components/native';
+import { Button } from 'react-native-paper';
 
 export const Container = styled.View`
   height: 100%;
   padding: 0 16px;
 `;
+
 export const ButtonContainer = styled.View`
   margin: 60px;
 `;
+
+export const LoginButton = styled(Button).attrs(() => ({
+  color: '#6a2aba',
+  mode: 'contained',
+}))``;
 
 export const Header = styled.Text`
   align-self: center;

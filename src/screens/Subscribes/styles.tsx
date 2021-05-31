@@ -8,7 +8,7 @@ export const Container = styled.View`
 
 export const Header = styled.Text`
   align-self: center;
-  font-size: 40px;
+  font-size: 30px;
   padding: 15px;
   font-weight: bold;
   font-family: Lato;

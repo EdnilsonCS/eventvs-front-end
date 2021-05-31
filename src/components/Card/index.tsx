@@ -7,9 +7,15 @@ import { Bold, Button, ButtonText, Container, Title, Wrapper } from './styles';
 
 interface ICard {
   title: string;
+  btnTitle: string;
+  btnColor: string;
 }
 
-export default function Card({ title }: ICard): JSX.Element {
+export default function Card({
+  title,
+  btnTitle,
+  btnColor,
+}: ICard): JSX.Element {
   const formatedDateTime = moment(new Date())
     .locale('pt-br')
     .format('hh:m D/MM/Y');
@@ -20,8 +26,8 @@ export default function Card({ title }: ICard): JSX.Element {
         <Title>
           <Bold>{title}</Bold>
         </Title>
-        <Button>
-          <ButtonText>Remover</ButtonText>
+        <Button style={{ backgroundColor: btnColor }}>
+          <ButtonText>{btnTitle}</ButtonText>
         </Button>
       </Wrapper>
       <Text>

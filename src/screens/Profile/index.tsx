@@ -1,28 +1,30 @@
-import React from "react"
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-indent */
+import React from 'react';
 import {
-    FlatList,
-    StyleSheet,
-    Text,
-    View,
-    StatusBar,
-    TouchableOpacity,
-} from 'react-native'
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  TouchableOpacity,
+} from 'react-native';
 
-import { 
-    Bold, 
-    ButtonContainer, 
-    Container, 
-    Email, 
-    Img, 
-    Name, 
-    Wrapper 
+import {
+    Bold,
+    Buttons,
+    ButtonContainer,
+    Container,
+    Email,
+    Img,
+    Name,
+    Wrapper
 } from './styles'
 
 const items = [
     {
-        title: "Nome",       
-    },{
-        title: "Email",
+        title: "Nome",
     },{
         title: "Senha",
     },{
@@ -45,7 +47,7 @@ const Field = ({ title }: ITitle): JSX.Element => {
 }
 
 
-export default function Profile({navigation}): JSX.Element {
+export default function Profile({ navigation }): JSX.Element {
     return (
         <Container style={styles.container}>
             <Wrapper style={{alignItems: 'center',}}>
@@ -56,18 +58,18 @@ export default function Profile({navigation}): JSX.Element {
                 <Name><Bold>Ednilson Cardoso dos Santos</Bold></Name>
             </Wrapper>
             <FlatList
-                data={items}
-                showsVerticalScrollIndicator={false}
-                keyExtractor={(item, index) => item + index.toString()}
-                renderItem={({ item }) => <TouchableOpacity><Field title={item.title} /></TouchableOpacity>}
+              data={items}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item, index) => item + index.toString()}
+              renderItem={({ item }) => <TouchableOpacity><Field title={item.title} /></TouchableOpacity>}
             />
             <ButtonContainer>
-                <TouchableOpacity style={{borderRadius:15,backgroundColor:'#6A2ABA',marginBottom: 14}} onPress={() => navigation.navigate('Home')}>
-                    <Text style = {{fontSize: 16,fontFamily: 'Lato',padding: 10,color: '#FFFFFF',alignSelf:'center'}}>Atualizar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{borderRadius:15,backgroundColor:'#DE0B20',marginBottom: 30}} onPress={() => navigation.navigate('Login')}>
-                    <Text style = {{fontSize: 16,fontFamily: 'Lato',padding: 10,color: '#FFFFFF',alignSelf:'center'}}>Sair</Text>
-                </TouchableOpacity>
+                <Buttons style={{backgroundColor: '#6A2ABA',marginBottom: 14}} onPress={() => navigation.navigate('Home')}>
+                    Atualizar
+                </Buttons>
+                <Buttons style={{backgroundColor: '#DE0b20',marginBottom: 30}} onPress={() => navigation.navigate('Login')}>
+                    Sair
+                </Buttons>
             </ButtonContainer>
         </Container>
     )
