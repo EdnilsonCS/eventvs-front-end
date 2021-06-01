@@ -1,13 +1,16 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  createBottomTabNavigator,
+  BottomTabBarProps,
+} from '@react-navigation/bottom-tabs';
 
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 
-import SubscribesScreen from '../screens/Subscribes';
-import EventScreen from '../screens/Event';
-import ProfileScreen from '../screens/Profile';
+import SubscribesScreen from '../screens/Participant/Subscribes';
+import EventScreen from '../screens/Participant/Event';
+import ProfileScreen from '../screens/Participant/Profile';
 import { PrivateRoutesConstants } from './constants.routes';
 
 export type RootTabParamList = {
@@ -15,6 +18,8 @@ export type RootTabParamList = {
   [PrivateRoutesConstants.Event]: undefined;
   [PrivateRoutesConstants.Subscribes]: undefined;
 };
+
+export type ProfileScreenProps = BottomTabBarProps<RootTabParamList>;
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 

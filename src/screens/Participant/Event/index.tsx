@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Card from '../../components/Card';
-import SearchInput from '../../components/SearchInput';
+import Card from '@components/Card';
+import SearchInput from '@components/SearchInput';
 import { Container, Header, Wrapper } from './styles';
 
 const DATA = [

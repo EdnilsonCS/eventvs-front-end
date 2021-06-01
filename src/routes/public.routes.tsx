@@ -1,14 +1,20 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  StackScreenProps,
+} from '@react-navigation/stack';
 
-import SigninScreen from '../screens/Signin';
-import SignupScreen from '../screens/Signup';
+import SigninScreen from '../screens/onboarding/Signin';
+import SignupScreen from '../screens/onboarding/Signup';
 import { PublicRoutesConstants } from './constants.routes';
 
 export type RootPublicParamList = {
   [PublicRoutesConstants.Login]: undefined;
   [PublicRoutesConstants.CreateAccount]: undefined;
 };
+
+export type SignInScreenProps = StackScreenProps<RootPublicParamList>;
+export type SignUpScreenProps = StackScreenProps<RootPublicParamList>;
 
 const Stack = createStackNavigator<RootPublicParamList>();
 

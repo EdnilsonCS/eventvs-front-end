@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox } from 'react-native-paper';
+import { SignUpScreenProps } from '@routes/public.routes';
 import {
   Container,
   Header,
@@ -12,7 +12,7 @@ import {
   CheckBoxText,
 } from './styles';
 
-export default function SignUp({ navigation }): JSX.Element {
+export default function SignUp({ navigation }: SignUpScreenProps): JSX.Element {
   const [checked, setChecked] = React.useState(false);
 
   function handleToggleCheckBox(): void {

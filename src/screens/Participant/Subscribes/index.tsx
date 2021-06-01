@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Container, Header } from './styles';
-import Card from '../../components/Card';
-import SearchInput from '../../components/SearchInput';
+import Card from '../../../components/Card';
+import SearchInput from '../../../components/SearchInput';
 
 const Subscribes = (): JSX.Element => {
   return (

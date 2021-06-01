@@ -1,7 +1,8 @@
 import React from 'react';
 import MaterialCommunityiIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Input from '../../components/Input';
+import Input from '@components/Input';
+import { SignInScreenProps } from '@routes/public.routes';
 import {
   ButtonContainer,
   LoginButton,
@@ -11,7 +12,7 @@ import {
   CreateAccountText,
 } from './styles';
 
-export default function Signin({ navigation }: any) {
+export default function Signin({ navigation }: SignInScreenProps): JSX.Element {
   return (
     <Container>
       <Header>EventVS</Header>
