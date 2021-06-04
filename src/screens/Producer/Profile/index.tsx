@@ -65,7 +65,7 @@ export default function Profile({ navigation }: ProfileScreenProps): JSX.Element
               renderItem={({ item }) => <TouchableOpacity><Field title={item.title} /></TouchableOpacity>}
             />
             <ButtonContainer>
-                <Buttons style={{backgroundColor: '#6A2ABA',marginBottom: 14}} onPress={() => navigation.navigate('Home')}>
+                <Buttons style={{backgroundColor: '#6A2ABA',marginBottom: 14}} onPress={() => navigation.navigate('event')}>
                     Atualizar
                 </Buttons>
                 <Buttons style={{backgroundColor: '#DE0b20',marginBottom: 30}} onPress={() => navigation.navigate('Login')}>

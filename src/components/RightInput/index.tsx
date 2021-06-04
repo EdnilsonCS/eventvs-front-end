@@ -9,7 +9,7 @@ export default function Input({ errorText, ...props }: any): JSX.Element {
         returnKeyType="next"
         underlineColor="transparent"
         selectionColor="#AAA"
-        left={<BaseInput.Icon {...props} />}
+        right={<BaseInput.Icon {...props} />}
         {...props}
       />
       {errorText ? <Error>{errorText}</Error> : null}

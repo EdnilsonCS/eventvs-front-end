@@ -62,8 +62,8 @@ export default function Event(): JSX.Element {
           <Card
             key={Math.random().toString()}
             title={title}
-            btnColor="#6d43a1"
-            btnTitle="Inscrever"
+            btnColor=""
+            btnTitle=""
           />
         ))}
       </Wrapper>
