@@ -141,5 +141,5 @@ const ProducerNavigation: React.FC = props => {
   );
 };
 
-export { ProducerNavigation };
-export default ButtonNavigation;
+export default ProducerNavigation;
+export { ButtonNavigation };

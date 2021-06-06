@@ -31,6 +31,7 @@ const Public: React.FC = () => {
         component={SignupScreen}
         options={{
           headerShown: true,
+          cardStyle: { shadowOffset: 0 },
           title: 'Cadastrar',
           headerTitleAlign: 'center',
         }}
