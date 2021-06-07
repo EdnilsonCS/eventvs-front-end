@@ -8,6 +8,7 @@ export const Container = styled.View`
 
 export const BaseInput = styled(TextInput)`
   width: 100%;
+  border-radius: 20px;
 `;
 
 export const Error = styled.Text`

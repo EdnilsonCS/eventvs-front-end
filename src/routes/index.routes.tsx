@@ -16,7 +16,7 @@ const Routes: React.FC = () => {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        {true ? <PrivateRoutes /> : <PublicRoutes />}
+        {token ? <PrivateRoutes /> : <PublicRoutes />}
       </NavigationContainer>
     </PaperProvider>
   );

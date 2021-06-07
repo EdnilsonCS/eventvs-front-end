@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = ({
             underlineColor="transparent"
             selectionColor="#AAA"
             value={value}
-            left={<BaseInput.Icon name={icon} />}
+            left={icon && <BaseInput.Icon name={icon} />}
             {...props}
           />
           {errors[name] ? <Error>{errors[name].message}</Error> : null}

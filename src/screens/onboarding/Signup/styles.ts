@@ -18,24 +18,10 @@ export const SignupCheckBox = styled(Checkbox).attrs(() => ({
   color: '#6a2aba',
 }))``;
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   height: 100%;
   padding: 0 16px;
   background-color: white;
-`;
-
-export const FieldContainer = styled.View`
-  background-color: #f5f5f5;
-  margin: 8px 0;
-  border-color: #6a2aba;
-  border-width: 2px;
-  border-radius: 15px;
-  padding: 10px;
-`;
-
-export const FieldText = styled.Text`
-  font-size: 16px;
-  font-family: 'Lato';
 `;
 
 export const Header = styled.Text`
