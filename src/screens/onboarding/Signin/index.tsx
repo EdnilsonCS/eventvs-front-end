@@ -47,7 +47,7 @@ export default function Signin({ navigation }: SignInScreenProps): JSX.Element {
         name="email"
         label="Email"
         autoCapitalize="none"
-        icon="account"
+        leftIcon="account"
         color="#6d43a1"
       />
       <Input
@@ -57,7 +57,7 @@ export default function Signin({ navigation }: SignInScreenProps): JSX.Element {
         label="Senha"
         autoCapitalize="none"
         secureTextEntry
-        icon="lock"
+        leftIcon="lock"
         color="#6d43a1"
       />
       <ButtonContainer>

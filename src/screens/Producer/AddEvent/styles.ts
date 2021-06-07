@@ -32,18 +32,8 @@ export const Wrapper = styled.ScrollView.attrs(() => ({
   contentContainerStyle: {
     paddingBottom: 16,
   },
-}))`
-  height: ${Dimensions.get('screen').height * 0.65}px;
-`;
+}))``;
 
 export const Buttons = styled(Button).attrs(() => ({
   mode: 'contained',
 }))``;
-
-export const MiniInput = styled(TextInput).attrs(() => ({
-  mode: 'outlined',
-  theme: { colors: { primary: '#6a2aba' } },
-}))`
-  width: 47%;
-  margin-top: 20px;
-`;

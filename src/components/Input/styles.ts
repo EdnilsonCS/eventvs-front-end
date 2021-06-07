@@ -2,12 +2,10 @@ import styled from 'styled-components/native';
 import { TextInput } from 'react-native-paper';
 
 export const Container = styled.View`
-  width: 100%;
   margin-top: 20px;
 `;
 
 export const BaseInput = styled(TextInput)`
-  width: 100%;
   border-radius: 20px;
 `;
 

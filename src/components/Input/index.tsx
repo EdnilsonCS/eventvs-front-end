@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
 import { Controller, FieldErrors } from 'react-hook-form';
 import { TextInputProps } from 'react-native';
@@ -5,23 +6,31 @@ import { BaseInput, Container, Error } from './styles';
 
 interface InputProps extends TextInputProps {
   name: string;
-  icon: string;
+  leftIcon?: string;
+  rightIcon?: string;
   control: any;
   errors: FieldErrors;
+  label: string;
+  color: string;
+  styleContainer?: object;
 }
 
 const Input: React.FC<InputProps> = ({
   errors,
   name,
   control,
-  icon,
+  leftIcon,
+  label,
+  rightIcon,
+  color,
+  styleContainer,
   ...props
 }) => {
   return (
     <Controller
       control={control}
       render={({ field: { onChange, onBlur, value } }) => (
-        <Container>
+        <Container style={styleContainer}>
           <BaseInput
             onChange={onChange}
             onBlur={onBlur}
@@ -29,8 +38,11 @@ const Input: React.FC<InputProps> = ({
             returnKeyType="next"
             underlineColor="transparent"
             selectionColor="#AAA"
+            color={color}
+            label={label}
             value={value}
-            left={icon && <BaseInput.Icon name={icon} />}
+            right={rightIcon && <BaseInput.Icon name={rightIcon} />}
+            left={leftIcon && <BaseInput.Icon name={leftIcon} />}
             {...props}
           />
           {errors[name] ? <Error>{errors[name].message}</Error> : null}
