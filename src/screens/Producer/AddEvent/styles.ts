@@ -3,8 +3,6 @@ import { Button, TextInput } from 'react-native-paper';
 import { Dimensions } from 'react-native';
 
 export const Container = styled.View`
-  padding: 0px 16px;
-  justify-content: space-evenly;
   height: 100%;
 `;
 
@@ -31,6 +29,7 @@ export const Title = styled.Text`
 export const Wrapper = styled.ScrollView.attrs(() => ({
   contentContainerStyle: {
     paddingBottom: 16,
+    margin: 16,
   },
 }))``;
 

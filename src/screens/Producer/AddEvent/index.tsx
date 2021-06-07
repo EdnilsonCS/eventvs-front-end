@@ -14,7 +14,6 @@ import {
   Header,
   Title,
   NumberWrapper,
-  MiniInput,
 } from './styles';
 
 const AddEvent = ({ navigation }: AddScreenProps): JSX.Element => {
