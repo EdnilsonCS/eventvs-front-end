@@ -14,7 +14,7 @@ export interface User {
   email: string;
 }
 
-interface SignInCredentials {
+export interface SignInCredentials {
   email: string;
   password: string;
 }

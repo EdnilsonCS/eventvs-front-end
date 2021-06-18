@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '@components/Input';
 import { SignInScreenProps } from '@routes/public.routes';
-import { useAuth } from '@hooks/auth';
+import { SignInCredentials, useAuth } from '@hooks/auth';
 import { PublicRoutesConstants } from '@routes/constants.routes';
 import {
   ButtonContainer,
@@ -19,8 +19,12 @@ import {
 export default function Signin({ navigation }: SignInScreenProps): JSX.Element {
   const { signIn } = useAuth();
   const schema = Yup.object().shape({
-    email: Yup.string().email().required('E-mail obrigatório'),
-    password: Yup.string().required('Senha obrigatória'),
+    email: Yup.string()
+      .email('Esse email não é válido')
+      .required('E-mail obrigatório'),
+    password: Yup.string()
+      .required('Senha obrigatória')
+      .min(8, 'É necessário que a senha tenha no minimo 8 digitos'),
   });
 
   const {
@@ -35,7 +39,8 @@ export default function Signin({ navigation }: SignInScreenProps): JSX.Element {
       password: '',
     },
   });
-  const handleLogin = async (data: any): Promise<void> => {
+  const handleLogin = async (data: SignInCredentials): Promise<void> => {
+    console.log(data);
     await signIn(data);
   };
   return (
