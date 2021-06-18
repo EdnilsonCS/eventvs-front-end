@@ -7,6 +7,7 @@ import React, {
   useEffect,
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthService from '@services/AuthService';
 import Api from '../services/api';
 
 export interface User {
@@ -50,10 +51,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await Api.post('sessions', {
-      email,
-      password,
-    });
+    const response = await AuthService.signIn({ email, password });
 
     const { token, user } = response.data;
 
