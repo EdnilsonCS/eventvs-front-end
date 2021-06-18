@@ -32,7 +32,7 @@ const Input: React.FC<InputProps> = ({
       render={({ field: { onChange, onBlur, value } }) => (
         <Container style={styleContainer}>
           <BaseInput
-            onChange={onChange}
+            onChangeText={onChange}
             onBlur={onBlur}
             mode="outlined"
             returnKeyType="next"
