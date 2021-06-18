@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '@components/Input';
 import { PublicRoutesConstants } from '@routes/constants.routes';
+import { useCallback } from 'react';
+import AuthService from '@services/AuthService';
 import {
   Container,
   Header,
@@ -15,9 +17,16 @@ import {
   CheckBoxText,
 } from './styles';
 
+interface SignUpCredentials {
+  nome: string;
+  cpf: string;
+  email: string;
+  senha: string;
+}
+
 export default function SignUp({ navigation }: SignUpScreenProps): JSX.Element {
   const schema = Yup.object().shape({
-    name: Yup.string().email().required('Nome obrigatório'),
+    name: Yup.string().required('Nome obrigatório'),
     cpf: Yup.string().required('Cpf é um campo obrigatório'),
     email: Yup.string().email().required('E-mail obrigatório'),
     password: Yup.string().required('Senha obrigatória'),
@@ -47,7 +56,19 @@ export default function SignUp({ navigation }: SignUpScreenProps): JSX.Element {
   function handleToggleCheckBox(): void {
     setChecked(prevState => !prevState);
   }
-  const handleSignUp = (data): void => {
+  const signUp = useCallback(async ({ nome, cpf, email, senha }) => {
+    const response = await AuthService.signUp({
+      nome,
+      cpf,
+      email,
+      senha,
+    });
+
+    const participantData = response.data;
+  }, []);
+
+  const handleSignUp = async (data: SignUpCredentials): Promise<void> => {
+    await signUp(data);
     navigation.navigate(PublicRoutesConstants.Login);
   };
   return (
@@ -56,7 +77,7 @@ export default function SignUp({ navigation }: SignUpScreenProps): JSX.Element {
       <Input
         errors={errors}
         control={control}
-        name="name"
+        name="nome"
         label="Nome"
         autoCapitalize="none"
         color="#6d43a1"
@@ -80,7 +101,8 @@ export default function SignUp({ navigation }: SignUpScreenProps): JSX.Element {
       <Input
         errors={errors}
         control={control}
-        name="password"
+        name="senha"
+        secureTextEntry
         label="Senha"
         autoCapitalize="none"
         color="#6d43a1"
@@ -89,6 +111,7 @@ export default function SignUp({ navigation }: SignUpScreenProps): JSX.Element {
         errors={errors}
         control={control}
         name="confirmPassword"
+        secureTextEntry
         label="Confirmar senha"
         autoCapitalize="none"
         color="#6d43a1"

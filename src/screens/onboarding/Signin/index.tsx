@@ -40,7 +40,6 @@ export default function Signin({ navigation }: SignInScreenProps): JSX.Element {
     },
   });
   const handleLogin = async (data: SignInCredentials): Promise<void> => {
-    console.log(data);
     await signIn(data);
   };
   return (
