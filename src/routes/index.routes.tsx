@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
-import PublicRoutes from './public.routes';
-import PrivateRoutes from './private.routes';
+import PublicRoutes from './public/index.routes';
+import PrivateRoutes from './private/index.routes';
 import { useAuth } from '../hooks/auth';
 
 const theme = {
@@ -16,7 +16,7 @@ const Routes: React.FC = () => {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        {true ? <PrivateRoutes /> : <PublicRoutes />}
+        {token ? <PrivateRoutes /> : <PublicRoutes />}
       </NavigationContainer>
     </PaperProvider>
   );

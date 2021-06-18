@@ -4,9 +4,9 @@ import {
   StackScreenProps,
 } from '@react-navigation/stack';
 
-import SigninScreen from '../screens/onboarding/Signin';
-import SignupScreen from '../screens/onboarding/Signup';
-import { PublicRoutesConstants } from './constants.routes';
+import SigninScreen from '../../screens/onboarding/Signin';
+import SignupScreen from '../../screens/onboarding/Signup';
+import { PublicRoutesConstants } from '../constants.routes';
 
 export type RootPublicParamList = {
   [PublicRoutesConstants.Login]: undefined;
@@ -31,7 +31,12 @@ const Public: React.FC = () => {
         component={SignupScreen}
         options={{
           headerShown: true,
-          cardStyle: { shadowOffset: 0 },
+          cardStyle: {
+            shadowOffset: {
+              width: 0,
+              height: 0,
+            },
+          },
           title: 'Cadastrar',
           headerTitleAlign: 'center',
         }}

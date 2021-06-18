@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '@components/Input';
-import { SignInScreenProps } from '@routes/public.routes';
+import { SignInScreenProps } from '@routes/public/index.routes';
 import { SignInCredentials, useAuth } from '@hooks/auth';
 import { PublicRoutesConstants } from '@routes/constants.routes';
 import {
@@ -70,7 +70,7 @@ export default function Signin({ navigation }: SignInScreenProps): JSX.Element {
         </LoginButton>
       </ButtonContainer>
       <CreateAccountContainer
-        onPress={() => navigation.push(PublicRoutesConstants.CreateAccount)}
+        onPress={() => navigation.navigate(PublicRoutesConstants.CreateAccount)}
       >
         <CreateAccountText>Criar nova conta</CreateAccountText>
         <MaterialCommunityiIcons name="arrow-right" color="#000" size={20} />

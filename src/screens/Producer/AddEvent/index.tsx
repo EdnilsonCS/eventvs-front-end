@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Input from '@components/Input';
-import { AddScreenProps } from '@routes/private.routes';
+import { AddScreenProps } from '@routes/private/producer.routes';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';

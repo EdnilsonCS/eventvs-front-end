@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/jsx-indent */
-import { ProfileScreenProps } from '@routes/private.routes';
+import { ProfileScreenProps } from '@routes/private/participant.routes';
 import React from 'react';
 import {
   FlatList,

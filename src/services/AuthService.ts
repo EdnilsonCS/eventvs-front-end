@@ -17,7 +17,6 @@ interface ISignupDTO {
 const authHeader = `Basic ${base64.encode('app-mobile:mobile')}`;
 class AuthService {
   static signIn(data: ILoginDTO): Promise<any> {
-    // adicionar logica de integração com a api aqui
     return api({
       method: 'post',
       url: '/oauth/token',
