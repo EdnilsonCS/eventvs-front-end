@@ -1,5 +1,4 @@
 import React from 'react';
-import { SignUpScreenProps } from '@routes/public/index.routes';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';

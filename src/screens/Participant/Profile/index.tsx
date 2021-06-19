@@ -1,17 +1,13 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/jsx-indent */
+import Input from '@components/Input';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  StatusBar,
-  TouchableOpacity,
-} from 'react-native';
+import * as Yup from 'yup';
 
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
     Bold,
     Buttons,
@@ -23,35 +19,36 @@ import {
     Wrapper
 } from './styles'
 
-const items = [
-    {
-        title: "Nome",
-    },{
-        title: "Senha",
-    },{
-        title: "Nova Senha",
-    }
-]
-
-interface ITitle {
-    title: string
-}
-
-const Field = ({ title }: ITitle): JSX.Element => {
-    return (
-        <View style={styles.item}>
-            <Text style={styles.title}>
-                {title}
-            </Text>
-        </View>
-    )
-}
-
-
 export default function Profile(): JSX.Element {
+  const schema = Yup.object().shape({
+    name: Yup.string().required('Nome obrigatório'),
+    password: Yup.string().required('Senha obrigatória'),
+    newPassword: Yup.string()
+      .when('password', {
+        is: val => !!val.length,
+        then: Yup.string().required('Campo Obrigatório'),
+        otherwise: Yup.string(),
+      }),
+  });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: 'onBlur',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const handleUpdate = (data:any):void => {
+      console.log(data)
+  }
   const  navigation = useNavigation();
     return (
-        <Container style={styles.container}>
+        <Container>
             <Wrapper style={{alignItems: 'center',}}>
                 <Img source={{ uri: 'https://www.github.com/EdnilsonCS.png' }} />
             </Wrapper>
@@ -59,14 +56,32 @@ export default function Profile(): JSX.Element {
                 <Email><Bold>ednilsoncs@dcomp.ufs.br</Bold></Email>
                 <Name><Bold>Ednilson Cardoso dos Santos</Bold></Name>
             </Wrapper>
-            <FlatList
-              data={items}
-              showsVerticalScrollIndicator={false}
-              keyExtractor={(item, index) => item + index.toString()}
-              renderItem={({ item }) => <TouchableOpacity><Field title={item.title} /></TouchableOpacity>}
+            <Input
+              errors={errors}
+              control={control}
+              name="name"
+              label="Name"
+              autoCapitalize="none"
+              color="#6d43a1"
             />
+            <Input
+              errors={errors}
+              control={control}
+              name="password"
+              label="Senha"
+              autoCapitalize="none"
+              color="#6d43a1"
+            />
+             <Input
+               errors={errors}
+               control={control}
+               name="newPassword"
+               label="Nova Senha"
+               autoCapitalize="none"
+               color="#6d43a1"
+             />
             <ButtonContainer>
-                <Buttons style={{backgroundColor: '#6A2ABA',marginBottom: 14}} onPress={() => navigation.navigate('Home')}>
+                <Buttons style={{backgroundColor: '#6A2ABA',marginBottom: 14}} onPress={handleSubmit(handleUpdate)}>
                     Atualizar
                 </Buttons>
                 <Buttons style={{backgroundColor: '#DE0b20',marginBottom: 30}} onPress={() => navigation.navigate('Login')}>
@@ -77,20 +92,3 @@ export default function Profile(): JSX.Element {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        paddingTop: StatusBar.currentHeight,
-    },
-    item: {
-        backgroundColor: "#f5f5f5",
-        padding: 10,
-        marginVertical: 8,
-        borderColor: '#6A2ABA',
-        borderWidth: 2,
-        borderRadius: 15
-    },
-    title: {
-        fontSize: 16,
-        fontFamily: 'Lato'
-    }
-})
