@@ -33,7 +33,7 @@ class AuthService {
   }
 
   static signUp(data: ISignupDTO): Promise<any> {
-    return api.post('/criar/participante', data);
+    return api.post('/criar/participantes', data);
   }
 }
 
