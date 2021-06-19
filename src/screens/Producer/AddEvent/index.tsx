@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { PrivateRoutesConstants } from '@routes/constants.routes';
+import { useNavigation } from '@react-navigation/native';
 import {
   Container,
   Wrapper,
@@ -16,7 +17,8 @@ import {
   NumberWrapper,
 } from './styles';
 
-const AddEvent = ({ navigation }: AddScreenProps): JSX.Element => {
+const AddEvent = (): JSX.Element => {
+  const navigation = useNavigation();
   const schema = Yup.object().shape({
     email: Yup.string().email().required('E-mail obrigatório'),
     password: Yup.string().required('Senha obrigatória'),

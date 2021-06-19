@@ -7,6 +7,7 @@ import Input from '@components/Input';
 import { PublicRoutesConstants } from '@routes/constants.routes';
 import { useCallback } from 'react';
 import AuthService from '@services/AuthService';
+import { useNavigation } from '@react-navigation/core';
 import {
   Container,
   Header,
@@ -24,7 +25,8 @@ interface SignUpCredentials {
   senha: string;
 }
 
-export default function SignUp({ navigation }: SignUpScreenProps): JSX.Element {
+export default function SignUp(): JSX.Element {
+  const navigation = useNavigation();
   const schema = Yup.object().shape({
     name: Yup.string().required('Nome obrigatório'),
     cpf: Yup.string().required('Cpf é um campo obrigatório'),

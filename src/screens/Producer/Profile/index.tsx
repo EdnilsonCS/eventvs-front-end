@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/jsx-indent */
-import { ProfileScreenProps } from '@routes/private/participant.routes';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   FlatList,
@@ -48,7 +48,8 @@ const Field = ({ title }: ITitle): JSX.Element => {
 }
 
 
-export default function Profile({ navigation }: ProfileScreenProps): JSX.Element {
+export default function Profile(): JSX.Element {
+  const navigation = useNavigation();
     return (
         <Container style={styles.container}>
             <Wrapper style={{alignItems: 'center',}}>

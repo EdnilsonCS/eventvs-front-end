@@ -7,6 +7,7 @@ import Input from '@components/Input';
 import { SignInScreenProps } from '@routes/public/index.routes';
 import { SignInCredentials, useAuth } from '@hooks/auth';
 import { PublicRoutesConstants } from '@routes/constants.routes';
+import { useNavigation } from '@react-navigation/native';
 import {
   ButtonContainer,
   LoginButton,
@@ -16,7 +17,8 @@ import {
   CreateAccountText,
 } from './styles';
 
-export default function Signin({ navigation }: SignInScreenProps): JSX.Element {
+export default function Signin(): JSX.Element {
+  const navigation = useNavigation();
   const { signIn } = useAuth();
   const schema = Yup.object().shape({
     email: Yup.string()
