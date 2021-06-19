@@ -5,7 +5,7 @@ import Input from '@components/Input';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import * as Yup from 'yup';
-
+import { useAuth } from '@hooks/auth';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
@@ -20,6 +20,7 @@ import {
 } from './styles'
 
 export default function Profile(): JSX.Element {
+  const { signOut} =  useAuth()
   const schema = Yup.object().shape({
     name: Yup.string().required('Nome obrigatório'),
     password: Yup.string().required('Senha obrigatória'),
@@ -84,7 +85,7 @@ export default function Profile(): JSX.Element {
                 <Buttons style={{backgroundColor: '#6A2ABA',marginBottom: 14}} onPress={handleSubmit(handleUpdate)}>
                     Atualizar
                 </Buttons>
-                <Buttons style={{backgroundColor: '#DE0b20',marginBottom: 30}} onPress={() => navigation.navigate('Login')}>
+                <Buttons style={{backgroundColor: '#DE0b20',marginBottom: 30}} onPress={signOut}>
                     Sair
                 </Buttons>
             </ButtonContainer>
