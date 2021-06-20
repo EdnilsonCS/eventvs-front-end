@@ -6,7 +6,7 @@ import ProducerNavigation from './producer.routes';
 const IndexRouter: React.FC = () => {
   const { user } = useAuth();
 
-  return <>{true ? <ProducerNavigation /> : <ParticipanteNavigation />}</>;
+  return <>{true ? <ProducerNavigation /> : <ParticipantNavigation />}</>;
 };
 
 export default IndexRouter;
