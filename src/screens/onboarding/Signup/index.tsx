@@ -27,17 +27,19 @@ interface SignUpCredentials {
 export default function SignUp(): JSX.Element {
   const navigation = useNavigation();
   const schema = Yup.object().shape({
-    name: Yup.string().required('Nome obrigatório'),
+    nome: Yup.string().required('Nome obrigatório'),
     cpf: Yup.string().required('Cpf é um campo obrigatório'),
-    email: Yup.string().email().required('E-mail obrigatório'),
-    password: Yup.string().required('Senha obrigatória'),
-    confirmPassword: Yup.string()
-      .when('password', {
+    email: Yup.string()
+      .email('Esse email não é válido')
+      .required('E-mail obrigatório'),
+    senha: Yup.string().required('Senha obrigatória'),
+    confirmarSenha: Yup.string()
+      .when('senha', {
         is: val => !!val.length,
         then: Yup.string().required('Campo Obrigatório'),
         otherwise: Yup.string(),
       })
-      .oneOf([Yup.ref('password')], 'Confirmação incorreta'),
+      .oneOf([Yup.ref('senha')], 'Confirmação incorreta'),
   });
 
   const {
@@ -49,7 +51,9 @@ export default function SignUp(): JSX.Element {
     mode: 'onBlur',
     defaultValues: {
       email: '',
-      password: '',
+      senha: '',
+      nome: '',
+      cpf: '',
     },
   });
   const [checked, setChecked] = React.useState(false);
@@ -69,6 +73,8 @@ export default function SignUp(): JSX.Element {
   }, []);
 
   const handleSignUp = async (data: SignUpCredentials): Promise<void> => {
+    console.log(data);
+
     await signUp(data);
     navigation.navigate(PublicRoutesConstants.Login);
   };
@@ -111,7 +117,7 @@ export default function SignUp(): JSX.Element {
       <Input
         errors={errors}
         control={control}
-        name="confirmPassword"
+        name="confirmarSenha"
         secureTextEntry
         label="Confirmar senha"
         autoCapitalize="none"

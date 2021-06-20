@@ -3,7 +3,9 @@ EventVs FrontEnd
 
 ## Requisitos funcionais
 
-- [ ] Criar conta de usuário
+- [x] Criar conta de participante
+- [ ] Criar conta de produtor
+- [x] Um participante pode realizar _login_
 - [ ] Um usuário pode visualizar eventos publicados
 - [ ] Um usuário pode se inscrever eventos publicados
 - [ ] Um usuário pode buscar eventos publicados
@@ -16,4 +18,4 @@ EventVs FrontEnd
 
 ## Regras de Negócio
 
-- [ ] Depois de publicado, um evento não pode ser editado
+- [x] Só poderá ter conta de produtor após aval do ADM
