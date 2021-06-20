@@ -13,6 +13,7 @@ import Api from '../services/api';
 export interface User {
   name: string;
   email: string;
+  role: string;
 }
 
 export interface SignInCredentials {
@@ -21,7 +22,7 @@ export interface SignInCredentials {
 }
 
 interface AuthContextData {
-  user: User | null;
+  user: User | Record<string, string>;
   token: string;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
@@ -31,7 +32,7 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState({ token: '', user: null });
+  const [data, setData] = useState({ token: '', user: {} });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -53,8 +54,12 @@ export const AuthProvider: React.FC = ({ children }) => {
   const signIn = useCallback(async ({ email, password }) => {
     const response = await AuthService.signIn({ email, password });
 
-    const { access_token: token, nome: user } = response.data;
-
+    const { access_token: token } = response.data;
+    const user = {
+      email: response.data.email,
+      name: response.data.nome,
+      role: response.data.role,
+    };
     await AsyncStorage.multiSet([
       ['@Events:token', token],
       ['@Events:user', JSON.stringify(user)],
@@ -68,7 +73,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(['@Events:token', '@Events:user']);
-    setData({ token: '', user: null });
+    setData({ token: '', user: {} });
   }, []);
 
   return (
