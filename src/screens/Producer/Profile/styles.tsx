@@ -7,7 +7,7 @@ export const Container = styled.SafeAreaView`
   margin: 0 16px;
   height: 100%;
   background-color: white;
-  padding-top: ${StatusBar.currentHeight};
+  padding-top: ${StatusBar.currentHeight}px;
 `;
 
 export const Wrapper = styled.View`

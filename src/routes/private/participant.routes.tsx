@@ -38,7 +38,7 @@ const icons: any = {
   },
 };
 
-const ParticipanteNavigation: React.FC = () => {
+const ParticipantNavigation: React.FC = () => {
   return (
     <Tab.Navigator
       initialRouteName={PrivateRoutesConstants.Subscribes}
@@ -81,4 +81,4 @@ const ParticipanteNavigation: React.FC = () => {
   );
 };
 
-export default ParticipanteNavigation;
+export default ParticipantNavigation;
