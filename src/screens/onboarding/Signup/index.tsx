@@ -7,6 +7,7 @@ import { PublicRoutesConstants } from '@routes/constants.routes';
 import { useCallback } from 'react';
 import AuthService from '@services/AuthService';
 import { useNavigation } from '@react-navigation/core';
+import { showMessage } from 'react-native-flash-message';
 import {
   Container,
   Header,
@@ -35,7 +36,7 @@ export default function SignUp(): JSX.Element {
     senha: Yup.string().required('Senha obrigatória'),
     confirmarSenha: Yup.string()
       .when('senha', {
-        is: val => !!val.length,
+        is: (val: any) => !!val.length,
         then: Yup.string().required('Campo Obrigatório'),
         otherwise: Yup.string(),
       })
@@ -62,14 +63,27 @@ export default function SignUp(): JSX.Element {
     setChecked(prevState => !prevState);
   }
   const signUp = useCallback(async ({ nome, cpf, email, senha }) => {
-    const response = await AuthService.signUp({
-      nome,
-      cpf,
-      email,
-      senha,
-    });
-
-    const participantData = response.data;
+    try {
+      await AuthService.signUp({
+        nome,
+        cpf,
+        email,
+        senha,
+      });
+      showMessage({
+        message: 'Ops! Cadastro realizado com sucesso',
+        type: 'success',
+        icon: 'success',
+        duration: 3000,
+      });
+    } catch (err) {
+      showMessage({
+        message: 'Ops! Não conseguimos realizar seu cadastro.',
+        type: 'danger',
+        icon: 'danger',
+        duration: 3000,
+      });
+    }
   }, []);
 
   const handleSignUp = async (data: SignUpCredentials): Promise<void> => {

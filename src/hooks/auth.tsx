@@ -52,23 +52,26 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await AuthService.signIn({ email, password });
-
-    const { access_token: token } = response.data;
-    const user = {
-      email: response.data.email,
-      name: response.data.nome,
-      role: response.data.role,
-    };
-    await AsyncStorage.multiSet([
-      ['@Events:token', token],
-      ['@Events:user', JSON.stringify(user)],
-    ]);
-    Api.defaults.headers.authorization = `Bearer ${token}`;
-    setData({
-      token,
-      user,
-    });
+    try {
+      const response = await AuthService.signIn({ email, password });
+      const { access_token: token } = response.data;
+      const user = {
+        email: response.data.email,
+        name: response.data.nome,
+        role: response.data.role,
+      };
+      await AsyncStorage.multiSet([
+        ['@Events:token', token],
+        ['@Events:user', JSON.stringify(user)],
+      ]);
+      Api.defaults.headers.authorization = `Bearer ${token}`;
+      setData({
+        token,
+        user,
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
   }, []);
 
   const signOut = useCallback(async () => {

@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '@components/Input';
-import { SignInScreenProps } from '@routes/public/index.routes';
 import { SignInCredentials, useAuth } from '@hooks/auth';
 import { PublicRoutesConstants } from '@routes/constants.routes';
 import { useNavigation } from '@react-navigation/native';
+import { showMessage } from 'react-native-flash-message';
 import {
   ButtonContainer,
   LoginButton,
@@ -42,7 +42,16 @@ export default function Signin(): JSX.Element {
     },
   });
   const handleLogin = async (data: SignInCredentials): Promise<void> => {
-    await signIn(data);
+    try {
+      await signIn(data);
+    } catch (err) {
+      showMessage({
+        message: 'Erro ao fazer login, check suas credenciais',
+        type: 'danger',
+        icon: 'danger',
+        duration: 3000,
+      });
+    }
   };
   return (
     <Container>
