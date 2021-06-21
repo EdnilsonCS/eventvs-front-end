@@ -70,6 +70,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         user,
       });
     } catch (err) {
+      console.log(err);
       throw new Error(err);
     }
   }, []);
