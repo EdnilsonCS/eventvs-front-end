@@ -1,6 +1,8 @@
 import React from 'react';
 
 import api from '@services/api';
+import { Alert } from 'react-native';
+import { useAuth } from '@hooks/auth';
 import { Container, Header } from './styles';
 import Card from '../../../components/Card';
 import SearchInput from '../../../components/SearchInput';
@@ -14,12 +16,18 @@ interface ISubscribe {
 }
 
 const Subscribes = (): JSX.Element => {
+  const { token } = useAuth();
   const [subscribes, setSubscribes] = React.useState<ISubscribe[]>([]);
 
   React.useEffect(() => {
-    api.get<ISubscribe[]>('/inscricoes').then(response => {
-      setSubscribes(response.data);
-    });
+    api
+      .get<ISubscribe[]>('/inscricoes', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => {
+        setSubscribes(response.data);
+      })
+      .catch(err => Alert.alert('Error', err));
   }, []);
 
   return (

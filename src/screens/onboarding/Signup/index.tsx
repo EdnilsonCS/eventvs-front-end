@@ -100,7 +100,7 @@ export default function SignUp(): JSX.Element {
         control={control}
         name="nome"
         label="Nome"
-        autoCapitalize="none"
+        autoCapitalize="sentences"
         color="#6d43a1"
       />
       <Input
