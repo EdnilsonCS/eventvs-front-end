@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { TextInput as TextInputPaper } from 'react-native-paper';
 
 export const Container = styled.View`
-  margin-bottom: 17px;
+  margin-top: 20px;
 `;
 
 export const TextError = styled.Text`

@@ -117,7 +117,7 @@ const DataPicker: React.FC<DataPickerProps> = ({
         name={name}
         control={control}
         defaultValue=""
-        render={({ onChange, onBlur }) => (
+        render={({ field: { onChange, onBlur } }) => (
           <>
             {Platform.OS === 'ios' ? (
               <RBSheet

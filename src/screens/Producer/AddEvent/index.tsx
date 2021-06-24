@@ -80,7 +80,7 @@ const AddEvent = (): JSX.Element => {
         <DataPicker
           errors={errors}
           control={control}
-          name="dataHoraFim"
+          name="dataHoraInicio"
           minimumDate={new Date()}
           label="Data de ínicio"
         />
