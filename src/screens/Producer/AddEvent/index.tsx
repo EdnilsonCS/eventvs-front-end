@@ -1,7 +1,7 @@
 import React from 'react';
 import { ICategory } from '@services/CategoryService';
 import Input from '@components/Input';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { PrivateRoutesConstants } from '@routes/constants.routes';
@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { useMemo } from 'react';
 import CategoryService from '@services/CategoryService';
 import Select from '@components/Select';
+import LocationService, { ICity, IState } from '@services/LocationService';
 import {
   Container,
   Wrapper,
@@ -25,6 +26,8 @@ import {
 
 const AddEvent = (): JSX.Element => {
   const [categories, setCategories] = useState<ICategory[]>([]);
+  const [states, setStates] = useState<IState[]>([]);
+  const [citys, setCitys] = useState<ICity[]>([]);
   const navigation = useNavigation();
   const schema = Yup.object().shape({
     email: Yup.string().email().required('E-mail obrigatório'),
@@ -34,16 +37,27 @@ const AddEvent = (): JSX.Element => {
   const {
     control,
     handleSubmit,
+    getValues,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     mode: 'onBlur',
     defaultValues: {
-      email: '',
+      state: '',
       password: '',
     },
   });
 
+  const selectedState = useWatch<string>({
+    control,
+    name: 'state',
+  });
+  const cepValue = useWatch<string>({
+    control,
+    name: 'cep',
+  });
+  console.log(selectedState);
   const handleCreateNewEvent = async (data: any): Promise<void> => {
     const endereco = {
       nome: data.nome,
@@ -74,6 +88,55 @@ const AddEvent = (): JSX.Element => {
     getCategoryList();
   }, []);
 
+  useEffect(() => {
+    const getStateList = async (): Promise<void> => {
+      const serviceState = await LocationService.getStateList();
+
+      setStates(serviceState);
+    };
+
+    getStateList();
+  }, []);
+
+  useEffect(() => {
+    const getCityList = async (): Promise<void> => {
+      const serviceCity = await LocationService.getCityList({
+        UF: selectedState,
+      });
+
+      setCitys(serviceCity);
+    };
+
+    getCityList();
+  }, [getValues, selectedState]);
+  useEffect(() => {
+    const getInformationBycep = async (): Promise<void> => {
+      if (cepValue && cepValue.length > 7) {
+        const cepInformation = await LocationService.getInformationByCep({
+          cepNumber: cepValue.replace('-', ''),
+        });
+
+        if (cepInformation.state) setValue('state', cepInformation.state);
+        if (cepInformation.street) setValue('andress', cepInformation.street);
+
+        if (cepInformation.city) setValue('city', cepInformation.city);
+
+        if (cepInformation.neighborhood)
+          setValues('district', cepInformation.neighborhood);
+      }
+    };
+
+    getInformationBycep();
+  }, [cepValue, setValue]);
+
+  const formattedStates = useMemo(() => {
+    return states.map(item => {
+      return {
+        name: item.nome,
+        id: item.sigla,
+      };
+    });
+  }, [states]);
   const formattedCategories = useMemo(() => {
     return categories.map(item => {
       return {
@@ -82,6 +145,14 @@ const AddEvent = (): JSX.Element => {
       };
     });
   }, [categories]);
+  const formattedCitys = useMemo(() => {
+    return citys.map(item => {
+      return {
+        name: item.nome,
+        id: item.nome,
+      };
+    });
+  }, [citys]);
   return (
     <Container>
       <Header>
@@ -131,20 +202,6 @@ const AddEvent = (): JSX.Element => {
           control={control}
           options={formattedCategories}
         />
-        <Input
-          name="andress"
-          errors={errors}
-          control={control}
-          label="Logradouro"
-          color="#6d43a1"
-        />
-        <Input
-          name="district"
-          errors={errors}
-          control={control}
-          label="Bairro"
-          color="#6d43a1"
-        />
         <NumberWrapper>
           <Input
             inputMask
@@ -166,18 +223,36 @@ const AddEvent = (): JSX.Element => {
           />
         </NumberWrapper>
         <Input
+          name="andress"
+          errors={errors}
+          control={control}
+          label="Logradouro"
+          color="#6d43a1"
+        />
+        <Input
+          name="district"
+          errors={errors}
+          control={control}
+          label="Bairro"
+          color="#6d43a1"
+        />
+
+        <Select
+          label="Estado"
+          name="state"
+          errors={errors}
+          control={control}
+          options={formattedStates}
+        />
+        <Select
+          menuPlaceholder="Cidade"
+          disabled={formattedCitys.length === 0}
           label="Cidade"
           name="city"
           color="#6d43a1"
           errors={errors}
           control={control}
-        />
-        <Input
-          label="Estado"
-          name="state"
-          color="#6d43a1"
-          errors={errors}
-          control={control}
+          options={formattedCitys}
         />
         <ButtonContainer>
           <Buttons color="#6a2aba" onPress={() => null}>

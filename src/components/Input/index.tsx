@@ -85,6 +85,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
               customTextInputProps={{
                 rawValue,
                 error: errors[name],
+                label,
                 ...props,
               }}
             />

@@ -31,6 +31,7 @@ interface SelectProps {
   canRemoveValue?: boolean;
   mode?: 'flat' | 'outlined';
   label: string;
+  disabled: boolean;
 }
 
 interface BottomJustificationRef {
@@ -52,6 +53,7 @@ const Select: React.ForwardRefRenderFunction<
     menuPlaceholder,
     multiple,
     canRemoveValue,
+    disabled,
     ...rest
   },
   ref,
@@ -66,16 +68,16 @@ const Select: React.ForwardRefRenderFunction<
       bottomElementRef.current.focus();
     },
   }));
-  const handleOpenBottomSheet = () => {
+  const handleOpenBottomSheet = (): void => {
     bottomSheetRef.current.open();
     Keyboard.dismiss();
   };
 
-  const handleCloseBottomSheet = () => {
+  const handleCloseBottomSheet = (): void => {
     bottomSheetRef.current.close();
   };
 
-  const handleSearchValue = (value: string) => {
+  const handleSearchValue = (value: string): void => {
     if (value) {
       if (!multiple) {
         const option = options.find(item => String(item.id) === String(value));
@@ -116,7 +118,7 @@ const Select: React.ForwardRefRenderFunction<
         defaultValue=""
         render={({ field: { onChange, onBlur, value } }) => (
           <>
-            <Touchable onPress={handleOpenBottomSheet}>
+            <Touchable disabled={disabled} onPress={handleOpenBottomSheet}>
               <TouchableContainer>
                 <TextInput
                   ref={bottomElementRef}
