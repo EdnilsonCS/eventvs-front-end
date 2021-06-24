@@ -5,7 +5,10 @@ export const Container = styled.View`
   margin-top: 20px;
 `;
 
-export const BaseInput = styled(TextInput)`
+export const BaseInput = styled(TextInput).attrs(() => ({
+  mode: 'outlined',
+  underlineColor: 'transparent',
+}))`
   border-radius: 20px;
 `;
 

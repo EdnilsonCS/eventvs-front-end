@@ -147,6 +147,8 @@ const AddEvent = (): JSX.Element => {
         />
         <NumberWrapper>
           <Input
+            inputMask
+            type="zip-code"
             label="CEP"
             name="cep"
             errors={errors}
