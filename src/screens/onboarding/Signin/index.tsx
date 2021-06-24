@@ -26,7 +26,7 @@ export default function Signin(): JSX.Element {
       .required('E-mail obrigatório'),
     password: Yup.string()
       .required('Senha obrigatória')
-      .min(8, 'É necessário que a senha tenha no minimo 8 digitos'),
+      .min(3, 'É necessário que a senha tenha no minimo 3 digitos'),
   });
 
   const {

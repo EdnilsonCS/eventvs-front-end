@@ -1,12 +1,13 @@
 import React from 'react';
 
 import Input from '@components/Input';
-import { AddScreenProps } from '@routes/private/producer.routes';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { PrivateRoutesConstants } from '@routes/constants.routes';
 import { useNavigation } from '@react-navigation/native';
+import EventService from '@services/EventService';
+import DataPicker from '@components/DataPicker';
 import {
   Container,
   Wrapper,
@@ -36,6 +37,26 @@ const AddEvent = (): JSX.Element => {
       password: '',
     },
   });
+
+  const handleCreateNewEvent = async (data: any): Promise<void> => {
+    const endereco = {
+      nome: data.nome,
+      descricao: data.descricao,
+      statusEvento: 'CRIADO',
+      dataHoraFim: data.dataHoraFim,
+      dataHoraInicio: data.dataHoraInicio,
+    };
+
+    const event = {
+      endereco,
+    };
+
+    try {
+      EventService.createNewEvent(event);
+    } catch (err) {
+      console.log('teste');
+    }
+  };
   return (
     <Container>
       <Header>
@@ -43,34 +64,32 @@ const AddEvent = (): JSX.Element => {
       </Header>
       <Wrapper>
         <Input
-          name="title"
+          name="nome"
           errors={errors}
           control={control}
           label="Título"
           color="#6d43a1"
         />
         <Input
-          name="description"
+          name="descricao"
           errors={errors}
           control={control}
           label="Descrição"
           color="#6d43a1"
         />
-        <Input
+        <DataPicker
           errors={errors}
           control={control}
-          name="startDate"
+          name="dataHoraFim"
+          minimumDate={new Date()}
           label="Data de ínicio"
-          rightIcon="calendar"
-          color="#6d43a1"
         />
-        <Input
-          name="closeDate"
+        <DataPicker
+          name="dataHoraFim"
+          minimumDate={new Date()}
           errors={errors}
           control={control}
           label="Data de encerramento"
-          rightIcon="calendar"
-          color="#6d43a1"
         />
         <Input
           name="status"
