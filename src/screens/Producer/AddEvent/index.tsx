@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { ICategory } from '@services/CategoryService';
 import Input from '@components/Input';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
@@ -8,6 +8,11 @@ import { PrivateRoutesConstants } from '@routes/constants.routes';
 import { useNavigation } from '@react-navigation/native';
 import EventService from '@services/EventService';
 import DataPicker from '@components/DataPicker';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useMemo } from 'react';
+import CategoryService from '@services/CategoryService';
+import Select from '@components/Select';
 import {
   Container,
   Wrapper,
@@ -19,6 +24,7 @@ import {
 } from './styles';
 
 const AddEvent = (): JSX.Element => {
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const navigation = useNavigation();
   const schema = Yup.object().shape({
     email: Yup.string().email().required('E-mail obrigatório'),
@@ -57,6 +63,25 @@ const AddEvent = (): JSX.Element => {
       console.log('teste');
     }
   };
+
+  useEffect(() => {
+    const getCategoryList = async (): Promise<void> => {
+      const serviceCategories = await CategoryService.getCategoryList();
+
+      setCategories(serviceCategories);
+    };
+
+    getCategoryList();
+  }, []);
+
+  const formattedCategories = useMemo(() => {
+    return categories.map(item => {
+      return {
+        name: item.nome,
+        id: item.id,
+      };
+    });
+  }, [categories]);
   return (
     <Container>
       <Header>
@@ -98,12 +123,13 @@ const AddEvent = (): JSX.Element => {
           label="Status"
           color="#6d43a1"
         />
-        <Input
+        <Select
+          label="Categorias"
+          menuPlaceholder="Categorias"
           name="category"
           errors={errors}
           control={control}
-          label="Categoria"
-          color="#6d43a1"
+          options={formattedCategories}
         />
         <Input
           name="andress"
