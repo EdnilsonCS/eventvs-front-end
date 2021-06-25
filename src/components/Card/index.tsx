@@ -1,5 +1,5 @@
 import dayjs from '@helpers/datas';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Text } from 'react-native';
 
 import { Bold, Button, ButtonText, Container, Title, Wrapper } from './styles';
@@ -14,6 +14,8 @@ interface ICard {
   bairro: string;
   cidade: string;
   estado: string;
+  dataHoraInicio: Date;
+  dataHoraFim: Date;
 }
 
 export default function Card({
@@ -26,11 +28,16 @@ export default function Card({
   btnTitle,
   btnColor,
   description,
+  dataHoraInicio,
+  dataHoraFim,
 }: ICard): JSX.Element {
-  const formatedDateTime = dayjs(new Date())
-    .locale('pt-br')
-    .format('hh:m DD/MM/YYYY');
   const formattedAndres = `${logradouro}, ${numero}, ${bairro}, ${cidade},${estado}`;
+  const formattedDateInicio = useMemo(() => {
+    return dayjs(dataHoraInicio).locale('pt-br').format('hh:m DD/MM/YYYY');
+  }, [dataHoraInicio]);
+  const formattedDateFim = useMemo(() => {
+    return dayjs(dataHoraFim).locale('pt-br').format('hh:m DD/MM/YYYY');
+  }, [dataHoraFim]);
   return (
     <Container>
       <Wrapper>
@@ -46,9 +53,9 @@ export default function Card({
         <Bold>{formattedAndres}</Bold>
       </Wrapper>
       <Wrapper>
-        <Bold>{formatedDateTime}</Bold>
+        <Bold>{formattedDateInicio}</Bold>
         <Text>até</Text>
-        <Bold>{formatedDateTime}</Bold>
+        <Bold>{formattedDateFim}</Bold>
       </Wrapper>
     </Container>
   );

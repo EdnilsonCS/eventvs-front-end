@@ -49,6 +49,12 @@ class EventService {
 
     return data;
   }
+
+  static async getEventDetail(id: number): Promise<IEvent> {
+    const { data } = await api.get<IEvent>(`/eventos/${id}`);
+
+    return data;
+  }
 }
 
 export default EventService;

@@ -30,11 +30,11 @@ export default function Event(): JSX.Element {
         <Menu
           visible={visible}
           onDismiss={() => setVisible(false)}
-          anchor={(
+          anchor={
             <TouchableOpacity onPress={() => setVisible(true)}>
               <Icon size={30} name="dots-vertical" />
             </TouchableOpacity>
-          )}
+          }
         >
           <Menu.Item
             onPress={() =>
@@ -60,6 +60,8 @@ export default function Event(): JSX.Element {
             bairro={event.endereco.bairro}
             cidade={event.endereco.cidade}
             estado={event.endereco.estado}
+            dataHoraInicio={event.dataHoraInicio}
+            dataHoraFim={event.dataHoraFim}
             btnColor=""
             btnTitle=""
             description={event.descricao}
