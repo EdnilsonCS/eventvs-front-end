@@ -29,7 +29,7 @@ export default function Card({
 }: ICard): JSX.Element {
   const formatedDateTime = dayjs(new Date())
     .locale('pt-br')
-    .format('hh:m D/MM/Y');
+    .format('hh:m DD/MM/YYYY');
   const formattedAndres = `${logradouro}, ${numero}, ${bairro}, ${cidade},${estado}`;
   return (
     <Container>
@@ -43,7 +43,7 @@ export default function Card({
       </Wrapper>
       <Text>{description}</Text>
       <Wrapper>
-        <Bold>{}</Bold>
+        <Bold>{formattedAndres}</Bold>
       </Wrapper>
       <Wrapper>
         <Bold>{formatedDateTime}</Bold>
