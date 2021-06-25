@@ -1,4 +1,5 @@
 import React from 'react';
+import { showMessage } from 'react-native-flash-message';
 import { ICategory } from '@services/CategoryService';
 import Input from '@components/Input';
 import { useForm, useWatch } from 'react-hook-form';
@@ -25,13 +26,33 @@ import {
 } from './styles';
 
 const AddEvent = (): JSX.Element => {
+  const statusEvent = [
+    {
+      id: 'PUBLICADO',
+      name: 'Publicado',
+    },
+    {
+      id: 'CRIADO',
+      name: 'Criado',
+    },
+  ];
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [states, setStates] = useState<IState[]>([]);
   const [citys, setCitys] = useState<ICity[]>([]);
   const navigation = useNavigation();
   const schema = Yup.object().shape({
-    email: Yup.string().email().required('E-mail obrigatório'),
-    password: Yup.string().required('Senha obrigatória'),
+    nome: Yup.string().required('Titulo é um campo obrigatório'),
+    descricao: Yup.string().required('Descrição é um campo obrigatório'),
+    statusEvento: Yup.string().required('Status é um campo obrigatório'),
+    categoriaId: Yup.string().required('Categoria é um campo obrigatório'),
+    dataHoraFim: Yup.date().required('Data de inicio é um campo obrigatório'),
+    dataHoraInicio: Yup.date().required('Data de fim é um campo obrigatório'),
+    logradouro: Yup.string().required('Logradouro é um campo obrigatório'),
+    numero: Yup.number().required('Número é um campo obrigatório'),
+    bairro: Yup.string().required('Bairro é um campo obrigatório'),
+    cidade: Yup.string().required('Cidade é um campo obrigatório'),
+    estado: Yup.string().required('Estado é um campo obrigatório'),
+    cep: Yup.string().required('E-mail é um campo obrigatório'),
   });
 
   const {
@@ -44,14 +65,24 @@ const AddEvent = (): JSX.Element => {
     resolver: yupResolver(schema),
     mode: 'onBlur',
     defaultValues: {
-      state: '',
-      password: '',
+      nome: '',
+      descricao: '',
+      statusEvento: '',
+      categoriaId: '',
+      dataHoraFim: '',
+      dataHoraInicio: '',
+      logradouro: '',
+      numero: '',
+      bairro: '',
+      cidade: '',
+      estado: '',
+      cep: '',
     },
   });
 
   const selectedState = useWatch<string>({
     control,
-    name: 'state',
+    name: 'estado',
   });
   const cepValue = useWatch<string>({
     control,
@@ -60,21 +91,39 @@ const AddEvent = (): JSX.Element => {
   console.log(selectedState);
   const handleCreateNewEvent = async (data: any): Promise<void> => {
     const endereco = {
-      nome: data.nome,
-      descricao: data.descricao,
-      statusEvento: 'CRIADO',
-      dataHoraFim: data.dataHoraFim,
-      dataHoraInicio: data.dataHoraInicio,
+      logradouro: data.logradouro,
+      numero: data.numero,
+      bairro: data.bairro,
+      cidade: data.cidade,
+      estado: data.estado,
+      cep: data.cep,
     };
 
     const event = {
       endereco,
+      nome: data.nome,
+      descricao: data.descricao,
+      statusEvento: data.statusEvento,
+      categoriaId: data.categoriaId,
+      dataHoraFim: data.dataHoraFim,
+      dataHoraInicio: data.dataHoraInicio,
     };
 
     try {
-      EventService.createNewEvent(event);
+      await EventService.createNewEvent(event);
+      showMessage({
+        message: 'Ops! Cadastro realizado com sucesso',
+        type: 'success',
+        icon: 'success',
+        duration: 3000,
+      });
     } catch (err) {
-      console.log('teste');
+      showMessage({
+        message: 'Erro ao fazer login, check suas credenciais',
+        type: 'danger',
+        icon: 'danger',
+        duration: 3000,
+      });
     }
   };
 
@@ -116,13 +165,17 @@ const AddEvent = (): JSX.Element => {
           cepNumber: cepValue.replace('-', ''),
         });
 
-        if (cepInformation.state) setValue('state', cepInformation.state);
-        if (cepInformation.street) setValue('andress', cepInformation.street);
+        if (cepInformation.state)
+          setValue('estado', cepInformation.state, {
+            shouldValidate: true,
+          });
+        if (cepInformation.street)
+          setValue('logradouro', cepInformation.street);
 
-        if (cepInformation.city) setValue('city', cepInformation.city);
+        if (cepInformation.city) setValue('cidade', cepInformation.city, true);
 
         if (cepInformation.neighborhood)
-          setValues('district', cepInformation.neighborhood);
+          setValues('bairro', cepInformation.neighborhood, true);
       }
     };
 
@@ -187,17 +240,19 @@ const AddEvent = (): JSX.Element => {
           control={control}
           label="Data de encerramento"
         />
-        <Input
-          name="status"
+        <Select
+          menuPlaceholder="Status"
+          name="statusEvento"
           errors={errors}
           control={control}
           label="Status"
           color="#6d43a1"
+          options={statusEvent}
         />
         <Select
           label="Categorias"
           menuPlaceholder="Categorias"
-          name="category"
+          name="categoriaId"
           errors={errors}
           control={control}
           options={formattedCategories}
@@ -215,7 +270,7 @@ const AddEvent = (): JSX.Element => {
           />
           <Input
             label="Número"
-            name="number"
+            name="numero"
             errors={errors}
             control={control}
             color="#6d43a1"
@@ -223,14 +278,14 @@ const AddEvent = (): JSX.Element => {
           />
         </NumberWrapper>
         <Input
-          name="andress"
+          name="logradouro"
           errors={errors}
           control={control}
           label="Logradouro"
           color="#6d43a1"
         />
         <Input
-          name="district"
+          name="bairro"
           errors={errors}
           control={control}
           label="Bairro"
@@ -239,7 +294,7 @@ const AddEvent = (): JSX.Element => {
 
         <Select
           label="Estado"
-          name="state"
+          name="estado"
           errors={errors}
           control={control}
           options={formattedStates}
@@ -248,14 +303,14 @@ const AddEvent = (): JSX.Element => {
           menuPlaceholder="Cidade"
           disabled={formattedCitys.length === 0}
           label="Cidade"
-          name="city"
+          name="cidade"
           color="#6d43a1"
           errors={errors}
           control={control}
           options={formattedCitys}
         />
         <ButtonContainer>
-          <Buttons color="#6a2aba" onPress={() => null}>
+          <Buttons color="#6a2aba" onPress={handleSubmit(handleCreateNewEvent)}>
             Cadastrar
           </Buttons>
         </ButtonContainer>

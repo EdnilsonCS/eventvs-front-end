@@ -1,6 +1,11 @@
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
 
+export const ContainerMenu = styled.View`
+  align-items: flex-end;
+  margin-top: 20px;
+`;
+
 export const Container = styled.View`
   padding: 0 16px;
   background-color: whitesmoke;

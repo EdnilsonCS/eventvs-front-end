@@ -2,7 +2,6 @@ import api from './api';
 
 interface IEvent {
   id: string;
-  descrição: string;
   categoriaId: number;
   dataHoraFim: Date;
   dataHoraInicio: Date;
@@ -40,7 +39,7 @@ interface IEventCreateDTO {
 
 class EventService {
   static async createNewEvent(event: IEventCreateDTO): Promise<Event> {
-    const { data } = await api.post<IEvent>('/criar/participantes', event);
+    const { data } = await api.post<IEvent>('/eventos', event);
 
     return data;
   }

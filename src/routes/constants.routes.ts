@@ -9,4 +9,5 @@ export enum PrivateRoutesConstants {
   Subscribes = 'Subscribes',
   Event = 'Event',
   Add = 'Add',
+  AddCategory = 'AddCategory',
 }

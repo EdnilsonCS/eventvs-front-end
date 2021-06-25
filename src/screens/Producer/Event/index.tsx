@@ -1,8 +1,13 @@
 import React from 'react';
-
+import { Menu, Button } from 'react-native-paper';
 import Card from '@components/Card';
 import SearchInput from '@components/SearchInput';
-import { Container, Header, Wrapper } from './styles';
+import { useState } from 'react';
+import { TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
+import { PrivateRoutesConstants } from '@routes/constants.routes';
+import { Container, Header, Wrapper, ContainerMenu } from './styles';
 
 const DATA = [
   {
@@ -53,8 +58,32 @@ const DATA = [
 ];
 
 export default function Event(): JSX.Element {
+  const [visible, setVisible] = useState(false);
+  const navigation = useNavigation();
   return (
     <Container>
+      <ContainerMenu>
+        <Menu
+          visible={visible}
+          onDismiss={() => setVisible(false)}
+          anchor={(
+            <TouchableOpacity onPress={() => setVisible(true)}>
+              <Icon size={30} name="dots-vertical" />
+            </TouchableOpacity>
+          )}
+        >
+          <Menu.Item
+            onPress={() =>
+              navigation.navigate(PrivateRoutesConstants.AddCategory)
+            }
+            title="Adicionar categoria"
+          />
+          <Menu.Item
+            onPress={() => navigation.navigate(PrivateRoutesConstants.Add)}
+            title="Adicionar Evento"
+          />
+        </Menu>
+      </ContainerMenu>
       <Header>Eventvs</Header>
       <SearchInput placeholder="Pesquisar..." placeholderTextColor="white" />
       <Wrapper>

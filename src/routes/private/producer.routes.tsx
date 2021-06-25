@@ -2,8 +2,10 @@ import React from 'react';
 import ProducerEventScreen from '@screens/Producer/Event';
 import ProducerAddScreen from '@screens/Producer/AddEvent';
 import ProducerProfileScreen from '@screens/Producer/Profile';
+import ProducerAddCategoryScreen from '@screens/Producer/Categories';
 import { MaterialBottomTabScreenProps } from '@react-navigation/material-bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { PrivateRoutesConstants } from '../constants.routes';
 
 export type AddScreenProps =
@@ -13,7 +15,10 @@ export type ProducerRootTabParamList = {
   [PrivateRoutesConstants.Profile]: undefined;
   [PrivateRoutesConstants.Event]: undefined;
   [PrivateRoutesConstants.Add]: undefined;
+  [PrivateRoutesConstants.AddCategory]: undefined;
 };
+
+const Stack = createStackNavigator();
 
 const ProducerTab =
   createMaterialBottomTabNavigator<ProducerRootTabParamList>();
@@ -36,15 +41,7 @@ const ProducerNavigation: React.FC = props => {
             tabBarColor: '#6a2aba',
           }}
         />
-        <ProducerTab.Screen
-          name={PrivateRoutesConstants.Add}
-          component={ProducerAddScreen}
-          options={{
-            tabBarIcon: 'plus-circle',
-            tabBarLabel: '',
-            tabBarColor: '#6c43a1',
-          }}
-        />
+
         <ProducerTab.Screen
           name={PrivateRoutesConstants.Profile}
           component={ProducerProfileScreen}
@@ -59,4 +56,18 @@ const ProducerNavigation: React.FC = props => {
   );
 };
 
-export default ProducerNavigation;
+export default function App() {
+  return (
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="Menu" component={ProducerNavigation} />
+      <Stack.Screen
+        name={PrivateRoutesConstants.AddCategory}
+        component={ProducerAddCategoryScreen}
+      />
+      <Stack.Screen
+        name={PrivateRoutesConstants.Add}
+        component={ProducerAddScreen}
+      />
+    </Stack.Navigator>
+  );
+}
