@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Menu } from 'react-native-paper';
-import { TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
 import Card from '@components/Card';
 import SearchInput from '@components/SearchInput';
-import { PrivateRoutesConstants } from '@routes/constants.routes';
+import FilterModal from '@components/FilterModal';
+import FilterButton from '@components/FilterButton';
 import EventService, { IEvent } from '@services/EventService';
 import { Container, Header, Wrapper, ContainerMenu } from './styles';
 
