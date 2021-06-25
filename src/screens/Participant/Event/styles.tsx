@@ -14,6 +14,11 @@ export const Header = styled.Text`
   margin: 20px 0 20px;
 `;
 
+export const ContainerMenu = styled.View`
+  align-items: flex-end;
+  margin-top: 20px;
+`;
+
 export const Wrapper = styled.ScrollView.attrs(() => ({
   showsVerticalScrollIndicator: true,
 }))`
