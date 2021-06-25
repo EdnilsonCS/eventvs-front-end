@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import dayjs from '@helpers/datas';
 import React, { useMemo } from 'react';
 import { Text } from 'react-native';
@@ -16,6 +17,7 @@ interface ICard {
   estado: string;
   dataHoraInicio: Date;
   dataHoraFim: Date;
+  onPress?: () => void;
 }
 
 export default function Card({
@@ -30,6 +32,7 @@ export default function Card({
   description,
   dataHoraInicio,
   dataHoraFim,
+  onPress,
 }: ICard): JSX.Element {
   const formattedAndres = `${logradouro}, ${numero}, ${bairro}, ${cidade},${estado}`;
   const formattedDateInicio = useMemo(() => {
@@ -39,7 +42,7 @@ export default function Card({
     return dayjs(dataHoraFim).locale('pt-br').format('hh:m DD/MM/YYYY');
   }, [dataHoraFim]);
   return (
-    <Container>
+    <Container onPress={onPress}>
       <Wrapper>
         <Title>
           <Bold>{title}</Bold>

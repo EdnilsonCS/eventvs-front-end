@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  createBottomTabNavigator,
-  BottomTabBarProps,
-} from '@react-navigation/bottom-tabs';
-
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -21,7 +18,7 @@ export type RootTabParamList = {
 
 export type ProfileScreenProps = BottomTabBarProps<RootTabParamList>;
 
-const Tab = createBottomTabNavigator<RootTabParamList>();
+const Tab = createMaterialBottomTabNavigator<RootTabParamList>();
 
 const icons: any = {
   [PrivateRoutesConstants.Subscribes]: {
@@ -40,44 +37,42 @@ const icons: any = {
 
 const ParticipantNavigation: React.FC = () => {
   return (
-    <Tab.Navigator
-      initialRouteName={PrivateRoutesConstants.Subscribes}
-      screenOptions={({ route, navigation }) => ({
-        tabBarIcon: ({ color, size, focused }) => {
-          const { lib: Icon, name } = icons[route.name];
-          return <Icon name={name} size={size} color={color} />;
-        },
-      })}
-      tabBarOptions={{
-        style: {
-          backgroundColor: '#6A2ABA',
-        },
-        activeTintColor: '#FFFFFF',
-        inactiveTintColor: '#AF7BED',
-      }}
-    >
-      <Tab.Screen
-        name={PrivateRoutesConstants.Event}
-        component={EventScreen}
-        options={{
-          title: 'Eventos',
-        }}
-      />
-      <Tab.Screen
-        name={PrivateRoutesConstants.Subscribes}
-        component={SubscribesScreen}
-        options={{
-          title: 'Minhas inscrições',
-        }}
-      />
-      <Tab.Screen
-        name={PrivateRoutesConstants.Profile}
-        component={ProfileScreen}
-        options={{
-          title: 'Perfil',
-        }}
-      />
-    </Tab.Navigator>
+    <>
+      <Tab.Navigator
+        initialRouteName={PrivateRoutesConstants.Subscribes}
+        activeColor="white"
+        inactiveColor="#A7f"
+        shifting
+      >
+        <Tab.Screen
+          name={PrivateRoutesConstants.Event}
+          component={EventScreen}
+          options={{
+            title: 'Eventos',
+            tabBarIcon: 'calendar-month-outline',
+            tabBarColor: '#6b4491',
+          }}
+        />
+        <Tab.Screen
+          name={PrivateRoutesConstants.Subscribes}
+          component={SubscribesScreen}
+          options={{
+            title: 'Minhas inscrições',
+            tabBarIcon: 'account-outline',
+            tabBarColor: '#6b4491',
+          }}
+        />
+        <Tab.Screen
+          name={PrivateRoutesConstants.Profile}
+          component={ProfileScreen}
+          options={{
+            title: 'Perfil',
+            tabBarIcon: 'account-outline',
+            tabBarColor: '#6b4491',
+          }}
+        />
+      </Tab.Navigator>
+    </>
   );
 };
 

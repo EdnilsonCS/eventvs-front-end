@@ -47,7 +47,7 @@ export default function Profile(): JSX.Element {
   const handleUpdate = (data:any):void => {
       console.log(data)
   }
-  const  navigation = useNavigation();
+
     return (
         <Container>
             <Wrapper style={{alignItems: 'center',}}>
