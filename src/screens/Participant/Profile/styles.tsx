@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { Button } from 'react-native-paper';
 import { StatusBar } from 'react-native';
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.ScrollView`
   flex-direction: column;
   margin: 0 16px;
   height: 100%;
