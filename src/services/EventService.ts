@@ -1,6 +1,6 @@
 import api from './api';
 
-interface IEvent {
+export interface IEvent {
   id: string;
   categoriaId: number;
   dataHoraFim: Date;
@@ -19,7 +19,7 @@ interface IEvent {
   statusEvento: string;
 }
 
-interface IEventCreateDTO {
+export interface IEventCreateDTO {
   descrição: string;
   categoriaId: number;
   dataHoraFim: Date;
@@ -40,6 +40,12 @@ interface IEventCreateDTO {
 class EventService {
   static async createNewEvent(event: IEventCreateDTO): Promise<Event> {
     const { data } = await api.post<IEvent>('/eventos', event);
+
+    return data;
+  }
+
+  static async getEventList(): Promise<IEvent[]> {
+    const { data } = await api.get<IEvent[]>('/eventos/publicados');
 
     return data;
   }

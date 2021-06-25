@@ -7,58 +7,22 @@ import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import { PrivateRoutesConstants } from '@routes/constants.routes';
+import { useEffect } from 'react';
+import EventService, { IEvent } from '@services/EventService';
 import { Container, Header, Wrapper, ContainerMenu } from './styles';
-
-const DATA = [
-  {
-    title: 'Coachela',
-  },
-  {
-    title: 'Calourada 2025',
-  },
-  {
-    title: 'Rock in Rio',
-  },
-  {
-    title: 'ComicCon',
-  },
-  {
-    title: 'Oscar 2022',
-  },
-  {
-    title: 'Joao Rock',
-  },
-  {
-    title: 'Villa Mix',
-  },
-  {
-    title: 'SEMAC',
-  },
-  {
-    title: 'NLW',
-  },
-  {
-    title: 'Ibiza',
-  },
-  {
-    title: 'Carnaval Salvador',
-  },
-  {
-    title: 'Aplaudir o Sol',
-  },
-  {
-    title: 'Reverenciar a Lua',
-  },
-  {
-    title: 'OktoberFest Blumenau',
-  },
-  {
-    title: 'Cassino em Macau',
-  },
-];
 
 export default function Event(): JSX.Element {
   const [visible, setVisible] = useState(false);
+  const [events, setEvents] = useState<IEvent[]>([]);
+  useEffect(() => {
+    const getEventsList = async (): Promise<void> => {
+      const data = await EventService.getEventList();
+
+      setEvents(data);
+    };
+
+    getEventsList();
+  }, []);
   const navigation = useNavigation();
   return (
     <Container>
@@ -87,12 +51,18 @@ export default function Event(): JSX.Element {
       <Header>Eventvs</Header>
       <SearchInput placeholder="Pesquisar..." placeholderTextColor="white" />
       <Wrapper>
-        {DATA.map(({ title }) => (
+        {events.map(event => (
           <Card
-            key={Math.random().toString()}
-            title={title}
+            key={event.id}
+            title={event.nome}
+            logradouro={event.endereco.logradouro}
+            numero={event.endereco.numero}
+            bairro={event.endereco.bairro}
+            cidade={event.endereco.cidade}
+            estado={event.endereco.estado}
             btnColor=""
             btnTitle=""
+            description={event.descricao}
           />
         ))}
       </Wrapper>

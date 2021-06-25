@@ -1,25 +1,36 @@
+import dayjs from '@helpers/datas';
 import React from 'react';
 import { Text } from 'react-native';
-import moment from 'moment';
-import 'moment/locale/pt-br';
 
 import { Bold, Button, ButtonText, Container, Title, Wrapper } from './styles';
 
 interface ICard {
   title: string;
+  description: string;
   btnTitle: string;
   btnColor: string;
+  logradouro: string;
+  numero: number;
+  bairro: string;
+  cidade: string;
+  estado: string;
 }
 
 export default function Card({
   title,
+  logradouro,
+  numero,
+  bairro,
+  cidade,
+  estado,
   btnTitle,
   btnColor,
+  description,
 }: ICard): JSX.Element {
-  const formatedDateTime = moment(new Date())
+  const formatedDateTime = dayjs(new Date())
     .locale('pt-br')
     .format('hh:m D/MM/Y');
-
+  const formattedAndres = `${logradouro}, ${numero}, ${bairro}, ${cidade},${estado}`;
   return (
     <Container>
       <Wrapper>
@@ -30,13 +41,9 @@ export default function Card({
           <ButtonText>{btnTitle}</ButtonText>
         </Button>
       </Wrapper>
-      <Text>
-        Lorem ipsum dolor sit amet consectetur adipiscing elit at rhoncus non
-        hendrerit ante rutrum iaculis, mi nulla class placerat sociosqu
-        facilisis vestibulum sodales tristique massa viverra orci
-      </Text>
+      <Text>{description}</Text>
       <Wrapper>
-        <Bold>Rua dos Bobos, 0</Bold>
+        <Bold>{}</Bold>
       </Wrapper>
       <Wrapper>
         <Bold>{formatedDateTime}</Bold>
