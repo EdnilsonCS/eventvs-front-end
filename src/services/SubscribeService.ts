@@ -28,6 +28,10 @@ class SubscribeService {
 
     return data;
   }
+
+  static async cancelSubscription(id: number): Promise<void> {
+    await api.get<ISubscribe>(`/inscricoes/${id}/cancelar`);
+  }
 }
 
 export default SubscribeService;

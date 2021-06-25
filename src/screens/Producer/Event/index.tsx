@@ -15,26 +15,26 @@ export default function Event(): JSX.Element {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   const [events, setEvents] = useState<IEvent[]>([]);
+  const getEventsList = async (): Promise<void> => {
+    const data = await EventService.getEventList();
+
+    setEvents(data);
+  };
   useEffect(() => {
-    const getEventsList = async (): Promise<void> => {
-      const data = await EventService.getEventList();
-
-      setEvents(data);
-    };
-
     getEventsList();
   }, []);
+
   return (
     <Container>
       <ContainerMenu>
         <Menu
           visible={visible}
           onDismiss={() => setVisible(false)}
-          anchor={(
+          anchor={
             <TouchableOpacity onPress={() => setVisible(true)}>
               <Icon size={30} name="dots-vertical" />
             </TouchableOpacity>
-          )}
+          }
         >
           <Menu.Item
             onPress={() =>
@@ -54,7 +54,9 @@ export default function Event(): JSX.Element {
         {events.map(event => (
           <Card
             onPress={() =>
-              navigation.navigate(PrivateRoutesConstants.EventDetail)
+              navigation.navigate(PrivateRoutesConstants.EventDetail, {
+                id: event.id,
+              })
             }
             key={event.id}
             title={event.nome}

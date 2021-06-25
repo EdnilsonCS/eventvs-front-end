@@ -18,6 +18,7 @@ interface ICard {
   dataHoraInicio: Date;
   dataHoraFim: Date;
   onPress?: () => void;
+  onPressCancelButton?: () => void;
 }
 
 export default function Card({
@@ -32,6 +33,7 @@ export default function Card({
   description,
   dataHoraInicio,
   dataHoraFim,
+  onPressCancelButton,
   onPress,
 }: ICard): JSX.Element {
   const formattedAndres = `${logradouro}, ${numero}, ${bairro}, ${cidade},${estado}`;
@@ -42,12 +44,15 @@ export default function Card({
     return dayjs(dataHoraFim).locale('pt-br').format('hh:m DD/MM/YYYY');
   }, [dataHoraFim]);
   return (
-    <Container onPress={onPress}>
+    <Container onPress={onPress} disabled={!onPress}>
       <Wrapper>
         <Title>
           <Bold>{title}</Bold>
         </Title>
-        <Button style={{ backgroundColor: btnColor }}>
+        <Button
+          onPress={onPressCancelButton}
+          style={{ backgroundColor: btnColor }}
+        >
           <ButtonText>{btnTitle}</ButtonText>
         </Button>
       </Wrapper>

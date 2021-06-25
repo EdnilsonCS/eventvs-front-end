@@ -55,6 +55,12 @@ class EventService {
 
     return data;
   }
+
+  static async publicEvent(id: number): Promise<void> {}
+
+  static async deleteEvent(id: number): Promise<void> {}
+
+  static async cancelEvent(id: number): Promise<void> {}
 }
 
 export default EventService;

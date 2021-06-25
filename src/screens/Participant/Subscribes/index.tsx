@@ -11,15 +11,31 @@ import SearchInput from '../../../components/SearchInput';
 const Subscribes = (): JSX.Element => {
   const { token } = useAuth();
   const [subscribes, setSubscribes] = React.useState<ISubscribe[]>([]);
-
+  const getSubscription = async (): Promise<void> => {
+    const dados = await SubscribeService.getSubscribeList();
+    setSubscribes(dados);
+  };
   React.useEffect(() => {
-    const getSubscription = async (): Promise<void> => {
-      const dados = await SubscribeService.getSubscribeList();
-      setSubscribes(dados);
-    };
-
     getSubscription();
   }, [token]);
+
+  const handleCancelButton = async (id: number): Promise<void> => {
+    Alert.alert(
+      'Cancelar inscrição',
+      'Você realmente deseja cancelar sua inscrição',
+      [
+        {
+          text: 'sim',
+          onPress: async () => {
+            await SubscribeService.cancelSubscription(id);
+          },
+        },
+        { text: 'não', onPress: () => console.log('OK Pressed') },
+      ],
+    );
+
+    getSubscription();
+  };
 
   return (
     <Container>
@@ -27,6 +43,7 @@ const Subscribes = (): JSX.Element => {
       <SearchInput placeholder="Pesquisar..." placeholderTextColor="#FFFFFF" />
       {subscribes.map(inscricao => (
         <Card
+          onPressCancelButton={() => handleCancelButton(inscricao.id)}
           key={inscricao?.id.toString()}
           description={inscricao.evento.descricao}
           title={inscricao?.evento.nome}

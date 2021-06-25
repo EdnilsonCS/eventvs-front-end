@@ -11,15 +11,13 @@ import EventService, { IEvent } from '@services/EventService';
 import { Container, Header, Wrapper, ContainerMenu } from './styles';
 
 export default function Event(): JSX.Element {
-  const [visible, setVisible] = useState(false);
   const [events, setEvents] = useState<IEvent[]>([]);
+  const getEventsList = async (): Promise<void> => {
+    const data = await EventService.getEventList();
+
+    setEvents(data);
+  };
   useEffect(() => {
-    const getEventsList = async (): Promise<void> => {
-      const data = await EventService.getEventList();
-
-      setEvents(data);
-    };
-
     getEventsList();
   }, []);
   const navigation = useNavigation();
