@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
+import { Button as PaperButton } from 'react-native-paper';
 
 export const Container = styled.View`
   padding: 0 16px;
-  background-color: whitesmoke;
 `;
 export const Card = styled.View`
   border-width: 1px;
@@ -29,16 +29,6 @@ export const Bold = styled.Text`
   font-weight: bold;
 `;
 
-export const Button = styled.TouchableOpacity`
-  border-radius: 7px;
-`;
-
-export const ButtonText = styled.Text`
-  margin-left: 15px;
-  margin-right: 15px;
-  color: white;
-`;
-
 export const Header = styled.Text`
   align-self: center;
   font-size: 42px;
@@ -46,3 +36,10 @@ export const Header = styled.Text`
   font-family: 'Lato';
   margin: 20px 0 20px;
 `;
+export const ButtonContainer = styled.View`
+  margin: 20px;
+`;
+
+export const Button = styled(PaperButton).attrs(() => ({
+  mode: 'contained',
+}))``;
