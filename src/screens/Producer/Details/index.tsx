@@ -1,10 +1,8 @@
 import { useRoute } from '@react-navigation/native';
-import React from 'react';
-import { useEffect } from 'react';
 import { Text } from 'react-native-paper';
 import EventService, { IEvent } from '@services/EventService';
-import { useState } from 'react';
-import { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from '@helpers/datas';
 import {
@@ -34,6 +32,9 @@ const Published: React.FC = () => {
 
     getEventDetail();
   }, [routeParams.id]);
+
+  const handleNavigationToParticipantes = (id: number) => {};
+
   const handlePublicar = () => {};
 
   const handleRemover = () => {};
@@ -48,42 +49,66 @@ const Published: React.FC = () => {
   }, [dados]);
   return (
     <Container>
-      <Header>Eventvs</Header>
+      <Header>Detalhes</Header>
       <Card>
-        <Wrapper>
-          <Title>
-            <Bold>{dados?.nome}</Bold>
-          </Title>
-        </Wrapper>
-        <Text>{dados?.descricao}</Text>
-        <Wrapper>
-          <Bold>{formattedAndres}</Bold>
-        </Wrapper>
-        <Wrapper>
-          <Bold>{formattedDateInicio}</Bold>
-          <Text>até</Text>
-          <Bold>{formattedDateFim}</Bold>
-        </Wrapper>
+        <View>
+          <Wrapper>
+            <Title>
+              <Bold>{dados?.nome}</Bold>
+            </Title>
+          </Wrapper>
+          <Text>{dados?.descricao}</Text>
+        </View>
+        <View>
+          <Wrapper>
+            <Bold>{formattedAndres}</Bold>
+          </Wrapper>
+          <Wrapper>
+            <Bold>{formattedDateInicio}</Bold>
+            <Text>até</Text>
+            <Bold>{formattedDateFim}</Bold>
+          </Wrapper>
+        </View>
       </Card>
       <ButtonContainer>
-        <Button
-          style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
-          onPress={() => handlePublicar()}
-        >
-          Publicar
-        </Button>
-        <Button
-          style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
-          onPress={() => handlePublicar()}
-        >
-          editar
-        </Button>
-        <Button
-          style={{ backgroundColor: '#DE0b20', marginBottom: 14 }}
-          onPress={() => handleRemover()}
-        >
-          Remover
-        </Button>
+        {dados?.statusEvento === 'PUBLICADO' ? (
+          <>
+            <Button
+              style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
+              onPress={() => handleNavigationToParticipantes(dados.id)}
+            >
+              Visualizar participantes
+            </Button>
+            <Button
+              style={{ backgroundColor: '#DE0b20', marginBottom: 14 }}
+              onPress={() => handleCancelar()}
+            >
+              cancelar
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
+              onPress={() => handlePublicar()}
+            >
+              Publicar
+            </Button>
+            <Button
+              style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
+              onPress={() => handlePublicar()}
+            >
+              editar
+            </Button>
+            <Button
+              style={{ backgroundColor: '#DE0b20', marginBottom: 14 }}
+              onPress={() => handleRemover()}
+            >
+              Remover
+            </Button>
+          </>
+        )}
+
         <Button
           style={{ backgroundColor: '#DE0b20', marginBottom: 14 }}
           onPress={() => navigation.goBack()}

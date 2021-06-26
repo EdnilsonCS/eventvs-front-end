@@ -8,7 +8,7 @@ export const Card = styled.View`
   border-width: 1px;
   border-color: #6d43a1;
   border-radius: 10px;
-  height: 200px;
+  height: 300px;
   justify-content: space-between;
   margin-bottom: 32px;
   padding: 0px 18px;
@@ -37,7 +37,7 @@ export const Header = styled.Text`
   margin: 20px 0 20px;
 `;
 export const ButtonContainer = styled.View`
-  margin: 20px;
+  margin: 20px 0px;
 `;
 
 export const Button = styled(PaperButton).attrs(() => ({
