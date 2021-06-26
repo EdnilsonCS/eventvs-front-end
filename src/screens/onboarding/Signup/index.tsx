@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '@components/Input';
+import { MaskService } from 'react-native-masked-text';
 import { PublicRoutesConstants } from '@routes/constants.routes';
 import { useCallback } from 'react';
 import AuthService from '@services/AuthService';
@@ -66,7 +67,7 @@ export default function SignUp(): JSX.Element {
     try {
       await AuthService.signUp({
         nome,
-        cpf,
+        cpf: MaskService.toRawValue('cpf', cpf),
         email,
         senha,
       });
@@ -106,6 +107,8 @@ export default function SignUp(): JSX.Element {
       <Input
         errors={errors}
         control={control}
+        inputMask
+        type="cpf"
         name="cpf"
         label="CPF"
         autoCapitalize="none"
