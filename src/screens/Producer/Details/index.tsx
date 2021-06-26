@@ -40,9 +40,15 @@ const Published: React.FC = () => {
     });
   };
 
-  const handlePublicar = () => {};
-
-  const handleRemover = () => {};
+  const handlePublicar = async (id: number): Promise<void> => {
+    await EventService.publicEvent(id);
+  };
+  const handleCancelar = async (id: number): Promise<void> => {
+    await EventService.cancelEvent(id);
+  };
+  const handleRemover = async (id: number): Promise<void> => {
+    await EventService.deleteEvent(id);
+  };
   const formattedAndres = `${dados?.endereco.logradouro}, ${dados?.endereco.numero}, ${dados?.endereco.bairro}, ${dados?.endereco.cidade},${dados?.endereco.estado}`;
   const formattedDateInicio = useMemo(() => {
     return dayjs(dados?.dataHoraInicio)
@@ -80,13 +86,13 @@ const Published: React.FC = () => {
           <>
             <Button
               style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
-              onPress={() => handleNavigationToParticipantes(dados.id)}
+              onPress={() => handleNavigationToParticipantes(routeParams.id)}
             >
               Visualizar participantes
             </Button>
             <Button
               style={{ backgroundColor: '#DE0b20', marginBottom: 14 }}
-              onPress={() => handleCancelar()}
+              onPress={() => handleCancelar(routeParams.id)}
             >
               cancelar
             </Button>
@@ -95,19 +101,19 @@ const Published: React.FC = () => {
           <>
             <Button
               style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
-              onPress={() => handlePublicar()}
+              onPress={() => handlePublicar(routeParams.id)}
             >
               Publicar
             </Button>
             <Button
               style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
-              onPress={() => handlePublicar()}
+              onPress={() => handlePublicar(routeParams.id)}
             >
               editar
             </Button>
             <Button
               style={{ backgroundColor: '#DE0b20', marginBottom: 14 }}
-              onPress={() => handleRemover()}
+              onPress={() => handleRemover(routeParams.id)}
             >
               Remover
             </Button>

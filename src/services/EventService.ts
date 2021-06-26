@@ -1,7 +1,7 @@
 import api from './api';
 
 export interface IEvent {
-  id: string;
+  id: number;
   categoriaId: number;
   dataHoraFim: Date;
   dataHoraInicio: Date;
@@ -56,11 +56,17 @@ class EventService {
     return data;
   }
 
-  static async publicEvent(id: number): Promise<void> {}
+  static async publicEvent(id: number): Promise<void> {
+    await api.patch<IEvent>(`/eventos/${id}/publicar`);
+  }
 
-  static async deleteEvent(id: number): Promise<void> {}
+  static async deleteEvent(id: number): Promise<void> {
+    await api.delete<IEvent>(`/eventos/${id}`);
+  }
 
-  static async cancelEvent(id: number): Promise<void> {}
+  static async cancelEvent(id: number): Promise<void> {
+    await api.patch<IEvent>(`/eventos/${id}/cancelar`);
+  }
 }
 
 export default EventService;
