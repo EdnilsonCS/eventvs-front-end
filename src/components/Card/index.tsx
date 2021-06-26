@@ -17,8 +17,9 @@ interface ICard {
   estado: string;
   dataHoraInicio: Date;
   dataHoraFim: Date;
+  type?: 'cancel' | 'ok';
   onPress?: () => void;
-  onPressCancelButton?: () => void;
+  onPressButton?: () => void;
 }
 
 export default function Card({
@@ -33,7 +34,8 @@ export default function Card({
   description,
   dataHoraInicio,
   dataHoraFim,
-  onPressCancelButton,
+  onPressButton,
+  type,
   onPress,
 }: ICard): JSX.Element {
   const formattedAndres = `${logradouro}, ${numero}, ${bairro}, ${cidade},${estado}`;
@@ -50,8 +52,8 @@ export default function Card({
           <Bold>{title}</Bold>
         </Title>
         <Button
-          onPress={onPressCancelButton}
-          style={{ backgroundColor: btnColor }}
+          onPress={onPressButton}
+          style={{ backgroundColor: type === 'cancel' ? '#DE0b20' : '#6A2ABA' }}
         >
           <ButtonText>{btnTitle}</ButtonText>
         </Button>

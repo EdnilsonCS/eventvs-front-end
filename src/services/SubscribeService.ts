@@ -32,6 +32,13 @@ class SubscribeService {
   static async cancelSubscription(id: number): Promise<void> {
     await api.get<ISubscribe>(`/inscricoes/${id}/cancelar`);
   }
+
+  static async submitSubscribe(data: {
+    event_id: number;
+    participante_id: number;
+  }): Promise<void> {
+    await api.post(`/inscricoes`, data);
+  }
 }
 
 export default SubscribeService;

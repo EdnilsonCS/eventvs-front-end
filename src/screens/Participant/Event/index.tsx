@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-
+import { useAuth } from '@hooks/auth';
 import Card from '@components/Card';
 import SearchInput from '@components/SearchInput';
 import FilterModal from '@components/FilterModal';
 import FilterButton from '@components/FilterButton';
 import EventService, { IEvent } from '@services/EventService';
+import SubscribeService from '@services/SubscribeService';
 import { Container, Header, Wrapper, ContainerMenu } from './styles';
 
 export default function Event(): JSX.Element {
+  const { user } = useAuth();
   const [events, setEvents] = useState<IEvent[]>([]);
   const getEventsList = async (): Promise<void> => {
     const data = await EventService.getEventList();
@@ -18,6 +20,14 @@ export default function Event(): JSX.Element {
   useEffect(() => {
     getEventsList();
   }, []);
+
+  const handleSubscribe = async (id: number): Promise<void> => {
+    await SubscribeService.submitSubscribe({
+      event_id: id,
+      participante_id: user.id,
+    });
+  };
+
   const navigation = useNavigation();
   return (
     <Container>
@@ -35,6 +45,8 @@ export default function Event(): JSX.Element {
             estado={event.endereco.estado}
             dataHoraInicio={event.dataHoraInicio}
             dataHoraFim={event.dataHoraFim}
+            onPressButton={() => handleSubscribe(event.id)}
+            type="ok"
             btnColor=""
             btnTitle=""
             description={event.descricao}

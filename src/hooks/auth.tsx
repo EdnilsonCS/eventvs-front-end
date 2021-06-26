@@ -11,6 +11,7 @@ import AuthService from '@services/AuthService';
 import Api from '../services/api';
 
 export interface User {
+  id: number;
   name: string;
   email: string;
   role: string;
@@ -56,6 +57,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       const response = await AuthService.signIn({ email, password });
       const { access_token: token } = response.data;
       const user = {
+        id: response.data.pessoa_id,
         email: response.data.email,
         name: response.data.nome,
         role: response.data.role,
