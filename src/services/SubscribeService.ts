@@ -34,7 +34,7 @@ class SubscribeService {
   }
 
   static async submitSubscribe(data: {
-    event_id: number;
+    evento_id: number;
     participante_id: number;
   }): Promise<void> {
     await api.post(`/inscricoes`, data);

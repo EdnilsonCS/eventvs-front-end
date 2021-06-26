@@ -1,9 +1,8 @@
-import React from 'react';
-
-import api from '@services/api';
+import React, { useEffect } from 'react';
 import { Alert } from 'react-native';
 import { useAuth } from '@hooks/auth';
 import SubscribeService, { ISubscribe } from '@services/SubscribeService';
+import { useNavigation } from '@react-navigation/native';
 import { Container, Header } from './styles';
 import Card from '../../../components/Card';
 import SearchInput from '../../../components/SearchInput';
@@ -18,7 +17,7 @@ const Subscribes = (): JSX.Element => {
   React.useEffect(() => {
     getSubscription();
   }, [token]);
-
+  const navigation = useNavigation();
   const handleCancelButton = async (id: number): Promise<void> => {
     Alert.alert(
       'Cancelar inscrição',
@@ -36,14 +35,19 @@ const Subscribes = (): JSX.Element => {
 
     getSubscription();
   };
-
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', async () => {
+      getSubscription();
+    });
+    return unsubscribe;
+  }, [navigation]);
   return (
     <Container>
       <Header>Minhas Inscrições</Header>
       <SearchInput placeholder="Pesquisar..." placeholderTextColor="#FFFFFF" />
       {subscribes.map(inscricao => (
         <Card
-          onPressCancelButton={() => handleCancelButton(inscricao.id)}
+          onPressButton={() => handleCancelButton(inscricao.id)}
           key={inscricao?.id.toString()}
           description={inscricao.evento.descricao}
           title={inscricao?.evento.nome}
@@ -54,8 +58,7 @@ const Subscribes = (): JSX.Element => {
           estado={inscricao?.evento.endereco.estado}
           dataHoraInicio={inscricao.evento.dataHoraInicio}
           dataHoraFim={inscricao.evento.dataHoraFim}
-          btnColor="#De0b20"
-          btnTitle="Cancelar"
+          type="cancel"
         />
       ))}
     </Container>

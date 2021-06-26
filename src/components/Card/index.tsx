@@ -8,8 +8,6 @@ import { Bold, Button, ButtonText, Container, Title, Wrapper } from './styles';
 interface ICard {
   title: string;
   description: string;
-  btnTitle: string;
-  btnColor: string;
   logradouro: string;
   numero: number;
   bairro: string;
@@ -29,8 +27,7 @@ export default function Card({
   bairro,
   cidade,
   estado,
-  btnTitle,
-  btnColor,
+
   description,
   dataHoraInicio,
   dataHoraFim,
@@ -59,7 +56,9 @@ export default function Card({
               backgroundColor: type === 'cancel' ? '#DE0b20' : '#6A2ABA',
             }}
           >
-            <ButtonText>{btnTitle}</ButtonText>
+            <ButtonText>
+              {type === 'cancel' ? 'Cancelar' : 'Inscrever'}
+            </ButtonText>
           </Button>
         )}
       </Wrapper>

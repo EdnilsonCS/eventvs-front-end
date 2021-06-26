@@ -11,6 +11,7 @@ import { Container, Header, Wrapper, ContainerMenu } from './styles';
 
 export default function Event(): JSX.Element {
   const { user } = useAuth();
+  const navigation = useNavigation();
   const [events, setEvents] = useState<IEvent[]>([]);
   const getEventsList = async (): Promise<void> => {
     const data = await EventService.getEventList();
@@ -23,12 +24,18 @@ export default function Event(): JSX.Element {
 
   const handleSubscribe = async (id: number): Promise<void> => {
     await SubscribeService.submitSubscribe({
-      event_id: id,
+      evento_id: id,
       participante_id: user.id,
     });
-  };
 
-  const navigation = useNavigation();
+    getEventsList();
+  };
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', async () => {
+      getEventsList();
+    });
+    return unsubscribe;
+  }, [navigation]);
   return (
     <Container>
       <Header>Eventvs</Header>
