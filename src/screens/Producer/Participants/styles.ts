@@ -20,8 +20,18 @@ export const Wrapper = styled.View`
   margin: 8px 0;
 `;
 
+export const WrapperParticipante = styled.View`
+  justify-content: flex-start;
+  height: 100%;
+`;
+
 export const Title = styled.Text`
   color: #6d43a1;
+  font-size: 20px;
+`;
+
+export const NumberOfParticipantsText = styled.Text`
+  color: black;
   font-size: 20px;
 `;
 

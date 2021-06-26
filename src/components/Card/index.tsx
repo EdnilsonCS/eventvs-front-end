@@ -51,12 +51,17 @@ export default function Card({
         <Title>
           <Bold>{title}</Bold>
         </Title>
-        <Button
-          onPress={onPressButton}
-          style={{ backgroundColor: type === 'cancel' ? '#DE0b20' : '#6A2ABA' }}
-        >
-          <ButtonText>{btnTitle}</ButtonText>
-        </Button>
+
+        {onPressButton && (
+          <Button
+            onPress={onPressButton}
+            style={{
+              backgroundColor: type === 'cancel' ? '#DE0b20' : '#6A2ABA',
+            }}
+          >
+            <ButtonText>{btnTitle}</ButtonText>
+          </Button>
+        )}
       </Wrapper>
       <Text>{description}</Text>
       <Wrapper>

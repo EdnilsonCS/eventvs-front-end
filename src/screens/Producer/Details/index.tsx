@@ -5,6 +5,7 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from '@helpers/datas';
+import { PrivateRoutesConstants } from '@routes/constants.routes';
 import {
   Bold,
   Button,
@@ -33,7 +34,11 @@ const Published: React.FC = () => {
     getEventDetail();
   }, [routeParams.id]);
 
-  const handleNavigationToParticipantes = (id: number) => {};
+  const handleNavigationToParticipantes = (id: number): void => {
+    navigation.navigate(PrivateRoutesConstants.ProducerParticipantScreen, {
+      id,
+    });
+  };
 
   const handlePublicar = () => {};
 

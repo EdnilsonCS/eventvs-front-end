@@ -4,6 +4,7 @@ import ProducerAddScreen from '@screens/Producer/AddEvent';
 import ProducerProfileScreen from '@screens/Producer/Profile';
 import ProducerAddCategoryScreen from '@screens/Producer/Categories';
 import ProducerDetailScreen from '@screens/Producer/Details';
+import ProducerParticipantScreen from '@screens/Producer/Participants';
 import { MaterialBottomTabScreenProps } from '@react-navigation/material-bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -72,6 +73,10 @@ export default function App() {
       <Stack.Screen
         name={PrivateRoutesConstants.EventDetail}
         component={ProducerDetailScreen}
+      />
+      <Stack.Screen
+        name={PrivateRoutesConstants.ProducerParticipantScreen}
+        component={ProducerParticipantScreen}
       />
     </Stack.Navigator>
   );

@@ -1,10 +1,11 @@
 import { useRoute } from '@react-navigation/native';
-import { Text } from 'react-native-paper';
-import EventService, { IEvent } from '@services/EventService';
-import React, { useMemo, useState, useEffect } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import dayjs from '@helpers/datas';
+import ParticipantsService, {
+  IParticipantes,
+} from '@services/ParticipantsService';
 import {
   Bold,
   Button,
@@ -12,24 +13,27 @@ import {
   Card,
   Header,
   Title,
+  NumberOfParticipantsText,
   Wrapper,
   ButtonContainer,
   NameParticipante,
+  WrapperParticipante,
 } from './styles';
 
 interface RouteParams {
   id: number;
 }
 const Published: React.FC = () => {
-  const [dados, setDados] = useState<IEvent | null>(null);
-  const [participantes, setParticipantes] = useState([]);
+  const [participantes, setParticipantes] = useState<IParticipantes[]>([]);
   const { params } = useRoute();
   const routeParams = params as RouteParams;
   const navigation = useNavigation();
   useEffect(() => {
     const getEventDetail = async (): Promise<void> => {
-      const data = await EventService.getEventDetail(routeParams.id);
-      setDados(data);
+      const data = await ParticipantsService.getParticipantsByEventId(
+        routeParams.id,
+      );
+      setParticipantes(data);
     };
 
     getEventDetail();
@@ -42,15 +46,19 @@ const Published: React.FC = () => {
         <View>
           <Wrapper>
             <Title>
-              <Bold>{dados?.nome}</Bold>
+              <Bold>Participantes</Bold>
             </Title>
+
+            <NumberOfParticipantsText>
+              <Bold>{participantes.length}</Bold>
+            </NumberOfParticipantsText>
           </Wrapper>
         </View>
-        <View>
+        <WrapperParticipante>
           {participantes.map(item => (
-            <NameParticipante>{item.name}</NameParticipante>
+            <NameParticipante>{item.participante.pessoa.nome}</NameParticipante>
           ))}
-        </View>
+        </WrapperParticipante>
       </Card>
       <ButtonContainer>
         <Button
