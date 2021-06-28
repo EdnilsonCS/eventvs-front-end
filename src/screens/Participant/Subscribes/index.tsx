@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import { useAuth } from '@hooks/auth';
 import SubscribeService, { ISubscribe } from '@services/SubscribeService';
 import { useNavigation } from '@react-navigation/native';
-import { Container, Header } from './styles';
+import { BlankSpace, Container, Header } from './styles';
 import Card from '../../../components/Card';
 import SearchInput from '../../../components/SearchInput';
 
@@ -45,6 +45,7 @@ const Subscribes = (): JSX.Element => {
     <Container>
       <Header>Minhas Inscrições</Header>
       <SearchInput placeholder="Pesquisar..." placeholderTextColor="#FFFFFF" />
+      <BlankSpace />
       {subscribes.map(inscricao => (
         <Card
           onPressButton={() => handleCancelButton(inscricao.id)}
