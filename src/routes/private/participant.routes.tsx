@@ -58,7 +58,7 @@ const ParticipantNavigation: React.FC = () => {
           component={SubscribesScreen}
           options={{
             title: 'Minhas inscrições',
-            tabBarIcon: 'account-outline',
+            tabBarIcon: 'application',
             tabBarColor: '#6b4491',
           }}
         />

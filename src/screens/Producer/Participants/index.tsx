@@ -56,7 +56,9 @@ const Published: React.FC = () => {
         </View>
         <WrapperParticipante>
           {participantes.map(item => (
-            <NameParticipante>{item.participante.pessoa.nome}</NameParticipante>
+            <NameParticipante key={Math.random().toString()}>
+              {item.participante.pessoa.nome}
+            </NameParticipante>
           ))}
         </WrapperParticipante>
       </Card>
