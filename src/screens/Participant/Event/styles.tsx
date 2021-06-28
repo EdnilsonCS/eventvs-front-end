@@ -14,9 +14,9 @@ export const Header = styled.Text`
   margin: 20px 0 20px;
 `;
 
-export const ContainerMenu = styled.View`
+export const ContainerModal = styled.View`
   align-items: flex-end;
-  margin-top: 20px;
+  margin: 15px 0px;
 `;
 
 export const Wrapper = styled.ScrollView.attrs(() => ({

@@ -9,7 +9,14 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import EventService, { IEvent } from '@services/EventService';
 import { PrivateRoutesConstants } from '@routes/constants.routes';
-import { Container, Header, Wrapper, ContainerMenu } from './styles';
+import FilterModal from '@components/FilterModal';
+import {
+  Container,
+  Header,
+  Wrapper,
+  ContainerModal,
+  ContainerMenu,
+} from './styles';
 
 export default function Event(): JSX.Element {
   const navigation = useNavigation();
@@ -30,11 +37,11 @@ export default function Event(): JSX.Element {
         <Menu
           visible={visible}
           onDismiss={() => setVisible(false)}
-          anchor={
+          anchor={(
             <TouchableOpacity onPress={() => setVisible(true)}>
               <Icon size={30} name="dots-vertical" />
             </TouchableOpacity>
-          }
+          )}
         >
           <Menu.Item
             onPress={() =>
@@ -50,6 +57,9 @@ export default function Event(): JSX.Element {
       </ContainerMenu>
       <Header>Eventvs</Header>
       <SearchInput placeholder="Pesquisar..." placeholderTextColor="white" />
+      <ContainerModal>
+        <FilterModal />
+      </ContainerModal>
       <Wrapper>
         {events.map(event => (
           <Card

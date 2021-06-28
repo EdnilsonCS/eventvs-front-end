@@ -6,6 +6,10 @@ export const Container = styled.View`
   flex-direction: column;
 `;
 
+export const BlankSpace = styled.View`
+  margin: 10px 0;
+`;
+
 export const Header = styled.Text`
   align-self: center;
   font-size: 30px;

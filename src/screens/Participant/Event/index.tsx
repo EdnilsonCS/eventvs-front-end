@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '@hooks/auth';
+
 import Card from '@components/Card';
 import SearchInput from '@components/SearchInput';
 import FilterModal from '@components/FilterModal';
-import FilterButton from '@components/FilterButton';
 import EventService, { IEvent } from '@services/EventService';
 import SubscribeService from '@services/SubscribeService';
-import { Container, Header, Wrapper, ContainerMenu } from './styles';
+import { Container, ContainerModal, Header, Wrapper } from './styles';
 
 export default function Event(): JSX.Element {
   const { user } = useAuth();
@@ -40,6 +40,9 @@ export default function Event(): JSX.Element {
     <Container>
       <Header>Eventvs</Header>
       <SearchInput placeholder="Pesquisar..." placeholderTextColor="white" />
+      <ContainerModal>
+        <FilterModal />
+      </ContainerModal>
       <Wrapper>
         {events.map(event => (
           <Card

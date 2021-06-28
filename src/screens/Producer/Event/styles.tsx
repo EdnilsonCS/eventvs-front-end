@@ -6,6 +6,11 @@ export const ContainerMenu = styled.View`
   margin-top: 20px;
 `;
 
+export const ContainerModal = styled.View`
+  align-items: flex-end;
+  margin: 10px 0px;
+`;
+
 export const Container = styled.View`
   padding: 0 16px;
   background-color: whitesmoke;
