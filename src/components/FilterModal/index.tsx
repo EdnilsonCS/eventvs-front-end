@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-
+import CategoryService, { ICategory } from '@services/CategoryService';
+import Select from '@components/Select';
 import Input from '@components/Input';
 import DataPicker from '@components/DataPicker';
 import { useForm } from 'react-hook-form';
@@ -17,11 +18,30 @@ import {
 } from './styles';
 
 const FilterModal: React.FC = () => {
+  const statusEvent = [
+    {
+      id: 'PUBLICADO',
+      name: 'Publicado',
+    },
+    {
+      id: 'CRIADO',
+      name: 'Criado',
+    },
+  ];
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const schema = Yup.object().shape({
     categoria: Yup.string().notRequired(),
     dataInicial: Yup.date().notRequired(),
     dataFinal: Yup.date().notRequired(),
   });
+  const formattedCategories = useMemo(() => {
+    return categories.map(item => {
+      return {
+        name: item.nome,
+        id: item.id,
+      };
+    });
+  }, [categories]);
   const refRBSheet = React.useRef<any>(null);
   const {
     control,
@@ -36,6 +56,15 @@ const FilterModal: React.FC = () => {
       dataFinal: '',
     },
   });
+  useEffect(() => {
+    const getCategoryList = async (): Promise<void> => {
+      const serviceCategories = await CategoryService.getCategoryList();
+
+      setCategories(serviceCategories);
+    };
+
+    getCategoryList();
+  }, []);
   return (
     <TouchableOpacity onPress={() => refRBSheet.current.open()}>
       <Container>
@@ -69,13 +98,21 @@ const FilterModal: React.FC = () => {
               control={control}
               label="Data Final"
             />
-            <Input
-              name="categoria"
-              label="Categoria"
-              autoCapitalize="none"
+            <Select
+              menuPlaceholder="Status"
+              name="statusEvento"
               errors={errors}
-              color="#6a2aba"
               control={control}
+              label="Status"
+              options={statusEvent}
+            />
+            <Select
+              label="Categorias"
+              menuPlaceholder="Categorias"
+              name="categoriaId"
+              errors={errors}
+              control={control}
+              options={formattedCategories}
             />
             <ButtonContainer>
               <FilterButton

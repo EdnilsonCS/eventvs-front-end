@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
-import { Button, TextInput } from 'react-native-paper';
-import { Dimensions } from 'react-native';
+import { Button } from 'react-native-paper';
 
 export const Container = styled.View`
   height: 100%;

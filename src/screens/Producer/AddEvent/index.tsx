@@ -88,7 +88,6 @@ const AddEvent = (): JSX.Element => {
     control,
     name: 'cep',
   });
-  console.log(selectedState);
   const handleCreateNewEvent = async (data: any): Promise<void> => {
     const endereco = {
       logradouro: data.logradouro,
