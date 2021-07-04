@@ -10,12 +10,19 @@ import SearchInput from '../../../components/SearchInput';
 const Subscribes = (): JSX.Element => {
   const { token } = useAuth();
   const [subscribes, setSubscribes] = React.useState<ISubscribe[]>([]);
-  const getSubscription = async (): Promise<void> => {
+  const getSubscription = async (filterString: string): Promise<void> => {
     const dados = await SubscribeService.getSubscribeList();
-    setSubscribes(dados);
+
+    const filterDate = dados.filter(inscricao => {
+      const nameEvento = inscricao.evento.nome.toLowerCase();
+      const stringToComparation = String(filterString).toLowerCase();
+
+      return nameEvento.includes(stringToComparation);
+    });
+    setSubscribes(filterDate);
   };
   React.useEffect(() => {
-    getSubscription();
+    getSubscription('');
   }, [token]);
   const navigation = useNavigation();
   const handleCancelButton = async (id: number): Promise<void> => {
@@ -33,18 +40,22 @@ const Subscribes = (): JSX.Element => {
       ],
     );
 
-    getSubscription();
+    getSubscription('');
   };
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
-      getSubscription();
+      getSubscription('');
     });
     return unsubscribe;
   }, [navigation]);
   return (
     <Container>
       <Header>Minhas Inscrições</Header>
-      <SearchInput placeholder="Pesquisar..." placeholderTextColor="#FFFFFF" />
+      <SearchInput
+        placeholder="Pesquisar..."
+        placeholderTextColor="#FFFFFF"
+        onChangeText={e => getSubscription(e)}
+      />
       <BlankSpace />
       {subscribes.map(inscricao => (
         <Card
