@@ -110,6 +110,17 @@ const AddEvent = (): JSX.Element => {
 
     try {
       await EventService.createNewEvent(event);
+      setValue('logradouro', '');
+      setValue('numero', '');
+      setValue('bairro', '');
+      setValue('cidade', '');
+      setValue('estado', '');
+      setValue('cep', '');
+
+      setValue('nome', '');
+      setValue('descricao', '');
+      setValue('dataHoraFim', '');
+      setValue('dataHoraInicio', '');
       showMessage({
         message: 'Ops! Cadastro realizado com sucesso',
         type: 'success',

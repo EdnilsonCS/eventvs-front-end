@@ -27,7 +27,7 @@ const AddCategory = (): JSX.Element => {
   const {
     control,
     handleSubmit,
-
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -41,6 +41,8 @@ const AddCategory = (): JSX.Element => {
   const handleCreateNewEvent = async (data: ICategory): Promise<void> => {
     try {
       await CategoryService.createNewCategory(data);
+      setValue('nome', '');
+      setValue('descricao', '');
       showMessage({
         message: 'Ops! Cadastro realizado com sucesso',
         type: 'success',
