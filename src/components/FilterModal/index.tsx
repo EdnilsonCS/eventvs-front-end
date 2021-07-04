@@ -17,7 +17,17 @@ import {
   FilterButton,
 } from './styles';
 
-const FilterModal: React.FC = () => {
+interface DataModal {
+  categoria?: string;
+  dataInicial: Date;
+  dataFinal: Date;
+  status?: string;
+}
+interface IFilterModal {
+  onChange: (value: DataModal | undefined) => void;
+}
+
+const FilterModal: React.FC<IFilterModal> = ({ onChange }) => {
   const statusEvent = [
     {
       id: 'PUBLICADO',
@@ -65,6 +75,11 @@ const FilterModal: React.FC = () => {
 
     getCategoryList();
   }, []);
+
+  const onSubmit = (data: DataModal): void => {
+    onChange(data);
+    refRBSheet.current.close();
+  };
   return (
     <TouchableOpacity onPress={() => refRBSheet.current.open()}>
       <Container>
@@ -115,12 +130,7 @@ const FilterModal: React.FC = () => {
               options={formattedCategories}
             />
             <ButtonContainer>
-              <FilterButton
-                color="#6a2aba"
-                onPress={() => {
-                  handleSubmit;
-                }}
-              >
+              <FilterButton color="#6a2aba" onPress={handleSubmit(onSubmit)}>
                 Filtrar
               </FilterButton>
               <FilterButton
