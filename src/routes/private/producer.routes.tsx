@@ -5,13 +5,9 @@ import ProducerProfileScreen from '@screens/Producer/Profile';
 import ProducerAddCategoryScreen from '@screens/Producer/Categories';
 import ProducerDetailScreen from '@screens/Producer/Details';
 import ProducerParticipantScreen from '@screens/Producer/Participants';
-import { MaterialBottomTabScreenProps } from '@react-navigation/material-bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { PrivateRoutesConstants } from '../constants.routes';
-
-export type AddScreenProps =
-  MaterialBottomTabScreenProps<ProducerRootTabParamList>;
 
 export type ProducerRootTabParamList = {
   [PrivateRoutesConstants.Profile]: undefined;
@@ -58,7 +54,7 @@ const ProducerNavigation: React.FC = props => {
   );
 };
 
-export default function App() {
+export default function App(): JSX.Element {
   return (
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Menu" component={ProducerNavigation} />

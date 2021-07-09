@@ -12,4 +12,5 @@ export enum PrivateRoutesConstants {
   Add = 'Add',
   AddCategory = 'AddCategory',
   ProducerParticipantScreen = 'ProducerParticipantScreen',
+  Producers = 'Producers',
 }
