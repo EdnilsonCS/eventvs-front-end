@@ -2,7 +2,11 @@ import api from './api';
 
 export interface IEvent {
   id: number;
-  categoriaId: number;
+  categoria: {
+    id: number;
+    nome: string;
+    descricao: string;
+  };
   dataHoraFim: Date;
   dataHoraInicio: Date;
   descricao: string;
@@ -21,7 +25,11 @@ export interface IEvent {
 
 export interface IEventCreateDTO {
   descrição: string;
-  categoriaId: number;
+  categoria: {
+    id: number;
+    nome: string;
+    descricao: string;
+  };
   dataHoraFim: Date;
   dataHoraInicio: Date;
   descricao: string;
@@ -52,6 +60,63 @@ class EventService {
 
   static async getEvents(): Promise<IEvent[]> {
     const { data } = await api.get<IEvent[]>('/eventos/publicados');
+
+    return data;
+  }
+
+  static async getEventsPublicadoByCategoria(
+    idCategoria: string,
+  ): Promise<IEvent[]> {
+    const { data } = await api.get<IEvent[]>(
+      `eventos/publicados/categoria/${idCategoria}`,
+    );
+
+    return data;
+  }
+
+  static async getEventsPublicadoByDate({
+    StartDate,
+    EndDate,
+  }: {
+    StartDate: Date;
+    EndDate: Date;
+  }): Promise<IEvent[]> {
+    const { data } = await api.get<IEvent[]>(`eventos/publicados/entre-datas`, {
+      params: {
+        dataHoraInicio: StartDate,
+        dataHoraFim: EndDate,
+      },
+    });
+
+    return data;
+  }
+
+  static async getEventsNaoPublicadoByCategoria(
+    idCategoria: string,
+  ): Promise<IEvent[]> {
+    const { data } = await api.get<IEvent[]>(
+      `eventos/nao-publicados/categoria/${idCategoria}`,
+    );
+
+    return data;
+  }
+
+  static async getEventsNaoPublicadoByDate({
+    StartDate,
+    EndDate,
+  }: {
+    StartDate: Date;
+    EndDate: Date;
+  }): Promise<IEvent[]> {
+    const { data } = await api.get<IEvent[]>(
+      `eventos/nao-publicados/entre-datas`,
+      {
+        params: {
+          dataHoraInicio: StartDate,
+          dataHoraFim: EndDate,
+        },
+      },
+    );
 
     return data;
   }

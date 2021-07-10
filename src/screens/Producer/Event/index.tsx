@@ -9,7 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import EventService, { IEvent } from '@services/EventService';
 import { PrivateRoutesConstants } from '@routes/constants.routes';
-import FilterModal from '@components/FilterModal';
+import FilterModal, { DataFilter } from '@components/FilterModal';
+import dayjs from '@helpers/datas';
 import {
   Container,
   Header,
@@ -32,9 +33,103 @@ export default function Event(): JSX.Element {
     });
     setEvents(filterDate);
   };
+
   useEffect(() => {
-    getEventsList('');
-  }, []);
+    const unsubscribe = navigation.addListener('focus', async () => {
+      getEventsList('');
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  const onHandleFilter = async (data: DataFilter): Promise<void> => {
+    let filterEvents: IEvent[] = [];
+    if (data.statusEvento === 'PUBLICADO') {
+      let dataFilter: IEvent[] = [];
+      if (data.categoriaId) {
+        dataFilter = await EventService.getEventsPublicadoByCategoria(
+          data.categoriaId,
+        );
+      }
+
+      filterEvents = [...dataFilter];
+
+      if (data.dataInicial && data.dataFinal) {
+        dataFilter = await EventService.getEventsPublicadoByDate({
+          StartDate: dayjs(data.dataInicial).utc().startOf('day').toDate(),
+          EndDate: dayjs(data.dataFinal).utc().endOf('day').toDate(),
+        });
+      }
+      filterEvents = [...filterEvents, ...dataFilter];
+
+      filterEvents.forEach((itemF, i) => {
+        const findItem = filterEvents.find((item, j) => {
+          return itemF.id === item.id && i !== j;
+        });
+        if (findItem) {
+          filterEvents = filterEvents.filter(item => {
+            return item.id !== findItem.id;
+          });
+
+          filterEvents = [findItem, ...filterEvents];
+        }
+      });
+    } else {
+      let dataFilter: IEvent[] = [];
+      if (data.categoriaId) {
+        dataFilter = await EventService.getEventsNaoPublicadoByCategoria(
+          data.categoriaId,
+        );
+      }
+
+      filterEvents = [...dataFilter];
+
+      if (data.dataInicial && data.dataFinal) {
+        dataFilter = await EventService.getEventsNaoPublicadoByDate({
+          StartDate: dayjs(data.dataInicial).utc().startOf('day').toDate(),
+          EndDate: dayjs(data.dataFinal).utc().endOf('day').toDate(),
+        });
+      }
+      filterEvents = [...filterEvents, ...dataFilter];
+
+      filterEvents.forEach((itemF, i) => {
+        const findItem = filterEvents.find((item, j) => {
+          return itemF.id === item.id && i !== j;
+        });
+        if (findItem) {
+          filterEvents = filterEvents.filter(item => {
+            return item.id !== findItem.id;
+          });
+
+          filterEvents = [findItem, ...filterEvents];
+        }
+      });
+    }
+
+    filterEvents = filterEvents.filter(evento => {
+      let isToRemove = false;
+
+      if (
+        data.categoriaId &&
+        String(evento.categoria.id) !== String(data.categoriaId)
+      ) {
+        isToRemove = true;
+      }
+
+      if (
+        data.dataInicial &&
+        !(
+          dayjs(dayjs(evento.dataHoraInicio)).isAfter(data.dataInicial) &&
+          dayjs(dayjs(data.dataFinal)).isBefore(evento.dataHoraFim)
+        )
+      ) {
+        isToRemove = true;
+      }
+
+      return !isToRemove;
+    });
+
+    setEvents(filterEvents);
+  };
 
   return (
     <Container>
@@ -67,7 +162,7 @@ export default function Event(): JSX.Element {
         placeholderTextColor="white"
       />
       <ContainerModal>
-        <FilterModal />
+        <FilterModal onHandleFilter={onHandleFilter} />
       </ContainerModal>
       <Wrapper>
         {events.map(event => (

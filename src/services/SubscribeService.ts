@@ -30,7 +30,7 @@ class SubscribeService {
   }
 
   static async cancelSubscription(id: number): Promise<void> {
-    await api.get<ISubscribe>(`/inscricoes/${id}/cancelar`);
+    await api.patch<ISubscribe>(`/inscricoes/${id}/cancelar`);
   }
 
   static async submitSubscribe(data: {

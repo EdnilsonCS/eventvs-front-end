@@ -42,12 +42,15 @@ const Published: React.FC = () => {
 
   const handlePublicar = async (id: number): Promise<void> => {
     await EventService.publicEvent(id);
+    navigation.navigate(PrivateRoutesConstants.Event);
   };
   const handleCancelar = async (id: number): Promise<void> => {
     await EventService.cancelEvent(id);
+    navigation.navigate(PrivateRoutesConstants.Event);
   };
   const handleRemover = async (id: number): Promise<void> => {
     await EventService.deleteEvent(id);
+    navigation.navigate(PrivateRoutesConstants.Event);
   };
   const formattedAndres = `${dados?.endereco.logradouro}, ${dados?.endereco.numero}, ${dados?.endereco.bairro}, ${dados?.endereco.cidade},${dados?.endereco.estado}`;
   const formattedDateInicio = useMemo(() => {
