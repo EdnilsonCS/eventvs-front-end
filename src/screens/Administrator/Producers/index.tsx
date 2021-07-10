@@ -1,48 +1,68 @@
+import React from 'react';
+import { ListRenderItem } from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
+import { Card, Paragraph, Divider } from 'react-native-paper';
+
 import AdministratorService, {
   IApplicants,
 } from '@services/AdministratorService';
-import React from 'react';
-import { Swipeable } from 'react-native-gesture-handler';
-import { Card, Paragraph, Divider } from 'react-native-paper';
-import { ListRenderItem, Text, View } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { useAuth } from '@hooks/auth';
-import { Bold, Container, Header, ListaChata } from './styles';
+import {
+  Bold,
+  Container,
+  Header,
+  SwipeText,
+  LeftSwipeIcon,
+  LeftSwipeView,
+  RightSwipeView,
+  ListaChata,
+  RightSwipeIcon,
+  EmptyView,
+} from './styles';
 
-const getLeftContent = (): JSX.Element => {
-  return (
-    <View style={{ flex: 1 }}>
-      <FontAwesome name="trash" size={30} color="#FFF" />
-      <Text>Negar</Text>
-    </View>
-  );
-};
+interface Teste extends IApplicants {
+  recuso: (arg0: any) => any;
+  aceito: (arg0: any) => any;
+}
 
-const denyProducer = () => {};
+interface State {
+  producers: IApplicants[];
+}
 
-const acceptProducer = () => {};
+interface Props {
+  re: never;
+}
 
-const Items = ({
-  nome,
-  cpf,
-  email,
-  situacao,
-}: Partial<IApplicants>): JSX.Element => {
+const Items = (props: Teste): JSX.Element => {
+  const { situacao, nome, email, cpf } = props;
+
+  const getLeftContent = (): JSX.Element => {
+    return (
+      <LeftSwipeView onPress={() => props.recuso && props.recuso(props.id)}>
+        <LeftSwipeIcon />
+        <SwipeText>Negar</SwipeText>
+      </LeftSwipeView>
+    );
+  };
+
+  const getRightContent = (): JSX.Element => {
+    return (
+      <RightSwipeView onPress={() => props.aceito && props.aceito(props.id)}>
+        <RightSwipeIcon />
+        <SwipeText>Aceitar</SwipeText>
+      </RightSwipeView>
+    );
+  };
+
   return (
     <Swipeable
       renderLeftActions={getLeftContent}
-      onSwipeableLeftOpen={() => {
-        console.log('OI');
-      }}
+      renderRightActions={getRightContent}
     >
-      <View style={{ backgroundColor: 'green', height: 50 }}>
-        <Text>{nome}</Text>
-      </View>
-      {/* <Card>
+      <Card>
         <Card.Title
           title={nome}
-          titleStyle={{ color: '#6a1aba' }}
+          titleStyle={{ color: '#6a2aba' }}
           subtitle={`CPF: ${cpf}`}
         />
         <Card.Content>
@@ -51,59 +71,73 @@ const Items = ({
             Email: <Bold>{email}</Bold>
           </Paragraph>
         </Card.Content>
-      </Card> */}
+      </Card>
     </Swipeable>
   );
 };
 
-const producers1 = [
-  {
-    nome: 'Ed',
-    id: 1,
-    email: 'ed@mail.com',
-    cpf: '22222222222',
-    situacao: 'pendente',
-  },
-  {
-    nome: 'Talarico',
-    id: 2,
-    email: 'vitao@mail.com',
-    cpf: '11111111111',
-    situacao: 'pendente',
-  },
-];
-const Producers: React.FC = () => {
-  const { token } = useAuth();
-  const [producers, setProducers] = React.useState<IApplicants[]>([]);
+class Producers extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      producers: [],
+    };
+  }
 
-  const renderItem: ListRenderItem<IApplicants> = ({ item }) => (
+  componentDidMount = (): void => {
+    this.getApplicants();
+  };
+
+  acceptProducer = async (id: number): Promise<void> => {
+    const { producers } = this.state;
+    await AdministratorService.getAccept(id);
+    const rendeData = [...producers];
+    this.setState({ producers: rendeData.filter(data => data.id !== id) });
+  };
+
+  denyProducer = async (id: number): Promise<void> => {
+    const { producers } = this.state;
+    await AdministratorService.getDeny(id);
+    const rendeData = [...producers];
+    this.setState({ producers: rendeData.filter(data => data.id !== id) });
+  };
+
+  renderItem: ListRenderItem<IApplicants> = ({ item }) => (
     <Items
+      id={item.id}
       nome={item.nome}
       cpf={item.cpf}
       email={item.email}
       situacao={item.situacao}
+      aceito={this.acceptProducer}
+      recuso={this.denyProducer}
     />
   );
 
-  const getApplicants = async (): Promise<void> => {
+  getApplicants = async (): Promise<void> => {
     const data = await AdministratorService.getApplicants();
-    setProducers(data);
+    this.setState({ producers: data });
   };
-  React.useEffect(() => {
-    getApplicants();
-  }, [token]);
 
-  return (
-    <Container>
-      <Header>Solicitantes</Header>
-      <ListaChata
-        data={producers1}
-        keyExtractor={item => item.id.toString()}
-        ItemSeparatorComponent={Divider}
-        renderItem={renderItem}
-      />
-    </Container>
-  );
-};
+  render(): JSX.Element {
+    const { producers } = this.state;
+    return (
+      <Container>
+        <Header>Solicitantes</Header>
+        <ListaChata
+          data={producers}
+          keyExtractor={item => item.id.toString()}
+          ListEmptyComponent={
+            <EmptyView>
+              <Bold>Nenhum produtor solicitado pendente :)</Bold>
+            </EmptyView>
+          }
+          ItemSeparatorComponent={Divider}
+          renderItem={this.renderItem}
+        />
+      </Container>
+    );
+  }
+}
 
 export default Producers;

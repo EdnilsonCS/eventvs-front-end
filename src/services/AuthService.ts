@@ -35,6 +35,10 @@ class AuthService {
   static signUp(data: ISignupDTO): Promise<any> {
     return api.post('/criar/participantes', data);
   }
+
+  static signUpProducer(data: ISignupDTO): Promise<any> {
+    return api.post('/criar/produtores', data);
+  }
 }
 
 export default AuthService;

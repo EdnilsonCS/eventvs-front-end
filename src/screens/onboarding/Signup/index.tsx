@@ -60,23 +60,39 @@ export default function SignUp(): JSX.Element {
   });
   const [checked, setChecked] = React.useState(false);
 
-  function handleToggleCheckBox(): void {
+  const handleToggleCheckBox = (): void => {
     setChecked(prevState => !prevState);
-  }
+  };
+
   const signUp = useCallback(async ({ nome, cpf, email, senha }) => {
     try {
-      await AuthService.signUp({
-        nome,
-        cpf: MaskService.toRawValue('cpf', cpf),
-        email,
-        senha,
-      });
-      showMessage({
-        message: 'Ops! Cadastro realizado com sucesso',
-        type: 'success',
-        icon: 'success',
-        duration: 3000,
-      });
+      if (checked) {
+        await AuthService.signUpProducer({
+          nome,
+          cpf: MaskService.toRawValue('cpf', cpf),
+          email,
+          senha,
+        });
+        showMessage({
+          message: 'Ops! Cadastro de produtor solicitado com sucesso',
+          type: 'success',
+          icon: 'success',
+          duration: 3000,
+        });
+      } else {
+        await AuthService.signUp({
+          nome,
+          cpf: MaskService.toRawValue('cpf', cpf),
+          email,
+          senha,
+        });
+        showMessage({
+          message: 'Ops! Cadastro realizado com sucesso',
+          type: 'success',
+          icon: 'success',
+          duration: 3000,
+        });
+      }
     } catch (err) {
       showMessage({
         message: 'Ops! Não conseguimos realizar seu cadastro.',

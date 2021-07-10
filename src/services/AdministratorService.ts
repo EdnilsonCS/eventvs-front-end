@@ -14,6 +14,14 @@ class AdministratorService {
 
     return data;
   }
+
+  static async getAccept(id: number): Promise<void> {
+    await api.get(`/produtores/${id}/aceitar`);
+  }
+
+  static async getDeny(id: number): Promise<void> {
+    await api.get(`/produtores/${id}/recusar`);
+  }
 }
 
 export default AdministratorService;

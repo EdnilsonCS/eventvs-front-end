@@ -4,11 +4,12 @@ EventVs FrontEnd
 ## Requisitos funcionais
 
 - [x] Criar conta de participante
-- [ ] Criar conta de produtor
+- [x] Criar conta de produtor
 - [x] Um participante pode realizar _login_
-- [ ] Um usuário pode visualizar eventos publicados
-- [ ] Um usuário pode se inscrever eventos publicados
-- [ ] Um usuário pode buscar eventos publicados
+- [x] Um usuário pode visualizar eventos publicados
+- [x] Um usuário pode se inscrever eventos publicados
+- [x] Um usuário pode buscar eventos publicados
+- [x] Um usuário com funcionalidade admin pode aceitar ou recusar uma solicitação de produtor
 
 
 ## Requisitos não-funcionais
