@@ -64,44 +64,47 @@ export default function SignUp(): JSX.Element {
     setChecked(prevState => !prevState);
   };
 
-  const signUp = useCallback(async ({ nome, cpf, email, senha }) => {
-    try {
-      if (checked) {
-        await AuthService.signUpProducer({
-          nome,
-          cpf: MaskService.toRawValue('cpf', cpf),
-          email,
-          senha,
-        });
+  const signUp = useCallback(
+    async ({ nome, cpf, email, senha }) => {
+      try {
+        if (checked) {
+          await AuthService.signUpProducer({
+            nome,
+            cpf: MaskService.toRawValue('cpf', cpf),
+            email,
+            senha,
+          });
+          showMessage({
+            message: 'Ops! Cadastro de produtor solicitado com sucesso',
+            type: 'success',
+            icon: 'success',
+            duration: 3000,
+          });
+        } else {
+          await AuthService.signUp({
+            nome,
+            cpf: MaskService.toRawValue('cpf', cpf),
+            email,
+            senha,
+          });
+          showMessage({
+            message: 'Ops! Cadastro realizado com sucesso',
+            type: 'success',
+            icon: 'success',
+            duration: 3000,
+          });
+        }
+      } catch (err) {
         showMessage({
-          message: 'Ops! Cadastro de produtor solicitado com sucesso',
-          type: 'success',
-          icon: 'success',
-          duration: 3000,
-        });
-      } else {
-        await AuthService.signUp({
-          nome,
-          cpf: MaskService.toRawValue('cpf', cpf),
-          email,
-          senha,
-        });
-        showMessage({
-          message: 'Ops! Cadastro realizado com sucesso',
-          type: 'success',
-          icon: 'success',
+          message: 'Ops! Não conseguimos realizar seu cadastro.',
+          type: 'danger',
+          icon: 'danger',
           duration: 3000,
         });
       }
-    } catch (err) {
-      showMessage({
-        message: 'Ops! Não conseguimos realizar seu cadastro.',
-        type: 'danger',
-        icon: 'danger',
-        duration: 3000,
-      });
-    }
-  }, []);
+    },
+    [checked],
+  );
 
   const handleSignUp = async (data: SignUpCredentials): Promise<void> => {
     console.log(data);
