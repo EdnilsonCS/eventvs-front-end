@@ -44,7 +44,13 @@ class EventService {
     return data;
   }
 
-  static async getEventList(): Promise<IEvent[]> {
+  static async getNotSubscribeEvents(): Promise<IEvent[]> {
+    const { data } = await api.get<IEvent[]>('/eventos/publicados_filtro');
+
+    return data;
+  }
+
+  static async getEvents(): Promise<IEvent[]> {
     const { data } = await api.get<IEvent[]>('/eventos/publicados');
 
     return data;

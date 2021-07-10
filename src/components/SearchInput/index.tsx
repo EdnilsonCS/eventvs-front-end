@@ -4,6 +4,8 @@ import { Container, Input } from './styles';
 
 interface ISearchInput {
   onChangeText(e: string): void;
+  placeholder: string;
+  placeholderTextColor: string;
 }
 
 function SearchInput({ onChangeText, ...props }: ISearchInput): JSX.Element {

@@ -22,13 +22,18 @@ export default function Event(): JSX.Element {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   const [events, setEvents] = useState<IEvent[]>([]);
-  const getEventsList = async (): Promise<void> => {
-    const data = await EventService.getEventList();
+  const getEventsList = async (filterString: string): Promise<void> => {
+    const data = await EventService.getEvents();
+    const filterDate = data.filter(evento => {
+      const nameEvento = evento.nome.toLowerCase();
+      const stringToComparation = String(filterString).toLowerCase();
 
-    setEvents(data);
+      return nameEvento.includes(stringToComparation);
+    });
+    setEvents(filterDate);
   };
   useEffect(() => {
-    getEventsList();
+    getEventsList('');
   }, []);
 
   return (
@@ -56,7 +61,11 @@ export default function Event(): JSX.Element {
         </Menu>
       </ContainerMenu>
       <Header>Eventvs</Header>
-      <SearchInput placeholder="Pesquisar..." placeholderTextColor="white" />
+      <SearchInput
+        onChangeText={e => getEventsList(e)}
+        placeholder="Pesquisar..."
+        placeholderTextColor="white"
+      />
       <ContainerModal>
         <FilterModal />
       </ContainerModal>

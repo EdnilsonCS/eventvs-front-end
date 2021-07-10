@@ -13,13 +13,18 @@ export default function Event(): JSX.Element {
   const { user } = useAuth();
   const navigation = useNavigation();
   const [events, setEvents] = useState<IEvent[]>([]);
-  const getEventsList = async (): Promise<void> => {
-    const data = await EventService.getEventList();
+  const getEventsList = async (filterString: string): Promise<void> => {
+    const data = await EventService.getNotSubscribeEvents();
+    const filterDate = data.filter(evento => {
+      const nameEvento = evento.nome.toLowerCase();
+      const stringToComparation = String(filterString).toLowerCase();
 
-    setEvents(data);
+      return nameEvento.includes(stringToComparation);
+    });
+    setEvents(filterDate);
   };
   useEffect(() => {
-    getEventsList();
+    getEventsList('');
   }, []);
 
   const handleSubscribe = async (id: number): Promise<void> => {
@@ -28,21 +33,22 @@ export default function Event(): JSX.Element {
       participante_id: user.id,
     });
 
-    getEventsList();
+    getEventsList('');
   };
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
-      getEventsList();
+      getEventsList('');
     });
     return unsubscribe;
   }, [navigation]);
   return (
     <Container>
       <Header>Eventvs</Header>
-      <SearchInput placeholder="Pesquisar..." placeholderTextColor="white" />
-      <ContainerModal>
-        <FilterModal />
-      </ContainerModal>
+      <SearchInput
+        placeholder="Pesquisar..."
+        placeholderTextColor="white"
+        onChangeText={e => getEventsList(e)}
+      />
       <Wrapper>
         {events.map(event => (
           <Card
