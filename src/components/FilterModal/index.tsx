@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import CategoryService, { ICategory } from '@services/CategoryService';
 import Select from '@components/Select';
-import Input from '@components/Input';
 import DataPicker from '@components/DataPicker';
 import { useForm } from 'react-hook-form';
 import {
@@ -17,17 +16,17 @@ import {
   FilterButton,
 } from './styles';
 
-interface DataModal {
-  categoria?: string;
+export interface DataFilter {
+  categoriaId?: string;
   dataInicial: Date;
   dataFinal: Date;
-  status?: string;
+  statusEvento?: 'PUBLICADO' | 'CRIADO';
 }
 interface IFilterModal {
-  onChange: (value: DataModal | undefined) => void;
+  onHandleFilter: (value: DataFilter | undefined) => void;
 }
 
-const FilterModal: React.FC<IFilterModal> = ({ onChange }) => {
+const FilterModal: React.FC<IFilterModal> = ({ onHandleFilter }) => {
   const statusEvent = [
     {
       id: 'PUBLICADO',
@@ -40,9 +39,23 @@ const FilterModal: React.FC<IFilterModal> = ({ onChange }) => {
   ];
   const [categories, setCategories] = useState<ICategory[]>([]);
   const schema = Yup.object().shape({
-    categoria: Yup.string().notRequired(),
-    dataInicial: Yup.date().notRequired(),
-    dataFinal: Yup.date().notRequired(),
+    categoriaId: Yup.string().optional(),
+    statusEvento: Yup.string().required('Campo Obrigatório'),
+    dataInicial: Yup.date()
+      .transform((curr, orig) => (orig === '' ? null : curr))
+      .nullable()
+      .optional(),
+    dataFinal: Yup.date()
+      .transform((curr, orig) => (orig === '' ? null : curr))
+      .nullable()
+      .when('dataInicial', {
+        is: (val: any) => !!val,
+        then: Yup.date().required('Campo Obrigatório'),
+        otherwise: Yup.date()
+          .transform((curr, orig) => (orig === '' ? null : curr))
+          .nullable()
+          .optional(),
+      }),
   });
   const formattedCategories = useMemo(() => {
     return categories.map(item => {
@@ -61,7 +74,7 @@ const FilterModal: React.FC<IFilterModal> = ({ onChange }) => {
     resolver: yupResolver(schema),
     mode: 'onBlur',
     defaultValues: {
-      categoria: '',
+      categoriaId: '',
       dataInicial: '',
       dataFinal: '',
     },
@@ -76,10 +89,11 @@ const FilterModal: React.FC<IFilterModal> = ({ onChange }) => {
     getCategoryList();
   }, []);
 
-  const onSubmit = (data: DataModal): void => {
-    onChange(data);
+  const onSubmit = (data: DataFilter): void => {
+    onHandleFilter(data);
     refRBSheet.current.close();
   };
+
   return (
     <TouchableOpacity onPress={() => refRBSheet.current.open()}>
       <Container>
@@ -101,14 +115,12 @@ const FilterModal: React.FC<IFilterModal> = ({ onChange }) => {
           <FilterContainer>
             <DataPicker
               name="dataInicial"
-              minimumDate={new Date()}
               errors={errors}
               control={control}
               label="Data Inicial"
             />
             <DataPicker
               name="dataFinal"
-              minimumDate={new Date()}
               errors={errors}
               control={control}
               label="Data Final"
