@@ -56,7 +56,7 @@ const FilterModal: React.ForwardRefRenderFunction<IFilterRef, IFilterModal> = (
   const schema = Yup.object().shape({
     categoriaId: Yup.string().optional(),
     statusEvento: Yup.string().when('dataInicial', {
-      is: () => isNotState,
+      is: () => !isNotState,
       then: Yup.string().required('Campo Obrigatório'),
       otherwise: Yup.string().optional(),
     }),
@@ -157,7 +157,7 @@ const FilterModal: React.ForwardRefRenderFunction<IFilterRef, IFilterModal> = (
               control={control}
               label="Data Final"
             />
-            {isNotState && (
+            {!isNotState && (
               <Select
                 menuPlaceholder="Status"
                 name="statusEvento"

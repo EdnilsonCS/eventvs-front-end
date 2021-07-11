@@ -14,6 +14,7 @@ export default function Event(): JSX.Element {
   const { user } = useAuth();
   const navigation = useNavigation();
   const [events, setEvents] = useState<IEvent[]>([]);
+  const [oldArray, setOldArray] = useState<IEvent[]>([]);
   const filterRefModal = useRef<any>(null);
 
   const getEventsList = async (): Promise<void> => {
@@ -25,12 +26,22 @@ export default function Event(): JSX.Element {
   };
 
   const onHandleSearchFilter = async (filterString: string): Promise<void> => {
-    const filterDate = events.filter(evento => {
+    let eventsDate = [];
+    if (oldArray.length >= events.length) {
+      setEvents(oldArray);
+      eventsDate = oldArray;
+    } else {
+      eventsDate = events;
+      setOldArray(events);
+    }
+
+    const filterDate = eventsDate.filter(evento => {
       const nameEvento = evento.nome.toLowerCase();
       const stringToComparation = String(filterString).toLowerCase();
 
       return nameEvento.includes(stringToComparation);
     });
+
     setEvents(filterDate);
   };
 
