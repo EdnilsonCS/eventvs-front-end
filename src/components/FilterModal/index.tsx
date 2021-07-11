@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
 import { TouchableOpacity } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import * as Yup from 'yup';
@@ -26,7 +32,14 @@ interface IFilterModal {
   onHandleFilter: (value: DataFilter | undefined) => void;
 }
 
-const FilterModal: React.FC<IFilterModal> = ({ onHandleFilter }) => {
+interface IFilterRef {
+  clean(): void;
+}
+
+const FilterModal: React.ForwardRefRenderFunction<IFilterRef, IFilterModal> = (
+  { onHandleFilter },
+  ref,
+) => {
   const statusEvent = [
     {
       id: 'PUBLICADO',
@@ -69,6 +82,7 @@ const FilterModal: React.FC<IFilterModal> = ({ onHandleFilter }) => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -77,6 +91,7 @@ const FilterModal: React.FC<IFilterModal> = ({ onHandleFilter }) => {
       categoriaId: '',
       dataInicial: '',
       dataFinal: '',
+      statusEvento: '',
     },
   });
   useEffect(() => {
@@ -94,6 +109,17 @@ const FilterModal: React.FC<IFilterModal> = ({ onHandleFilter }) => {
     refRBSheet.current.close();
   };
 
+  const handleCleanFilter = (): void => {
+    setValue('dataInicial', '');
+    setValue('dataFinal', '');
+    setValue('statusEvento', '');
+    setValue('categoriaId', '');
+  };
+  useImperativeHandle(ref, () => ({
+    clean() {
+      handleCleanFilter();
+    },
+  }));
   return (
     <TouchableOpacity onPress={() => refRBSheet.current.open()}>
       <Container>
@@ -145,6 +171,9 @@ const FilterModal: React.FC<IFilterModal> = ({ onHandleFilter }) => {
               <FilterButton color="#6a2aba" onPress={handleSubmit(onSubmit)}>
                 Filtrar
               </FilterButton>
+              <FilterButton color="#6a2aba" onPress={handleCleanFilter}>
+                Limpar
+              </FilterButton>
               <FilterButton
                 color="#De0b20"
                 onPress={() => {
@@ -161,4 +190,4 @@ const FilterModal: React.FC<IFilterModal> = ({ onHandleFilter }) => {
   );
 };
 
-export default FilterModal;
+export default forwardRef(FilterModal);

@@ -31,6 +31,8 @@ export const FilterContainer = styled.View`
 `;
 
 export const ButtonContainer = styled.View`
+  margin-top: 20px;
+  margin-bottom: 20px;
   flex-direction: row;
   justify-content: flex-end;
 `;

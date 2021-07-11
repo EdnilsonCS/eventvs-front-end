@@ -11,6 +11,7 @@ import EventService, { IEvent } from '@services/EventService';
 import { PrivateRoutesConstants } from '@routes/constants.routes';
 import FilterModal, { DataFilter } from '@components/FilterModal';
 import dayjs from '@helpers/datas';
+import { useRef } from 'react';
 import {
   Container,
   Header,
@@ -23,11 +24,13 @@ export default function Event(): JSX.Element {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   const [events, setEvents] = useState<IEvent[]>([]);
+  const filterRefModal = useRef<any>(null);
   const getEventsList = async (filterString: string): Promise<void> => {
     const data = await EventService.getEvents();
     const eventsNotPublic = await EventService.getEventsNaoPublicado();
 
     const eventsList = [...data, ...eventsNotPublic];
+
     const filterDate = eventsList.filter(evento => {
       const nameEvento = evento.nome.toLowerCase();
       const stringToComparation = String(filterString).toLowerCase();
@@ -39,6 +42,7 @@ export default function Event(): JSX.Element {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
+      filterRefModal?.current?.clean();
       getEventsList('');
     });
     return unsubscribe;
@@ -48,6 +52,11 @@ export default function Event(): JSX.Element {
     let filterEvents: IEvent[] = [];
     if (data.statusEvento === 'PUBLICADO') {
       let dataFilter: IEvent[] = [];
+
+      dataFilter = await EventService.getEvents();
+
+      filterEvents = [...dataFilter];
+
       if (data.categoriaId) {
         dataFilter = await EventService.getEventsPublicadoByCategoria(
           data.categoriaId,
@@ -78,6 +87,11 @@ export default function Event(): JSX.Element {
       });
     } else {
       let dataFilter: IEvent[] = [];
+
+      dataFilter = await EventService.getEventsNaoPublicado();
+
+      filterEvents = [...dataFilter];
+
       if (data.categoriaId) {
         dataFilter = await EventService.getEventsNaoPublicadoByCategoria(
           data.categoriaId,
@@ -140,11 +154,11 @@ export default function Event(): JSX.Element {
         <Menu
           visible={visible}
           onDismiss={() => setVisible(false)}
-          anchor={
+          anchor={(
             <TouchableOpacity onPress={() => setVisible(true)}>
               <Icon size={30} name="dots-vertical" />
             </TouchableOpacity>
-          }
+          )}
         >
           <Menu.Item
             onPress={() =>
@@ -165,7 +179,7 @@ export default function Event(): JSX.Element {
         placeholderTextColor="white"
       />
       <ContainerModal>
-        <FilterModal onHandleFilter={onHandleFilter} />
+        <FilterModal ref={filterRefModal} onHandleFilter={onHandleFilter} />
       </ContainerModal>
       <Wrapper>
         {events.map(event => (
