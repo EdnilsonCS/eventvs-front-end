@@ -25,7 +25,8 @@ export default function Event(): JSX.Element {
   const [visible, setVisible] = useState(false);
   const [events, setEvents] = useState<IEvent[]>([]);
   const filterRefModal = useRef<any>(null);
-  const getEventsList = async (filterString: string): Promise<void> => {
+
+  const getEventsList = async (): Promise<void> => {
     const data = await EventService.getEvents();
     const eventsNotPublic = await EventService.getEventsNaoPublicado();
 
@@ -40,10 +41,20 @@ export default function Event(): JSX.Element {
     setEvents(filterDate);
   };
 
+  const onHandleSearchFilter = async (filterString: string): Promise<void> => {
+    const filterDate = events.filter(evento => {
+      const nameEvento = evento.nome.toLowerCase();
+      const stringToComparation = String(filterString).toLowerCase();
+
+      return nameEvento.includes(stringToComparation);
+    });
+    setEvents(filterDate);
+  };
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
       filterRefModal?.current?.clean();
-      getEventsList('');
+      getEventsList();
     });
     return unsubscribe;
   }, [navigation]);
@@ -174,7 +185,7 @@ export default function Event(): JSX.Element {
       </ContainerMenu>
       <Header>Eventvs</Header>
       <SearchInput
-        onChangeText={e => getEventsList(e)}
+        onChangeText={e => onHandleSearchFilter(e)}
         placeholder="Pesquisar..."
         placeholderTextColor="white"
       />
