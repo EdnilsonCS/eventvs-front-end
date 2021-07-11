@@ -34,13 +34,12 @@ const Subscribes = (): JSX.Element => {
           text: 'sim',
           onPress: async () => {
             await SubscribeService.cancelSubscription(id);
+            getSubscription('');
           },
         },
         { text: 'não', onPress: () => console.log('OK Pressed') },
       ],
     );
-
-    getSubscription('');
   };
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
