@@ -2,16 +2,18 @@ import styled from 'styled-components/native';
 import { Button } from 'react-native-paper';
 import { StatusBar } from 'react-native';
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   flex-direction: column;
-  margin: 0 16px;
-  height: 100%;
+  padding: 0 16px;
+  justify-content: space-between;
+  flex: 1;
   background-color: white;
   padding-top: ${StatusBar.currentHeight}px;
 `;
 
 export const Wrapper = styled.View`
   align-items: center;
+  justify-content: space-between;
 `;
 export const ButtonContainer = styled.View`
   margin: 20px;
