@@ -32,13 +32,7 @@ export default function Event(): JSX.Element {
 
     const eventsList = [...data, ...eventsNotPublic];
 
-    const filterDate = eventsList.filter(evento => {
-      const nameEvento = evento.nome.toLowerCase();
-      const stringToComparation = String(filterString).toLowerCase();
-
-      return nameEvento.includes(stringToComparation);
-    });
-    setEvents(filterDate);
+    setEvents(eventsList);
   };
 
   const onHandleSearchFilter = async (filterString: string): Promise<void> => {

@@ -30,6 +30,7 @@ export interface DataFilter {
 }
 interface IFilterModal {
   onHandleFilter: (value: DataFilter | undefined) => void;
+  isNotState: boolean;
 }
 
 interface IFilterRef {
@@ -37,7 +38,8 @@ interface IFilterRef {
 }
 
 const FilterModal: React.ForwardRefRenderFunction<IFilterRef, IFilterModal> = (
-  { onHandleFilter },
+  { onHandleFilter, isNotState },
+
   ref,
 ) => {
   const statusEvent = [
@@ -53,7 +55,11 @@ const FilterModal: React.ForwardRefRenderFunction<IFilterRef, IFilterModal> = (
   const [categories, setCategories] = useState<ICategory[]>([]);
   const schema = Yup.object().shape({
     categoriaId: Yup.string().optional(),
-    statusEvento: Yup.string().required('Campo Obrigatório'),
+    statusEvento: Yup.string().when('dataInicial', {
+      is: () => isNotState,
+      then: Yup.string().required('Campo Obrigatório'),
+      otherwise: Yup.string().optional(),
+    }),
     dataInicial: Yup.date()
       .transform((curr, orig) => (orig === '' ? null : curr))
       .nullable()
@@ -151,14 +157,17 @@ const FilterModal: React.ForwardRefRenderFunction<IFilterRef, IFilterModal> = (
               control={control}
               label="Data Final"
             />
-            <Select
-              menuPlaceholder="Status"
-              name="statusEvento"
-              errors={errors}
-              control={control}
-              label="Status"
-              options={statusEvent}
-            />
+            {isNotState && (
+              <Select
+                menuPlaceholder="Status"
+                name="statusEvento"
+                errors={errors}
+                control={control}
+                label="Status"
+                options={statusEvent}
+              />
+            )}
+
             <Select
               label="Categorias"
               menuPlaceholder="Categorias"
