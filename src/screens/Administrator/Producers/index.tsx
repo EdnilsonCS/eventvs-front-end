@@ -132,7 +132,7 @@ class Producers extends React.Component<Props, State> {
               <Bold>Nenhum produtor solicitado pendente :)</Bold>
             </EmptyView>
           }
-          ItemSeparatorComponent={Divider}
+          ItemSeparatorComponent={() => <Divider />}
           renderItem={this.renderItem}
         />
       </Container>

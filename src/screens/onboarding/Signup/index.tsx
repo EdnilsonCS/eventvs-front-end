@@ -140,6 +140,7 @@ export default function SignUp(): JSX.Element {
         label="Email"
         autoCapitalize="none"
         color="#6d43a1"
+        keyboardType="email-address"
       />
       <Input
         errors={errors}

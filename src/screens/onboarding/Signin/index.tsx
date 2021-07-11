@@ -62,6 +62,7 @@ export default function Signin(): JSX.Element {
         name="email"
         label="Email"
         autoCapitalize="none"
+        keyboardType="email-address"
         leftIcon="account"
         color="#6d43a1"
       />
