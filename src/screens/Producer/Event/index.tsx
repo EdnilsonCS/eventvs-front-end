@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Button } from 'react-native-paper';
+import { Menu } from 'react-native-paper';
 import Card from '@components/Card';
 import SearchInput from '@components/SearchInput';
 import { useState } from 'react';
@@ -170,11 +170,11 @@ export default function Event(): JSX.Element {
         <Menu
           visible={visible}
           onDismiss={() => setVisible(false)}
-          anchor={(
+          anchor={
             <TouchableOpacity onPress={() => setVisible(true)}>
               <Icon size={30} name="dots-vertical" />
             </TouchableOpacity>
-          )}
+          }
         >
           <Menu.Item
             onPress={() =>

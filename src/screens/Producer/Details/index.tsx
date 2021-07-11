@@ -56,10 +56,10 @@ const Published: React.FC = () => {
   const formattedDateInicio = useMemo(() => {
     return dayjs(dados?.dataHoraInicio)
       .locale('pt-br')
-      .format('HH:mm DD/MM/YYYY');
+      .format('DD/MM/YYYY HH:mm');
   }, [dados]);
   const formattedDateFim = useMemo(() => {
-    return dayjs(dados?.dataHoraFim).locale('pt-br').format('HH:mm DD/MM/YYYY');
+    return dayjs(dados?.dataHoraFim).locale('pt-br').format('DD/MM/YYYY HH:mm');
   }, [dados]);
   return (
     <Container>
