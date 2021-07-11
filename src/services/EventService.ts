@@ -91,6 +91,12 @@ class EventService {
     return data;
   }
 
+  static async getEventsNaoPublicado(): Promise<IEvent[]> {
+    const { data } = await api.get<IEvent[]>(`eventos/nao-publicados`);
+
+    return data;
+  }
+
   static async getEventsNaoPublicadoByCategoria(
     idCategoria: string,
   ): Promise<IEvent[]> {
