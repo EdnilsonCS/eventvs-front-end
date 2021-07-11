@@ -2,7 +2,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/jsx-indent */
 import Input from '@components/Input';
-import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import React from 'react';
 import * as Yup from 'yup';
 import { useAuth } from '@hooks/auth';
@@ -51,7 +51,7 @@ export default function Profile(): JSX.Element {
     return (
         <Container>
             <Wrapper style={{alignItems: 'center',}}>
-                <Img source={{ uri: 'https://www.github.com/EdnilsonCS.png' }} />
+                <Icon name="account-outline" size={50} />
             </Wrapper>
             <Wrapper>
                 <Email><Bold>ednilsoncs@dcomp.ufs.br</Bold></Email>

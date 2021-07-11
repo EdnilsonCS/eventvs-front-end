@@ -38,14 +38,24 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
-      const [token, user] = await AsyncStorage.multiGet([
-        '@Events:token',
+      const [user, refreshToken] = await AsyncStorage.multiGet([
         '@Events:user',
+        '@Events:refresh_token',
       ]);
-      if (token[1] && user[1]) {
-        Api.defaults.headers.authorization = `Bearer ${token[1]}`;
-        setData({ token: token[1], user: JSON.parse(user[1]) });
+
+      if (refreshToken[1]) {
+        const response = await AuthService.getNewToken(refreshToken[1]);
+        const { access_token: token, refresh_token } = response.data;
+        await AsyncStorage.multiSet([
+          ['@Events:refresh_token', refresh_token],
+          ['@Events:token', token],
+        ]);
+        if (token && user[1]) {
+          Api.defaults.headers.authorization = `Bearer ${token}`;
+          setData({ token, user: JSON.parse(user[1]) });
+        }
       }
+
       setLoading(false);
     }
 
@@ -55,7 +65,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const signIn = useCallback(async ({ email, password }) => {
     try {
       const response = await AuthService.signIn({ email, password });
-      const { access_token: token } = response.data;
+      const { access_token: token, refresh_token } = response.data;
       const user = {
         id: response.data.pessoa_id,
         email: response.data.email,
@@ -63,6 +73,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         role: response.data.role,
       };
       await AsyncStorage.multiSet([
+        ['@Events:refresh_token', refresh_token],
         ['@Events:token', token],
         ['@Events:user', JSON.stringify(user)],
       ]);

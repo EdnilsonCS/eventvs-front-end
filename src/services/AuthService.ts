@@ -39,6 +39,22 @@ class AuthService {
   static signUpProducer(data: ISignupDTO): Promise<any> {
     return api.post('/criar/produtores', data);
   }
+
+  static getNewToken(token: string): Promise<any> {
+    return api({
+      method: 'post',
+      url: '/oauth/token',
+
+      data: qs.stringify({
+        refresh_token: token,
+        grant_type: 'refresh_token',
+      }),
+      headers: {
+        Authorization: authHeader,
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+    });
+  }
 }
 
 export default AuthService;
