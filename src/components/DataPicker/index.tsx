@@ -5,7 +5,7 @@ import React, {
   useRef,
   useEffect,
 } from 'react';
-import { Controller, FieldErrors, useWatch } from 'react-hook-form';
+import { Controller, Control, FieldErrors, useWatch } from 'react-hook-form';
 import { Platform, Keyboard, StyleSheetProperties } from 'react-native';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -13,24 +13,25 @@ import dayjs from '../../helpers/datas';
 import {
   Container,
   TextError,
+  TextInput,
   Touchable,
   TouchableContainer,
   Header,
   ButtonModal,
   ButtonCancelTitle,
   Title,
-  TextInput,
 } from './styles';
 
 interface DataPickerProps {
   label: string;
   name: string;
-
-  control: any;
+  modeIOS: 'date' | 'time' | 'datetime' | 'countdown';
+  modeAndroid: 'date' | 'time';
+  control: Control;
   errors: FieldErrors;
-  maximumDate?: Date;
-  minimumDate?: Date;
-  containerStyle?: StyleSheetProperties;
+  maximumDate: Date;
+  minimumDate: Date;
+  containerStyle: StyleSheetProperties;
 }
 
 type onChangeValueProps = {
@@ -47,6 +48,8 @@ type handleCloseBottomSheetProps = {
 const DataPicker: React.FC<DataPickerProps> = ({
   label,
   name,
+  modeIOS,
+  modeAndroid,
   control,
   errors,
   maximumDate,
@@ -106,11 +109,18 @@ const DataPicker: React.FC<DataPickerProps> = ({
   }, []);
 
   const formatValue = useMemo(() => {
+    if ((modeAndroid === 'time' || modeIOS === 'time') && date) {
+      if (Platform.OS === 'ios' && parseFloat(String(Platform.Version)) >= 14) {
+        return `às ${dayjs(date).format('HH:mm')}`;
+      }
+      return `às ${dayjs(date).format('HH:mm')}`;
+    }
+
     if (date) {
       return dayjs(date).utc().format('DD/MM/YYYY');
     }
     return '';
-  }, [date]);
+  }, [date, modeAndroid, modeIOS]);
   return (
     <Container style={containerStyle}>
       <Controller
@@ -149,7 +159,7 @@ const DataPicker: React.FC<DataPickerProps> = ({
                 </Header>
                 <DateTimePicker
                   value={temporary || date || dateNow}
-                  mode="date"
+                  mode={modeIOS || 'date'}
                   maximumDate={maximumDate}
                   minimumDate={minimumDate}
                   is24Hour
@@ -163,8 +173,9 @@ const DataPicker: React.FC<DataPickerProps> = ({
               <>
                 {show && (
                   <DateTimePicker
+                    timeZoneOffsetInMinutes={modeAndroid ? undefined : 0}
                     value={date || dateNow}
-                    mode="date"
+                    mode={modeAndroid || 'date'}
                     maximumDate={maximumDate}
                     minimumDate={minimumDate}
                     is24Hour
@@ -191,15 +202,23 @@ const DataPicker: React.FC<DataPickerProps> = ({
                 <TextInput
                   editable={false}
                   mode="outlined"
-                  underlineColor="transparent"
-                  selectionColor="#AAA"
                   value={formatValue}
-                  color="#6d43a1"
                   label={label}
                   keyboardType="numeric"
+                  underlineColor="transparent"
+                  selectionColor="#AAA"
+                  color="#6d43a1"
                   pointerEvents="none"
                   error={errors[name]}
-                  right={() => <TextInput.Icon name="calendar-blank" />}
+                  right={(
+                    <TextInput.Icon
+                      name={
+                        modeAndroid === 'time' || modeIOS === 'time'
+                          ? 'clock-outline'
+                          : 'calendar-blank'
+                      }
+                    />
+                  )}
                   onBlur={onBlur}
                 />
               </TouchableContainer>

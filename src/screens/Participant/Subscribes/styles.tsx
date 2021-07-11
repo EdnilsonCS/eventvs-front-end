@@ -21,6 +21,9 @@ export const Header = styled.Text`
 
 export const Wrapper = styled.ScrollView.attrs(() => ({
   showsVerticalScrollIndicator: true,
+  contentContainerStyle: {
+    paddingBottom: 100,
+  },
 }))`
   height: ${Dimensions.get('screen').height * 0.6}px;
 `;

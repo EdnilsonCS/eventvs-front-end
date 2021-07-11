@@ -37,10 +37,10 @@ export default function Card({
 }: ICard): JSX.Element {
   const formattedAndres = `${logradouro}, ${numero}, ${bairro}, ${cidade},${estado}`;
   const formattedDateInicio = useMemo(() => {
-    return dayjs(dataHoraInicio).locale('pt-br').format('hh:m DD/MM/YYYY');
+    return dayjs(dataHoraInicio).locale('pt-br').format('DD/MM/YYYY HH:mm');
   }, [dataHoraInicio]);
   const formattedDateFim = useMemo(() => {
-    return dayjs(dataHoraFim).locale('pt-br').format('hh:m DD/MM/YYYY');
+    return dayjs(dataHoraFim).locale('pt-br').format('DD/MM/YYYY HH:mm');
   }, [dataHoraFim]);
   return (
     <Container onPress={onPress} disabled={!onPress}>

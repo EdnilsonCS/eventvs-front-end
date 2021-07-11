@@ -15,6 +15,7 @@ import { useMemo } from 'react';
 import CategoryService from '@services/CategoryService';
 import Select from '@components/Select';
 import LocationService, { ICity, IState } from '@services/LocationService';
+import dayjs from '@helpers/datas';
 import {
   Container,
   Wrapper,
@@ -47,6 +48,8 @@ const AddEvent = (): JSX.Element => {
     categoriaId: Yup.string().required('Categoria é um campo obrigatório'),
     dataHoraFim: Yup.date().required('Data de inicio é um campo obrigatório'),
     dataHoraInicio: Yup.date().required('Data de fim é um campo obrigatório'),
+    horaDeFim: Yup.date().required('Hora de inicio é um campo obrigatório'),
+    horaDeInicio: Yup.date().required('Hora de fim é um campo obrigatório'),
     logradouro: Yup.string().required('Logradouro é um campo obrigatório'),
     numero: Yup.number().required('Número é um campo obrigatório'),
     bairro: Yup.string().required('Bairro é um campo obrigatório'),
@@ -98,14 +101,40 @@ const AddEvent = (): JSX.Element => {
       cep: data.cep,
     };
 
+    let dataFinalizacaoEvento = dayjs(data.dataHoraFim).set(
+      'hours',
+      dayjs(data.horaDeFim).get('hours'),
+    );
+    let dataInicialEvento = dayjs(data.dataHoraInicio).set(
+      'hours',
+      dayjs(data.horaDeInicio).get('hours'),
+    );
+
+    dataFinalizacaoEvento = dataFinalizacaoEvento.set(
+      'minutes',
+      dayjs(data.horaDeFim).get('minutes'),
+    );
+    dataInicialEvento = dataInicialEvento.set(
+      'minutes',
+      dayjs(data.horaDeInicio).get('minutes'),
+    );
+
+    dataFinalizacaoEvento = dataFinalizacaoEvento.set(
+      'second',
+      dayjs(data.horaDeFim).get('second'),
+    );
+    dataInicialEvento = dataInicialEvento.set(
+      'second',
+      dayjs(data.horaDeInicio).get('second'),
+    );
     const event = {
       endereco,
       nome: data.nome,
       descricao: data.descricao,
       statusEvento: data.statusEvento,
       categoriaId: data.categoriaId,
-      dataHoraFim: data.dataHoraFim,
-      dataHoraInicio: data.dataHoraInicio,
+      dataHoraFim: dataFinalizacaoEvento.format('YYYY-MM-DDTHH:mm:ss'),
+      dataHoraInicio: dataInicialEvento.format('YYYY-MM-DDTHH:mm:ss'),
     };
 
     try {
@@ -244,11 +273,29 @@ const AddEvent = (): JSX.Element => {
           label="Data de ínicio"
         />
         <DataPicker
+          errors={errors}
+          control={control}
+          modeAndroid="time"
+          modeIOS="time"
+          name="horaDeInicio"
+          minimumDate={new Date()}
+          label="Hora de inicio"
+        />
+        <DataPicker
           name="dataHoraFim"
           minimumDate={new Date()}
           errors={errors}
           control={control}
           label="Data de encerramento"
+        />
+        <DataPicker
+          errors={errors}
+          control={control}
+          modeAndroid="time"
+          modeIOS="time"
+          name="horaDeFim"
+          minimumDate={new Date()}
+          label="Data de Fim"
         />
         <Select
           menuPlaceholder="Status"
