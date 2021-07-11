@@ -38,24 +38,14 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
-      const [user, refreshToken] = await AsyncStorage.multiGet([
+      const [token, user] = await AsyncStorage.multiGet([
+        '@Events:token',
         '@Events:user',
-        '@Events:refresh_token',
       ]);
-
-      if (refreshToken[1]) {
-        const response = await AuthService.getNewToken(refreshToken[1]);
-        const { access_token: token, refresh_token } = response.data;
-        await AsyncStorage.multiSet([
-          ['@Events:refresh_token', refresh_token],
-          ['@Events:token', token],
-        ]);
-        if (token && user[1]) {
-          Api.defaults.headers.authorization = `Bearer ${token}`;
-          setData({ token, user: JSON.parse(user[1]) });
-        }
+      if (token[1] && user[1]) {
+        Api.defaults.headers.authorization = `Bearer ${token[1]}`;
+        setData({ token: token[1], user: JSON.parse(user[1]) });
       }
-
       setLoading(false);
     }
 
