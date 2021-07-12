@@ -17,7 +17,7 @@ export interface IEvent {
     bairro: string;
     cidade: string;
     estado: string;
-    cep: number;
+    cep: string;
   };
   nome: string;
   statusEvento: string;
@@ -48,6 +48,18 @@ export interface IEventCreateDTO {
 class EventService {
   static async createNewEvent(event: IEventCreateDTO): Promise<Event> {
     const { data } = await api.post<IEvent>('/eventos', event);
+
+    return data;
+  }
+
+  static async editEvent({
+    event,
+    id,
+  }: {
+    event: IEventCreateDTO;
+    id: string;
+  }): Promise<Event> {
+    const { data } = await api.patch<IEvent>(`/eventos/${id}`, event);
 
     return data;
   }

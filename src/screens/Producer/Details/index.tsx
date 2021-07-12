@@ -44,6 +44,12 @@ const Published: React.FC = () => {
     await EventService.publicEvent(id);
     navigation.navigate(PrivateRoutesConstants.Event);
   };
+
+  const handleEdit = async (id: number): Promise<void> => {
+    navigation.navigate(PrivateRoutesConstants.Edit, {
+      id,
+    });
+  };
   const handleCancelar = async (id: number): Promise<void> => {
     await EventService.cancelEvent(id);
     navigation.navigate(PrivateRoutesConstants.Event);
@@ -110,7 +116,7 @@ const Published: React.FC = () => {
             </Button>
             <Button
               style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
-              onPress={() => handlePublicar(routeParams.id)}
+              onPress={() => handleEdit(routeParams.id)}
             >
               editar
             </Button>

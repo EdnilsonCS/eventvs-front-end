@@ -5,6 +5,7 @@ import ProducerProfileScreen from '@screens/Producer/Profile';
 import ProducerAddCategoryScreen from '@screens/Producer/Categories';
 import ProducerDetailScreen from '@screens/Producer/Details';
 import ProducerParticipantScreen from '@screens/Producer/Participants';
+import ProducerEditEventScreen from '@screens/Producer/EditEvent';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { PrivateRoutesConstants } from '../constants.routes';
@@ -61,6 +62,15 @@ export default function App(): JSX.Element {
       <Stack.Screen
         name={PrivateRoutesConstants.AddCategory}
         component={ProducerAddCategoryScreen}
+      />
+      <ProducerTab.Screen
+        name={PrivateRoutesConstants.Edit}
+        component={ProducerEditEventScreen}
+        options={{
+          title: 'Perfil',
+          tabBarIcon: 'account-outline',
+          tabBarColor: '#6b4491',
+        }}
       />
       <Stack.Screen
         name={PrivateRoutesConstants.Add}
