@@ -6,6 +6,7 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from '@helpers/datas';
 import { PrivateRoutesConstants } from '@routes/constants.routes';
+import { showMessage } from 'react-native-flash-message';
 import {
   Bold,
   Button,
@@ -41,8 +42,17 @@ const Published: React.FC = () => {
   };
 
   const handlePublicar = async (id: number): Promise<void> => {
-    await EventService.publicEvent(id);
-    navigation.navigate(PrivateRoutesConstants.Event);
+    try {
+      await EventService.publicEvent(id);
+      navigation.navigate(PrivateRoutesConstants.Event);
+    } catch (error) {
+      showMessage({
+        message: error.response.data.message,
+        type: 'danger',
+        icon: 'danger',
+        duration: 5000,
+      });
+    }
   };
 
   const handleEdit = async (id: number): Promise<void> => {

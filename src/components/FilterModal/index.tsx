@@ -13,6 +13,7 @@ import CategoryService, { ICategory } from '@services/CategoryService';
 import Select from '@components/Select';
 import DataPicker from '@components/DataPicker';
 import { useForm } from 'react-hook-form';
+import { useNavigation } from '@react-navigation/native';
 import {
   Container,
   FilterText,
@@ -77,6 +78,7 @@ const FilterModal: React.ForwardRefRenderFunction<IFilterRef, IFilterModal> = (
           .optional(),
       }),
   });
+  const navigation = useNavigation();
   const formattedCategories = useMemo(() => {
     return categories.map(item => {
       return {
@@ -101,15 +103,19 @@ const FilterModal: React.ForwardRefRenderFunction<IFilterRef, IFilterModal> = (
       statusEvento: '',
     },
   });
+
   useEffect(() => {
-    const getCategoryList = async (): Promise<void> => {
-      const serviceCategories = await CategoryService.getCategoryList();
+    const unsubscribe = navigation.addListener('focus', async () => {
+      const getCategoryList = async (): Promise<void> => {
+        const serviceCategories = await CategoryService.getCategoryList();
 
-      setCategories(serviceCategories);
-    };
+        setCategories(serviceCategories);
+      };
 
-    getCategoryList();
-  }, []);
+      getCategoryList();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const onSubmit = (data: DataFilter): void => {
     onHandleFilter(data);

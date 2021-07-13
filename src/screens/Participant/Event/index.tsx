@@ -8,6 +8,7 @@ import EventService, { IEvent } from '@services/EventService';
 import SubscribeService from '@services/SubscribeService';
 import dayjs from '@helpers/datas';
 import FilterModal, { DataFilter } from '@components/FilterModal';
+import { showMessage } from 'react-native-flash-message';
 import { Container, ContainerModal, Header, Wrapper } from './styles';
 
 export default function Event(): JSX.Element {
@@ -118,10 +119,19 @@ export default function Event(): JSX.Element {
   };
 
   const handleSubscribe = async (id: number): Promise<void> => {
-    await SubscribeService.submitSubscribe({
-      evento_id: Number(id),
-      participante_id: Number(user.id),
-    });
+    try {
+      await SubscribeService.submitSubscribe({
+        evento_id: Number(id),
+        participante_id: Number(user.id),
+      });
+    } catch (error) {
+      showMessage({
+        message: error.response.data.message,
+        type: 'danger',
+        icon: 'danger',
+        duration: 5000,
+      });
+    }
 
     getEventsList();
   };
