@@ -143,6 +143,7 @@ export default function Event(): JSX.Element {
         <FilterModal
           ref={filterRefModal}
           onHandleFilter={onHandleFilter}
+          onClean={() => getEventsList()}
           isNotState
         />
       </ContainerModal>

@@ -30,6 +30,7 @@ export interface DataFilter {
 }
 interface IFilterModal {
   onHandleFilter: (value: DataFilter | undefined) => void;
+  onClean: () => void;
   isNotState: boolean;
 }
 
@@ -38,7 +39,7 @@ interface IFilterRef {
 }
 
 const FilterModal: React.ForwardRefRenderFunction<IFilterRef, IFilterModal> = (
-  { onHandleFilter, isNotState },
+  { onHandleFilter, isNotState, onClean },
 
   ref,
 ) => {
@@ -120,6 +121,7 @@ const FilterModal: React.ForwardRefRenderFunction<IFilterRef, IFilterModal> = (
     setValue('dataFinal', '');
     setValue('statusEvento', '');
     setValue('categoriaId', '');
+    onClean();
   };
   useImperativeHandle(ref, () => ({
     clean() {
