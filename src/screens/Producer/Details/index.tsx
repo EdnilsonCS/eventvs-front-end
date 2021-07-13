@@ -61,12 +61,30 @@ const Published: React.FC = () => {
     });
   };
   const handleCancelar = async (id: number): Promise<void> => {
-    await EventService.cancelEvent(id);
-    navigation.navigate(PrivateRoutesConstants.Event);
+    try {
+      await EventService.cancelEvent(id);
+      navigation.navigate(PrivateRoutesConstants.Event);
+    } catch (error) {
+      showMessage({
+        message: error.response.data.message,
+        type: 'danger',
+        icon: 'danger',
+        duration: 5000,
+      });
+    }
   };
   const handleRemover = async (id: number): Promise<void> => {
-    await EventService.deleteEvent(id);
-    navigation.navigate(PrivateRoutesConstants.Event);
+    try {
+      await EventService.deleteEvent(id);
+      navigation.navigate(PrivateRoutesConstants.Event);
+    } catch (error) {
+      showMessage({
+        message: error.response.data.message,
+        type: 'danger',
+        icon: 'danger',
+        duration: 5000,
+      });
+    }
   };
   const formattedAndres = `${dados?.endereco.logradouro}, ${dados?.endereco.numero}, ${dados?.endereco.bairro}, ${dados?.endereco.cidade},${dados?.endereco.estado}`;
   const formattedDateInicio = useMemo(() => {
