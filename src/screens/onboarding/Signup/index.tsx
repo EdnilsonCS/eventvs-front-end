@@ -75,7 +75,7 @@ export default function SignUp(): JSX.Element {
             senha,
           });
           showMessage({
-            message: 'Ops! Cadastro de produtor solicitado com sucesso',
+            message: 'Cadastro de produtor solicitado com sucesso',
             type: 'success',
             icon: 'success',
             duration: 3000,
@@ -88,7 +88,7 @@ export default function SignUp(): JSX.Element {
             senha,
           });
           showMessage({
-            message: 'Ops! Cadastro realizado com sucesso',
+            message: 'Cadastro realizado com sucesso',
             type: 'success',
             icon: 'success',
             duration: 3000,
@@ -96,7 +96,7 @@ export default function SignUp(): JSX.Element {
         }
       } catch (err) {
         showMessage({
-          message: 'Ops! Não conseguimos realizar seu cadastro.',
+          message: 'Não conseguimos realizar seu cadastro.',
           type: 'danger',
           icon: 'danger',
           duration: 3000,

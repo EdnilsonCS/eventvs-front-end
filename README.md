@@ -10,6 +10,7 @@ EventVs FrontEnd
 - [x] Um usuário pode se inscrever eventos publicados
 - [x] Um usuário pode buscar eventos publicados
 - [x] Um usuário com funcionalidade admin pode aceitar ou recusar uma solicitação de produtor
+- [x] Um usuário pode alterar seu dados
 
 
 ## Requisitos não-funcionais
@@ -20,3 +21,4 @@ EventVs FrontEnd
 ## Regras de Negócio
 
 - [x] Só poderá ter conta de produtor após aval do ADM
+- [x] Não pode se inscrever em evento passado

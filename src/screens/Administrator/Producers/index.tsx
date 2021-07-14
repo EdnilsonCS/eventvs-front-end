@@ -88,6 +88,8 @@ class Producers extends React.Component<Props, State> {
     this.getApplicants();
   };
 
+  componentDidUpdate = (prevProps: Props, prevState: State): void => {};
+
   acceptProducer = async (id: number): Promise<void> => {
     const { producers } = this.state;
     await AdministratorService.getAccept(id);
