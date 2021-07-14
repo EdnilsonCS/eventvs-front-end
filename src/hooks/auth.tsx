@@ -56,6 +56,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const signIn = useCallback(async ({ email, password }) => {
     try {
       const response = await AuthService.signIn({ email, password });
+
       const { access_token: token, refresh_token } = response.data;
       const user = {
         id: response.data.pessoa_id,
@@ -74,6 +75,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         user,
       });
     } catch (err) {
+      console.log(err, 'aqui demonio');
       if (err.response) {
         showMessage({
           message: err.response.data.error_description,
@@ -91,10 +93,15 @@ export const AuthProvider: React.FC = ({ children }) => {
       }
       throw new Error(err);
     }
+    console.log('aqui no login');
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@Events:token', '@Events:user']);
+    await AsyncStorage.multiRemove([
+      '@Events:token',
+      '@Events:user',
+      '@Events:refresh_token',
+    ]);
     setData({ token: '', user: {} });
   }, []);
 
