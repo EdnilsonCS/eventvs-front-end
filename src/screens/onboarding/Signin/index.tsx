@@ -44,12 +44,12 @@ export default function Signin(): JSX.Element {
   const handleLogin = async (data: SignInCredentials): Promise<void> => {
     try {
       await signIn(data);
-    } catch (err) {
+    } catch (error) {
       showMessage({
-        message: 'Erro ao fazer login, check suas credenciais',
+        message: error.response.data.message,
         type: 'danger',
         icon: 'danger',
-        duration: 3000,
+        duration: 5000,
       });
     }
   };
