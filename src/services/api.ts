@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import AuthService from './AuthService';
@@ -13,7 +14,8 @@ api.interceptors.response.use(
   async error => {
     const originalRequest = error.config;
 
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
       try {
         const [refreshToken] = await AsyncStorage.multiGet([
           '@Events:refresh_token',
