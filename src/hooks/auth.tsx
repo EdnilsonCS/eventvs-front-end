@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthService from '@services/AuthService';
+import { showMessage } from 'react-native-flash-message';
 import Api from '../services/api';
 
 export interface User {
@@ -73,7 +74,21 @@ export const AuthProvider: React.FC = ({ children }) => {
         user,
       });
     } catch (err) {
-      console.log(err);
+      if (err.response) {
+        showMessage({
+          message: err.response.data.error_description,
+          type: 'danger',
+          icon: 'danger',
+          duration: 5000,
+        });
+      } else {
+        showMessage({
+          message: 'verifique sua conexão com a internet',
+          type: 'danger',
+          icon: 'danger',
+          duration: 5000,
+        });
+      }
       throw new Error(err);
     }
   }, []);

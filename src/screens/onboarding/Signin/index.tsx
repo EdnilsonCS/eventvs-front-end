@@ -42,25 +42,7 @@ export default function Signin(): JSX.Element {
     },
   });
   const handleLogin = async (data: SignInCredentials): Promise<void> => {
-    try {
-      await signIn(data);
-    } catch (error) {
-      if (error.response) {
-        showMessage({
-          message: error.response.data.message,
-          type: 'danger',
-          icon: 'danger',
-          duration: 5000,
-        });
-      } else {
-        showMessage({
-          message: 'verifique sua conexão com a internet',
-          type: 'danger',
-          icon: 'danger',
-          duration: 5000,
-        });
-      }
-    }
+    await signIn(data);
   };
   return (
     <Container>
