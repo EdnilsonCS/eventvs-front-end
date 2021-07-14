@@ -45,12 +45,21 @@ export default function Signin(): JSX.Element {
     try {
       await signIn(data);
     } catch (error) {
-      showMessage({
-        message: error.response.data.message,
-        type: 'danger',
-        icon: 'danger',
-        duration: 5000,
-      });
+      if (error.response) {
+        showMessage({
+          message: error.response.data.message,
+          type: 'danger',
+          icon: 'danger',
+          duration: 5000,
+        });
+      } else {
+        showMessage({
+          message: 'verifique sua conexão com a internet',
+          type: 'danger',
+          icon: 'danger',
+          duration: 5000,
+        });
+      }
     }
   };
   return (
