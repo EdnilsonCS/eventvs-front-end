@@ -189,10 +189,10 @@ const EditEvent = (): JSX.Element => {
 
       setValue('nome', data.nome);
       setValue('descricao', data.descricao);
-      setValue('dataHoraFim', data.dataHoraFim);
-      setValue('dataHoraInicio', data.dataHoraInicio);
-      setValue('horaDeInicio', data.dataHoraInicio);
-      setValue('horaDeFim', data.dataHoraFim);
+      setValue('dataHoraFim', dayjs(data.dataHoraFim).toDate());
+      setValue('dataHoraInicio', dayjs(data.dataHoraInicio).toDate());
+      setValue('horaDeInicio', dayjs(data.dataHoraInicio).toDate());
+      setValue('horaDeFim', dayjs(data.dataHoraFim).toDate());
       setValue('categoriaId', String(data.categoria.id));
       setValue('statusEvento', data.statusEvento);
     };

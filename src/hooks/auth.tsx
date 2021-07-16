@@ -75,7 +75,6 @@ export const AuthProvider: React.FC = ({ children }) => {
         user,
       });
     } catch (err) {
-      console.log(err, 'aqui demonio');
       if (err.response) {
         showMessage({
           message: err.response.data.error_description,
