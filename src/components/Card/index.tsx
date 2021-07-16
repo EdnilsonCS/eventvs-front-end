@@ -45,9 +45,7 @@ export default function Card({
   return (
     <Container onPress={onPress} disabled={!onPress}>
       <Wrapper>
-        <Title>
-          <Bold>{title}</Bold>
-        </Title>
+        <Title numberOfLines={1}>{title}</Title>
 
         {onPressButton && (
           <Button
