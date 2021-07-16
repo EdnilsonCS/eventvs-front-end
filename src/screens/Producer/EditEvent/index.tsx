@@ -163,7 +163,7 @@ const EditEvent = (): JSX.Element => {
       setValue('horaDeInicio', '');
       setValue('horaDeFim', '');
       showMessage({
-        message: 'Ops! Cadastro realizado com sucesso',
+        message: 'Cadastro realizado com sucesso',
         type: 'success',
         icon: 'success',
         duration: 3000,

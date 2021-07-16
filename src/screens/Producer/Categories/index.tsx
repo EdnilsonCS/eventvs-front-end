@@ -44,7 +44,7 @@ const AddCategory = (): JSX.Element => {
       setValue('nome', '');
       setValue('descricao', '');
       showMessage({
-        message: 'Ops! Cadastro realizado com sucesso',
+        message: 'Cadastro realizado com sucesso',
         type: 'success',
         icon: 'success',
         duration: 3000,
