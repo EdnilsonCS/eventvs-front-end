@@ -170,11 +170,11 @@ export default function Event(): JSX.Element {
         <Menu
           visible={visible}
           onDismiss={() => setVisible(false)}
-          anchor={(
+          anchor={
             <TouchableOpacity onPress={() => setVisible(true)}>
               <Icon size={30} name="dots-vertical" />
             </TouchableOpacity>
-          )}
+          }
         >
           <Menu.Item
             onPress={() =>

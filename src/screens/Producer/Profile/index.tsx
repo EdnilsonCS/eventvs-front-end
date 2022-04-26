@@ -45,8 +45,6 @@ export default function Profile(): JSX.Element {
   });
 
   const handleUpdate = async (data: IData): Promise<void> => {
-    console.log(data);
-
     const { nome } = await CommonServices.updateData(data);
     setName(nome as string);
     setValue('nome', '');
