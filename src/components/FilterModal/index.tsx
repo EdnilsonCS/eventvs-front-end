@@ -30,9 +30,9 @@ export interface DataFilter {
   statusEvento?: 'PUBLICADO' | 'CRIADO';
 }
 interface IFilterModal {
-  onHandleFilter: (value: DataFilter | undefined) => void;
+  onHandleFilter: (value: DataFilter) => void;
   onClean: () => void;
-  isNotState: boolean;
+  isNotState?: boolean;
 }
 
 interface IFilterRef {
