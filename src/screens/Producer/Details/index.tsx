@@ -7,9 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 import dayjs from '@helpers/datas';
 import { PrivateRoutesConstants } from '@routes/constants.routes';
 import { showMessage } from 'react-native-flash-message';
+import Button from '@components/Button';
 import {
   Bold,
-  Button,
   Container,
   Card,
   Header,
@@ -122,13 +122,14 @@ const Published: React.FC = () => {
         {dados?.statusEvento === 'PUBLICADO' ? (
           <>
             <Button
-              style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
+              style={{ marginBottom: 14 }}
               onPress={() => handleNavigationToParticipantes(routeParams.id)}
             >
               Visualizar participantes
             </Button>
             <Button
-              style={{ backgroundColor: '#DE0b20', marginBottom: 14 }}
+              variant="secondary"
+              style={{ marginBottom: 14 }}
               onPress={() => handleCancelar(routeParams.id)}
             >
               cancelar
@@ -137,19 +138,20 @@ const Published: React.FC = () => {
         ) : (
           <>
             <Button
-              style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
+              style={{ marginBottom: 14 }}
               onPress={() => handlePublicar(routeParams.id)}
             >
               Publicar
             </Button>
             <Button
-              style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
+              style={{ marginBottom: 14 }}
               onPress={() => handleEdit(routeParams.id)}
             >
               editar
             </Button>
             <Button
-              style={{ backgroundColor: '#DE0b20', marginBottom: 14 }}
+              variant="secondary"
+              style={{ marginBottom: 14 }}
               onPress={() => handleRemover(routeParams.id)}
             >
               Remover
@@ -158,7 +160,8 @@ const Published: React.FC = () => {
         )}
 
         <Button
-          style={{ backgroundColor: '#DE0b20', marginBottom: 14 }}
+          variant="secondary"
+          style={{ marginBottom: 14 }}
           onPress={() => navigation.goBack()}
         >
           Voltar

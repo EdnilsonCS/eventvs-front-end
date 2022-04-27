@@ -171,8 +171,6 @@ export default function Event(): JSX.Element {
             dataHoraFim={event.dataHoraFim}
             onPressButton={() => handleSubscribe(event.id)}
             type="ok"
-            btnColor=""
-            btnTitle=""
             description={event.descricao}
           />
         ))}

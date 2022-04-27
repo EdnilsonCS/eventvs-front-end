@@ -8,9 +8,9 @@ import { SignInCredentials, useAuth } from '@hooks/auth';
 import { PublicRoutesConstants } from '@routes/constants.routes';
 import { useNavigation } from '@react-navigation/native';
 import { showMessage } from 'react-native-flash-message';
+import Button from '@components/Button';
 import {
   ButtonContainer,
-  LoginButton,
   Container,
   Header,
   CreateAccountContainer,
@@ -68,9 +68,13 @@ export default function Signin(): JSX.Element {
         color="#6d43a1"
       />
       <ButtonContainer>
-        <LoginButton mode="contained" onPress={handleSubmit(handleLogin)}>
+        <Button
+          variant="primary"
+          mode="contained"
+          onPress={handleSubmit(handleLogin)}
+        >
           Login
-        </LoginButton>
+        </Button>
       </ButtonContainer>
       <CreateAccountContainer
         onPress={() => navigation.navigate(PublicRoutesConstants.CreateAccount)}

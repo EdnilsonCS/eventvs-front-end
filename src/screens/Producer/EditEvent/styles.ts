@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { Button } from 'react-native-paper';
 
 export const Container = styled.View`
   height: 100%;
@@ -30,8 +29,4 @@ export const Wrapper = styled.ScrollView.attrs(() => ({
     paddingBottom: 16,
     margin: 16,
   },
-}))``;
-
-export const Buttons = styled(Button).attrs(() => ({
-  mode: 'contained',
 }))``;

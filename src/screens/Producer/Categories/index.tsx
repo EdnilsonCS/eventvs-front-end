@@ -8,14 +8,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { PrivateRoutesConstants } from '@routes/constants.routes';
 import { useNavigation } from '@react-navigation/native';
 
-import {
-  Container,
-  Wrapper,
-  Buttons,
-  ButtonContainer,
-  Header,
-  Title,
-} from './styles';
+import Button from '@components/Button';
+import { Container, Wrapper, ButtonContainer, Header, Title } from './styles';
 
 const AddCategory = (): JSX.Element => {
   const navigation = useNavigation();
@@ -81,18 +75,18 @@ const AddCategory = (): JSX.Element => {
         />
 
         <ButtonContainer>
-          <Buttons color="#6a2aba" onPress={handleSubmit(handleCreateNewEvent)}>
+          <Button onPress={handleSubmit(handleCreateNewEvent)}>
             Cadastrar
-          </Buttons>
+          </Button>
         </ButtonContainer>
 
         <ButtonContainer>
-          <Buttons
-            color="#DE0b20"
+          <Button
+            variant="secondary"
             onPress={() => navigation.navigate(PrivateRoutesConstants.Event)}
           >
             Voltar
-          </Buttons>
+          </Button>
         </ButtonContainer>
       </Wrapper>
     </Container>

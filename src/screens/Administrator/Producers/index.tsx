@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ListRenderItem } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import { Card, Paragraph, Divider } from 'react-native-paper';
@@ -21,8 +21,8 @@ import {
 } from './styles';
 
 interface Teste extends IApplicants {
-  recuso: (arg0: any) => any;
-  aceito: (arg0: any) => any;
+  recuso(id: number): void;
+  aceito(id: number): void;
 }
 
 interface Props {
@@ -87,26 +87,29 @@ const Producers: React.FC<Props> = () => {
     return unsubscribe;
   }, [navigation]);
 
-  const acceptProducer = async (id: number): Promise<void> => {
+  const acceptProducer = useCallback(async (id: number): Promise<void> => {
     await AdministratorService.getAccept(id);
-    setProducers(producers.filter(data => data.id !== id));
-  };
+    setProducers(producerState => producerState.filter(data => data.id !== id));
+  }, []);
 
-  const denyProducer = async (id: number): Promise<void> => {
+  const denyProducer = useCallback(async (id: number): Promise<void> => {
     await AdministratorService.getDeny(id);
-    setProducers(producers.filter(data => data.id !== id));
-  };
+    setProducers(producerState => producerState.filter(data => data.id !== id));
+  }, []);
 
-  const renderItem: ListRenderItem<IApplicants> = ({ item }) => (
-    <Items
-      id={item.id}
-      nome={item.nome}
-      cpf={item.cpf}
-      email={item.email}
-      situacao={item.situacao}
-      aceito={acceptProducer}
-      recuso={denyProducer}
-    />
+  const renderItem: ListRenderItem<IApplicants> = useCallback(
+    ({ item }) => (
+      <Items
+        id={item.id}
+        nome={item.nome}
+        cpf={item.cpf}
+        email={item.email}
+        situacao={item.situacao}
+        aceito={acceptProducer}
+        recuso={denyProducer}
+      />
+    ),
+    [acceptProducer, denyProducer],
   );
 
   return (

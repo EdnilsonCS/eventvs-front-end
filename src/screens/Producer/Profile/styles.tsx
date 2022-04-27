@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { Button } from 'react-native-paper';
+
 import { StatusBar } from 'react-native';
 
 export const Container = styled.View`
@@ -39,7 +39,3 @@ export const Name = styled.Text`
 export const Bold = styled.Text`
   font-weight: bold;
 `;
-
-export const Buttons = styled(Button).attrs(() => ({
-  mode: 'contained',
-}))``;

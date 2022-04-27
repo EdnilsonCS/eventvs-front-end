@@ -39,7 +39,3 @@ export const Name = styled.Text`
 export const Bold = styled.Text`
   font-weight: bold;
 `;
-
-export const Buttons = styled(Button).attrs(() => ({
-  mode: 'contained',
-}))``;

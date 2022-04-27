@@ -1,13 +1,12 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useAuth } from '@hooks/auth';
+import Button from '@components/Button';
 import {
   Bold,
-  Buttons,
   ButtonContainer,
   Container,
   Email,
-  Img,
   Name,
   Wrapper,
 } from './styles';
@@ -27,12 +26,9 @@ export default function Profile(): JSX.Element {
       </Wrapper>
 
       <ButtonContainer>
-        <Buttons
-          style={{ backgroundColor: '#DE0b20', marginBottom: 30 }}
-          onPress={signOut}
-        >
+        <Button variant="secondary" onPress={signOut}>
           Sair
-        </Buttons>
+        </Button>
       </ButtonContainer>
     </Container>
   );

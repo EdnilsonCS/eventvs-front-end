@@ -31,8 +31,3 @@ export const Header = styled.Text`
   font-family: 'Lato';
   margin: 100px 0 40px;
 `;
-
-export const SignupButton = styled(Button).attrs(() => ({
-  color: '#6a2aba',
-  mode: 'contained',
-}))``;

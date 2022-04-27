@@ -1,5 +1,5 @@
 import { useRoute } from '@react-navigation/native';
-
+import Button from '@components/Button';
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -8,7 +8,6 @@ import ParticipantsService, {
 } from '@services/ParticipantsService';
 import {
   Bold,
-  Button,
   Container,
   Card,
   Header,
@@ -64,7 +63,8 @@ const Published: React.FC = () => {
       </Card>
       <ButtonContainer>
         <Button
-          style={{ backgroundColor: '#DE0b20', marginBottom: 14 }}
+          variant="secondary"
+          style={{ marginBottom: 14 }}
           onPress={() => navigation.goBack()}
         >
           Voltar

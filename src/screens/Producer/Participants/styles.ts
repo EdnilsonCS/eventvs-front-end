@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { Button as PaperButton } from 'react-native-paper';
 
 export const Container = styled.View`
   padding: 0 16px;
@@ -49,9 +48,5 @@ export const Header = styled.Text`
 export const ButtonContainer = styled.View`
   margin: 20px 0px;
 `;
-
-export const Button = styled(PaperButton).attrs(() => ({
-  mode: 'contained',
-}))``;
 
 export const NameParticipante = styled.Text``;

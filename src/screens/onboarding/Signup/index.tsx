@@ -9,11 +9,11 @@ import { useCallback } from 'react';
 import AuthService from '@services/AuthService';
 import { useNavigation } from '@react-navigation/core';
 import { showMessage } from 'react-native-flash-message';
+import Button from '@components/Button';
 import {
   Container,
   Header,
   ButtonContainer,
-  SignupButton,
   SignupCheckBox,
   CheckBoxContainer,
   CheckBoxText,
@@ -107,8 +107,6 @@ export default function SignUp(): JSX.Element {
   );
 
   const handleSignUp = async (data: SignUpCredentials): Promise<void> => {
-    console.log(data);
-
     await signUp(data);
     navigation.navigate(PublicRoutesConstants.Login);
   };
@@ -168,9 +166,7 @@ export default function SignUp(): JSX.Element {
         <CheckBoxText>Solicitar conta de produtor de eventos</CheckBoxText>
       </CheckBoxContainer>
       <ButtonContainer>
-        <SignupButton onPress={handleSubmit(handleSignUp)}>
-          Cadastrar
-        </SignupButton>
+        <Button onPress={handleSubmit(handleSignUp)}>Cadastrar</Button>
       </ButtonContainer>
     </Container>
   );

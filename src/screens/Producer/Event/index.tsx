@@ -218,8 +218,6 @@ export default function Event(): JSX.Element {
             estado={event.endereco.estado}
             dataHoraInicio={event.dataHoraInicio}
             dataHoraFim={event.dataHoraFim}
-            btnColor=""
-            btnTitle=""
             description={event.descricao}
           />
         ))}

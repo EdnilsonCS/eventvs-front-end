@@ -3,13 +3,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-
+import Button from '@components/Button';
 import { useAuth } from '@hooks/auth';
 import Input from '@components/Input';
 import CommonServices, { IData } from '@services/CommonServices';
 import {
   Bold,
-  Buttons,
   ButtonContainer,
   Container,
   Email,
@@ -87,18 +86,19 @@ export default function Profile(): JSX.Element {
         color="#6d43a1"
       />
       <ButtonContainer>
-        <Buttons
-          style={{ backgroundColor: '#6A2ABA', marginBottom: 14 }}
+        <Button
+          style={{ marginBottom: 14 }}
           onPress={handleSubmit(handleUpdate)}
         >
           Atualizar
-        </Buttons>
-        <Buttons
-          style={{ backgroundColor: '#DE0b20', marginBottom: 30 }}
+        </Button>
+        <Button
+          variant="secondary"
+          style={{ marginBottom: 30 }}
           onPress={signOut}
         >
           Sair
-        </Buttons>
+        </Button>
       </ButtonContainer>
     </Container>
   );

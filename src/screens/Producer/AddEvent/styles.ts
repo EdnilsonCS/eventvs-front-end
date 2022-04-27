@@ -31,7 +31,3 @@ export const Wrapper = styled.ScrollView.attrs(() => ({
     margin: 16,
   },
 }))``;
-
-export const Buttons = styled(Button).attrs(() => ({
-  mode: 'contained',
-}))``;

@@ -16,10 +16,10 @@ import CategoryService from '@services/CategoryService';
 import Select from '@components/Select';
 import LocationService, { ICity, IState } from '@services/LocationService';
 import dayjs from '@helpers/datas';
+import Button from '@components/Button';
 import {
   Container,
   Wrapper,
-  Buttons,
   ButtonContainer,
   Header,
   Title,
@@ -367,18 +367,21 @@ const AddEvent = (): JSX.Element => {
           options={formattedCitys}
         />
         <ButtonContainer>
-          <Buttons color="#6a2aba" onPress={handleSubmit(handleCreateNewEvent)}>
+          <Button
+            variant="primary"
+            onPress={handleSubmit(handleCreateNewEvent)}
+          >
             Cadastrar
-          </Buttons>
+          </Button>
         </ButtonContainer>
 
         <ButtonContainer>
-          <Buttons
-            color="#DE0b20"
+          <Button
+            variant="secondary"
             onPress={() => navigation.navigate(PrivateRoutesConstants.Event)}
           >
             Voltar
-          </Buttons>
+          </Button>
         </ButtonContainer>
       </Wrapper>
     </Container>
