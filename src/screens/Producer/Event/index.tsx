@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu } from 'react-native-paper';
+import { Colors, Menu } from 'react-native-paper';
 import Card from '@components/Card';
 import SearchInput from '@components/SearchInput';
 import { useState } from 'react';
@@ -192,7 +192,7 @@ export default function Event(): JSX.Element {
       <SearchInput
         onChangeText={e => onHandleSearchFilter(e)}
         placeholder="Pesquisar..."
-        placeholderTextColor="white"
+        placeholderTextColor={Colors.white}
       />
       <ContainerModal>
         <FilterModal

@@ -1,3 +1,4 @@
+import { Colors } from '@styles/theme';
 import styled from 'styled-components/native';
 
 export const Input = styled.TextInput`
@@ -5,7 +6,7 @@ export const Input = styled.TextInput`
 `;
 
 export const Container = styled.View`
-  background-color: #6a2aba;
+  background-color: ${Colors.purple};
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

@@ -1,3 +1,4 @@
+import { Colors } from '@styles/theme';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -5,7 +6,7 @@ export const Container = styled.View`
 `;
 export const Card = styled.View`
   border-width: 1px;
-  border-color: #6d43a1;
+  border-color: ${Colors.purple};
   border-radius: 10px;
   height: 300px;
   justify-content: space-between;
@@ -25,12 +26,12 @@ export const WrapperParticipante = styled.View`
 `;
 
 export const Title = styled.Text`
-  color: #6d43a1;
+  color: ${Colors.purple};
   font-size: 20px;
 `;
 
 export const NumberOfParticipantsText = styled.Text`
-  color: black;
+  color: ${Colors.black};
   font-size: 20px;
 `;
 

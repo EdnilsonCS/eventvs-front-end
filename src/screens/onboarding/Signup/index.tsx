@@ -10,6 +10,7 @@ import AuthService from '@services/AuthService';
 import { useNavigation } from '@react-navigation/core';
 import { showMessage } from 'react-native-flash-message';
 import Button from '@components/Button';
+import { Colors } from '@styles/theme';
 import {
   Container,
   Header,
@@ -119,7 +120,7 @@ export default function SignUp(): JSX.Element {
         name="nome"
         label="Nome"
         autoCapitalize="sentences"
-        color="#6d43a1"
+        color={Colors.purple}
       />
       <Input
         errors={errors}
@@ -129,7 +130,7 @@ export default function SignUp(): JSX.Element {
         name="cpf"
         label="CPF"
         autoCapitalize="none"
-        color="#6d43a1"
+        color={Colors.purple}
       />
       <Input
         errors={errors}
@@ -137,7 +138,7 @@ export default function SignUp(): JSX.Element {
         name="email"
         label="Email"
         autoCapitalize="none"
-        color="#6d43a1"
+        color={Colors.purple}
         keyboardType="email-address"
       />
       <Input
@@ -147,7 +148,7 @@ export default function SignUp(): JSX.Element {
         secureTextEntry
         label="Senha"
         autoCapitalize="none"
-        color="#6d43a1"
+        color={Colors.purple}
       />
       <Input
         errors={errors}
@@ -156,7 +157,7 @@ export default function SignUp(): JSX.Element {
         secureTextEntry
         label="Confirmar senha"
         autoCapitalize="none"
-        color="#6d43a1"
+        color={Colors.purple}
       />
       <CheckBoxContainer>
         <SignupCheckBox

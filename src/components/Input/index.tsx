@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import { Colors } from '@styles/theme';
 import React, {
   forwardRef,
   useImperativeHandle,
@@ -96,7 +97,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
               onChangeText={onChange}
               onBlur={onBlur}
               returnKeyType="next"
-              selectionColor="#AAA"
+              selectionColor={Colors.gray}
               label={label}
               value={value}
               right={rightIcon && <BaseInput.Icon name={rightIcon} />}

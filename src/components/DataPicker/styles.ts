@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { TextInput as TextInputPaper } from 'react-native-paper';
+import { Colors } from '@styles/theme';
 
 export const Container = styled.View`
   margin-top: 20px;
@@ -9,7 +10,7 @@ export const TextError = styled.Text`
   font-size: 14px;
   line-height: 16px;
   letter-spacing: 0.4px;
-  color: #f13a59;
+  color: ${Colors.red};
   margin-top: 10px;
 `;
 
@@ -41,8 +42,4 @@ export const Title = styled.Text`
   font-size: 14px;
 `;
 
-export const TextInput = styled(TextInputPaper).attrs(props => ({
-  theme: {
-    colors: {},
-  },
-}))``;
+export const TextInput = styled(TextInputPaper)``;

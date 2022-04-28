@@ -1,5 +1,6 @@
 /* eslint-disable react/require-default-props */
 import dayjs from '@helpers/datas';
+import { Colors } from '@styles/theme';
 import React, { useMemo } from 'react';
 import { Text } from 'react-native';
 
@@ -51,7 +52,7 @@ export default function Card({
           <Button
             onPress={onPressButton}
             style={{
-              backgroundColor: type === 'cancel' ? '#DE0b20' : '#6A2ABA',
+              backgroundColor: type === 'cancel' ? Colors.red : Colors.purple,
             }}
           >
             <ButtonText>

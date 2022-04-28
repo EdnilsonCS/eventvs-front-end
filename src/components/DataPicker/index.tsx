@@ -9,6 +9,7 @@ import { Controller, Control, FieldErrors, useWatch } from 'react-hook-form';
 import { Platform, Keyboard, StyleSheetProperties } from 'react-native';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { Colors } from '@styles/theme';
 import dayjs from '../../helpers/datas';
 import {
   Container,
@@ -206,11 +207,11 @@ const DataPicker: React.FC<DataPickerProps> = ({
                   label={label}
                   keyboardType="numeric"
                   underlineColor="transparent"
-                  selectionColor="#AAA"
-                  color="#6d43a1"
+                  selectionColor={Colors.gray}
+                  color={Colors.purple}
                   pointerEvents="none"
                   error={errors[name]}
-                  right={(
+                  right={
                     <TextInput.Icon
                       name={
                         modeAndroid === 'time' || modeIOS === 'time'
@@ -218,7 +219,7 @@ const DataPicker: React.FC<DataPickerProps> = ({
                           : 'calendar-blank'
                       }
                     />
-                  )}
+                  }
                   onBlur={onBlur}
                 />
               </TouchableContainer>

@@ -1,13 +1,14 @@
 import styled from 'styled-components/native';
 
 import { StatusBar } from 'react-native';
+import { Colors } from '@styles/theme';
 
 export const Container = styled.View`
   flex-direction: column;
   padding: 0 16px;
   justify-content: space-between;
   flex: 1;
-  background-color: white;
+  background-color: ${Colors.white};
   padding-top: ${StatusBar.currentHeight}px;
 `;
 

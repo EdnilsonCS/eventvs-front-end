@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { TextInput as TextInputPaper } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { Colors } from '@styles/theme';
 
 export const Container = styled.View`
   margin-top: 20px;
@@ -25,7 +26,7 @@ export const TextError = styled.Text`
   font-size: 14px;
   line-height: 16px;
   letter-spacing: 0.4px;
-  color: #f13a59;
+  color: ${Colors.red};
   margin-top: 10px;
 `;
 

@@ -9,6 +9,7 @@ import { PrivateRoutesConstants } from '@routes/constants.routes';
 import { useNavigation } from '@react-navigation/native';
 
 import Button from '@components/Button';
+import { Colors } from '@styles/theme';
 import { Container, Wrapper, ButtonContainer, Header, Title } from './styles';
 
 const AddCategory = (): JSX.Element => {
@@ -64,14 +65,14 @@ const AddCategory = (): JSX.Element => {
           errors={errors}
           control={control}
           label="Título"
-          color="#6d43a1"
+          color={Colors.purple}
         />
         <Input
           name="descricao"
           errors={errors}
           control={control}
           label="Descrição"
-          color="#6d43a1"
+          color={Colors.purple}
         />
 
         <ButtonContainer>

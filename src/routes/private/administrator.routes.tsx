@@ -4,6 +4,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Producers from '@screens/Administrator/Producers';
 import Profile from '@screens/Administrator/Profile';
 import { PrivateRoutesConstants } from '@routes/constants.routes';
+import { Colors } from '@styles/theme';
 
 type AdministratorRootTabParamList = {
   [PrivateRoutesConstants.Producers]: undefined;
@@ -18,8 +19,8 @@ export default function AdministratorNavigation(): JSX.Element {
     <>
       <AdministratorTab.Navigator
         initialRouteName={PrivateRoutesConstants.Producers}
-        activeColor="white"
-        inactiveColor="#A7f"
+        activeColor={Colors.white}
+        inactiveColor={Colors.purplePink}
         shifting
       >
         <AdministratorTab.Screen
@@ -27,7 +28,7 @@ export default function AdministratorNavigation(): JSX.Element {
           component={Producers}
           options={{
             tabBarIcon: 'tune',
-            tabBarColor: '#62a',
+            tabBarColor: Colors.purple,
             title: 'Produtores',
           }}
         />
@@ -36,7 +37,7 @@ export default function AdministratorNavigation(): JSX.Element {
           component={Profile}
           options={{
             tabBarIcon: 'account',
-            tabBarColor: '#6a2aba',
+            tabBarColor: Colors.purple,
             title: 'Perfil',
           }}
         />

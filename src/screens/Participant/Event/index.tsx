@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '@hooks/auth';
-
+import { Colors } from '@styles/theme';
 import Card from '@components/Card';
 import SearchInput from '@components/SearchInput';
 import EventService, { IEvent } from '@services/EventService';
@@ -147,7 +147,7 @@ export default function Event(): JSX.Element {
       <SearchInput
         onChangeText={e => onHandleSearchFilter(e)}
         placeholder="Pesquisar..."
-        placeholderTextColor="white"
+        placeholderTextColor={Colors.white}
       />
       <ContainerModal>
         <FilterModal

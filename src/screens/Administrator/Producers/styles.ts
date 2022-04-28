@@ -1,4 +1,5 @@
 import { IApplicants } from '@services/AdministratorService';
+import { Colors } from '@styles/theme';
 import { FlatList } from 'react-native-gesture-handler';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styled from 'styled-components/native';
@@ -16,14 +17,14 @@ export const EmptyView = styled.View`
 export const LeftSwipeView = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
-  background-color: #de0b20;
+  background-color: #${Colors.red};
   padding: 16px 16px;
 `;
 
 export const RightSwipeView = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
-  background-color: #6d43a1;
+  background-color: ${Colors.purple};
   padding: 16px 16px;
 `;
 
@@ -39,7 +40,7 @@ export const Header = styled.Text`
 `;
 
 export const SwipeText = styled.Text`
-  color: #fff;
+  color: ${Colors.white};
 `;
 
 export const ListaChata = styled(FlatList).attrs(
@@ -47,13 +48,13 @@ export const ListaChata = styled(FlatList).attrs(
 )`` as unknown as FlatList<IApplicants>;
 
 export const LeftSwipeIcon = styled(FontAwesome).attrs(() => ({
-  color: '#FFF',
+  color: Colors.white,
   size: 30,
   name: 'remove',
 }))``;
 
 export const RightSwipeIcon = styled(FontAwesome).attrs(() => ({
-  color: '#FFF',
+  color: Colors.white,
   size: 30,
   name: 'check',
 }))``;

@@ -8,6 +8,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import SubscribesScreen from '@screens/Participant/Subscribes';
 import EventScreen from '@screens/Participant/Event';
 import ProfileScreen from '@screens/Participant/Profile';
+import { Colors } from '@styles/theme';
 import { PrivateRoutesConstants } from '../constants.routes';
 
 export type RootTabParamList = {
@@ -40,8 +41,8 @@ const ParticipantNavigation: React.FC = () => {
     <>
       <Tab.Navigator
         initialRouteName={PrivateRoutesConstants.Subscribes}
-        activeColor="white"
-        inactiveColor="#A7f"
+        activeColor={Colors.white}
+        inactiveColor={Colors.purplePink}
         shifting
       >
         <Tab.Screen
@@ -50,7 +51,7 @@ const ParticipantNavigation: React.FC = () => {
           options={{
             title: 'Eventos',
             tabBarIcon: 'calendar-month-outline',
-            tabBarColor: '#6b4491',
+            tabBarColor: Colors.purple,
           }}
         />
         <Tab.Screen
@@ -59,7 +60,7 @@ const ParticipantNavigation: React.FC = () => {
           options={{
             title: 'Minhas inscrições',
             tabBarIcon: 'application',
-            tabBarColor: '#6b4491',
+            tabBarColor: Colors.purple,
           }}
         />
         <Tab.Screen
@@ -68,7 +69,7 @@ const ParticipantNavigation: React.FC = () => {
           options={{
             title: 'Perfil',
             tabBarIcon: 'account-outline',
-            tabBarColor: '#6b4491',
+            tabBarColor: Colors.purple,
           }}
         />
       </Tab.Navigator>

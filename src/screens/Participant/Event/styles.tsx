@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
+import { Colors } from '@styles/theme';
 
 export const Container = styled.View`
   padding: 0 16px;
-  background-color: whitesmoke;
+  background-color: ${Colors.whiteSmoke};
 `;
 
 export const Header = styled.Text`
@@ -36,5 +37,5 @@ export const Bold = styled.Text`
 
 export const ItemContainer = styled.View`
   border-bottom-width: 1px;
-  border-bottom-color: #bbb;
+  border-bottom-color: ${Colors.gray};
 `;

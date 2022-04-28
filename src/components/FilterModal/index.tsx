@@ -14,6 +14,7 @@ import Select from '@components/Select';
 import DataPicker from '@components/DataPicker';
 import { useForm } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
+import { Colors } from '@styles/theme';
 import {
   Container,
   FilterText,
@@ -185,14 +186,17 @@ const FilterModal: React.ForwardRefRenderFunction<IFilterRef, IFilterModal> = (
               options={formattedCategories}
             />
             <ButtonContainer>
-              <FilterButton color="#6a2aba" onPress={handleSubmit(onSubmit)}>
+              <FilterButton
+                color={Colors.purple}
+                onPress={handleSubmit(onSubmit)}
+              >
                 Filtrar
               </FilterButton>
-              <FilterButton color="#6a2aba" onPress={handleCleanFilter}>
+              <FilterButton color={Colors.purple} onPress={handleCleanFilter}>
                 Limpar
               </FilterButton>
               <FilterButton
-                color="#De0b20"
+                color={Colors.red}
                 onPress={() => {
                   refRBSheet.current.close();
                 }}

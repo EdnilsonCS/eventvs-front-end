@@ -7,6 +7,7 @@ import AdministratorService, {
   IApplicants,
 } from '@services/AdministratorService';
 
+import { Colors } from '@styles/theme';
 import {
   Bold,
   Container,
@@ -58,7 +59,7 @@ const Items = (props: Teste): JSX.Element => {
       <Card>
         <Card.Title
           title={nome}
-          titleStyle={{ color: '#6a2aba' }}
+          titleStyle={{ color: Colors.purple }}
           subtitle={`CPF: ${cpf}`}
         />
         <Card.Content>

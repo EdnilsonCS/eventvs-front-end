@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '@components/Button';
 import Input from '@components/Input';
 import CommonServices, { IData } from '@services/CommonServices';
+import { Colors } from '@styles/theme';
 import {
   Bold,
   ButtonContainer,
@@ -69,7 +70,7 @@ export default function Profile(): JSX.Element {
         name="nome"
         label="Nome"
         autoCapitalize="none"
-        color="#6d43a1"
+        color={Colors.purple}
       />
       <Input
         errors={errors}
@@ -77,7 +78,7 @@ export default function Profile(): JSX.Element {
         name="senha"
         label="Senha"
         autoCapitalize="none"
-        color="#6d43a1"
+        color={Colors.purple}
       />
       <Input
         errors={errors}
@@ -85,7 +86,7 @@ export default function Profile(): JSX.Element {
         name="novaSenha"
         label="Nova Senha"
         autoCapitalize="none"
-        color="#6d43a1"
+        color={Colors.purple}
       />
       <ButtonContainer>
         <Button

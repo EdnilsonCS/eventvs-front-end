@@ -2,6 +2,7 @@ import React, { useImperativeHandle, forwardRef, useRef, useMemo } from 'react';
 import { Keyboard } from 'react-native';
 import { Controller, FieldErrors } from 'react-hook-form';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { Colors } from '@styles/theme';
 import {
   TextError,
   Container,
@@ -126,8 +127,8 @@ const Select: React.ForwardRefRenderFunction<
                   editable={false}
                   mode="outlined"
                   underlineColor="transparent"
-                  selectionColor="#AAA"
-                  color="#6d43a1"
+                  selectionColor={Colors.gray}
+                  color={Colors.purple}
                   onBlur={onBlur}
                   pointerEvents="none"
                   value={handleSearchValue(value)}

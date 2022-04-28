@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { Button, Checkbox } from 'react-native-paper';
+import { Colors } from '@styles/theme';
 
 export const ButtonContainer = styled.View`
   margin: 20px;
@@ -14,14 +15,14 @@ export const CheckBoxText = styled.Text`
   font-size: 12px;
 `;
 export const SignupCheckBox = styled(Checkbox).attrs(() => ({
-  uncheckedColor: '#6d43a1',
-  color: '#6a2aba',
+  uncheckedColor: Colors.purplePink,
+  color: Colors.purple,
 }))``;
 
 export const Container = styled.ScrollView`
   height: 100%;
   padding: 0 16px;
-  background-color: white;
+  background-color: ${Colors.white};
 `;
 
 export const Header = styled.Text`

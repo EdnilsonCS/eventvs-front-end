@@ -3,6 +3,7 @@ import { Alert } from 'react-native';
 import { useAuth } from '@hooks/auth';
 import SubscribeService, { ISubscribe } from '@services/SubscribeService';
 import { useNavigation } from '@react-navigation/native';
+import { Colors } from '@styles/theme';
 import { BlankSpace, Container, Header, Wrapper } from './styles';
 import Card from '../../../components/Card';
 import SearchInput from '../../../components/SearchInput';
@@ -52,7 +53,7 @@ const Subscribes = (): JSX.Element => {
       <Header>Minhas Inscrições</Header>
       <SearchInput
         placeholder="Pesquisar..."
-        placeholderTextColor="#FFFFFF"
+        placeholderTextColor={Colors.white}
         onChangeText={e => getSubscription(e)}
       />
       <BlankSpace />

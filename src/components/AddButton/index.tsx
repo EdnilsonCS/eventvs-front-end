@@ -1,3 +1,4 @@
+import { Colors } from '@styles/theme';
 import React from 'react';
 import {
   TouchableWithoutFeedback,
@@ -19,13 +20,17 @@ const AddButton: React.FC<AddButtonProps> = ({
   return (
     <TouchableWithoutFeedback {...props} onPress={onPress}>
       <LinearGradientView
-        colors={focused ? ['#828', '#737'] : ['#6a2aba', '#6d43a1']}
+        colors={
+          focused
+            ? [Colors.pinkBlack, Colors.pinkBlackLight]
+            : [Colors.purple, Colors.purpleLight]
+        }
         start={{ x: 1, y: 0.2 }}
       >
         <MaterialCommunityIcons
           name="plus-circle-outline"
           size={30}
-          color={focused ? '#fff' : '#A7f'}
+          color={focused ? Colors.white : Colors.purplePink}
         />
       </LinearGradientView>
     </TouchableWithoutFeedback>

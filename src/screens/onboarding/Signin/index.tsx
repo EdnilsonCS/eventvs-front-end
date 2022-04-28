@@ -7,8 +7,8 @@ import Input from '@components/Input';
 import { SignInCredentials, useAuth } from '@hooks/auth';
 import { PublicRoutesConstants } from '@routes/constants.routes';
 import { useNavigation } from '@react-navigation/native';
-import { showMessage } from 'react-native-flash-message';
 import Button from '@components/Button';
+import { Colors } from '@styles/theme';
 import {
   ButtonContainer,
   Container,
@@ -55,7 +55,7 @@ export default function Signin(): JSX.Element {
         autoCapitalize="none"
         keyboardType="email-address"
         leftIcon="account"
-        color="#6d43a1"
+        color={Colors.purple}
       />
       <Input
         errors={errors}
@@ -65,7 +65,7 @@ export default function Signin(): JSX.Element {
         autoCapitalize="none"
         secureTextEntry
         leftIcon="lock"
-        color="#6d43a1"
+        color={Colors.purple}
       />
       <ButtonContainer>
         <Button
@@ -80,7 +80,11 @@ export default function Signin(): JSX.Element {
         onPress={() => navigation.navigate(PublicRoutesConstants.CreateAccount)}
       >
         <CreateAccountText>Criar nova conta</CreateAccountText>
-        <MaterialCommunityiIcons name="arrow-right" color="#000" size={20} />
+        <MaterialCommunityiIcons
+          name="arrow-right"
+          color={Colors.black}
+          size={20}
+        />
       </CreateAccountContainer>
     </Container>
   );

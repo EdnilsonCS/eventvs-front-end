@@ -17,6 +17,7 @@ import Select from '@components/Select';
 import LocationService, { ICity, IState } from '@services/LocationService';
 import dayjs from '@helpers/datas';
 import Button from '@components/Button';
+import { Colors } from '@styles/theme';
 import {
   Container,
   Wrapper,
@@ -290,14 +291,14 @@ const EditEvent = (): JSX.Element => {
           errors={errors}
           control={control}
           label="Título"
-          color="#6d43a1"
+          color={Colors.purple}
         />
         <Input
           name="descricao"
           errors={errors}
           control={control}
           label="Descrição"
-          color="#6d43a1"
+          color={Colors.purple}
         />
         <DataPicker
           errors={errors}
@@ -337,7 +338,7 @@ const EditEvent = (): JSX.Element => {
           errors={errors}
           control={control}
           label="Status"
-          color="#6d43a1"
+          color={Colors.purple}
           options={statusEvent}
         />
         <Select
@@ -356,7 +357,7 @@ const EditEvent = (): JSX.Element => {
             name="cep"
             errors={errors}
             control={control}
-            color="#6d43a1"
+            color={Colors.purple}
             styleContainer={{ width: '50%', marginRight: '5%' }}
           />
           <Input
@@ -364,7 +365,7 @@ const EditEvent = (): JSX.Element => {
             name="numero"
             errors={errors}
             control={control}
-            color="#6d43a1"
+            color={Colors.purple}
             styleContainer={{ width: '45%' }}
           />
         </NumberWrapper>
@@ -373,14 +374,14 @@ const EditEvent = (): JSX.Element => {
           errors={errors}
           control={control}
           label="Logradouro"
-          color="#6d43a1"
+          color={Colors.purple}
         />
         <Input
           name="bairro"
           errors={errors}
           control={control}
           label="Bairro"
-          color="#6d43a1"
+          color={Colors.purple}
         />
 
         <Select
@@ -395,7 +396,7 @@ const EditEvent = (): JSX.Element => {
           disabled={formattedCitys.length === 0}
           label="Cidade"
           name="cidade"
-          color="#6d43a1"
+          color={Colors.purple}
           errors={errors}
           control={control}
           options={formattedCitys}

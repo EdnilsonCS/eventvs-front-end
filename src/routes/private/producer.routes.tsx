@@ -8,6 +8,7 @@ import ProducerParticipantScreen from '@screens/Producer/Participants';
 import ProducerEditEventScreen from '@screens/Producer/EditEvent';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Colors } from '@styles/theme';
 import { PrivateRoutesConstants } from '../constants.routes';
 
 export type ProducerRootTabParamList = {
@@ -27,8 +28,8 @@ const ProducerNavigation: React.FC = props => {
     <>
       <ProducerTab.Navigator
         initialRouteName={PrivateRoutesConstants.Event}
-        activeColor="white"
-        inactiveColor="#A7f"
+        activeColor={Colors.white}
+        inactiveColor={Colors.purplePink}
         shifting
       >
         <ProducerTab.Screen
@@ -37,7 +38,7 @@ const ProducerNavigation: React.FC = props => {
           options={{
             title: 'Eventos',
             tabBarIcon: 'calendar-month-outline',
-            tabBarColor: '#6a2aba',
+            tabBarColor: Colors.purple,
           }}
         />
 
@@ -47,7 +48,7 @@ const ProducerNavigation: React.FC = props => {
           options={{
             title: 'Perfil',
             tabBarIcon: 'account-outline',
-            tabBarColor: '#6b4491',
+            tabBarColor: Colors.purple,
           }}
         />
       </ProducerTab.Navigator>
@@ -69,7 +70,7 @@ export default function App(): JSX.Element {
         options={{
           title: 'Perfil',
           tabBarIcon: 'account-outline',
-          tabBarColor: '#6b4491',
+          tabBarColor: Colors.purple,
         }}
       />
       <Stack.Screen

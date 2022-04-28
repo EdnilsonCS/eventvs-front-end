@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
+import { Colors } from '@styles/theme';
 
 export const ContainerMenu = styled.View`
   align-items: flex-end;
@@ -42,5 +43,5 @@ export const Bold = styled.Text`
 
 export const ItemContainer = styled.View`
   border-bottom-width: 1px;
-  border-bottom-color: #bbb;
+  border-bottom-color: ${Colors.gray};
 `;
