@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { Button } from 'react-native-paper';
 
 export const Container = styled.View`
   height: 100%;
@@ -17,12 +16,6 @@ export const NumberWrapper = styled.View`
   flex-direction: row;
   flex: 1;
   justify-content: space-between;
-`;
-
-export const Title = styled.Text`
-  font-size: 40px;
-  align-self: center;
-  font-weight: bold;
 `;
 
 export const Wrapper = styled.ScrollView.attrs(() => ({

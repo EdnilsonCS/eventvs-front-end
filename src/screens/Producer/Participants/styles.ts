@@ -25,7 +25,7 @@ export const WrapperParticipante = styled.View`
   height: 100%;
 `;
 
-export const Title = styled.Text`
+export const TitleCard = styled.Text`
   color: ${Colors.purple};
   font-size: 20px;
 `;

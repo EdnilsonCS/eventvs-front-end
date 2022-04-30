@@ -18,12 +18,6 @@ export const NumberWrapper = styled.View`
   justify-content: space-between;
 `;
 
-export const Title = styled.Text`
-  font-size: 40px;
-  align-self: center;
-  font-weight: bold;
-`;
-
 export const Wrapper = styled.ScrollView.attrs(() => ({
   contentContainerStyle: {
     paddingBottom: 16,

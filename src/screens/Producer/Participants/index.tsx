@@ -11,7 +11,7 @@ import {
   Container,
   Card,
   Header,
-  Title,
+  TitleCard,
   NumberOfParticipantsText,
   Wrapper,
   ButtonContainer,
@@ -44,9 +44,9 @@ const Published: React.FC = () => {
       <Card>
         <View>
           <Wrapper>
-            <Title>
+            <TitleCard>
               <Bold>Participantes</Bold>
-            </Title>
+            </TitleCard>
 
             <NumberOfParticipantsText>
               <Bold>{participantes.length}</Bold>

@@ -13,7 +13,7 @@ import {
   Container,
   Card,
   Header,
-  Title,
+  TitleCard,
   Wrapper,
   ButtonContainer,
 } from './styles';
@@ -101,9 +101,9 @@ const Published: React.FC = () => {
       <Card>
         <View>
           <Wrapper>
-            <Title>
+            <TitleCard>
               <Bold>{dados?.nome}</Bold>
-            </Title>
+            </TitleCard>
           </Wrapper>
           <Text>{dados?.descricao}</Text>
         </View>

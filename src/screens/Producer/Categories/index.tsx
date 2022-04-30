@@ -7,10 +7,10 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { PrivateRoutesConstants } from '@routes/constants.routes';
 import { useNavigation } from '@react-navigation/native';
-
+import Title from '@components/Title';
 import Button from '@components/Button';
 import { Colors } from '@styles/theme';
-import { Container, Wrapper, ButtonContainer, Header, Title } from './styles';
+import { Container, Wrapper, ButtonContainer, Header } from './styles';
 
 const AddCategory = (): JSX.Element => {
   const navigation = useNavigation();

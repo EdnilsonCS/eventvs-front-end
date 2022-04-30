@@ -17,13 +17,13 @@ import Select from '@components/Select';
 import LocationService, { ICity, IState } from '@services/LocationService';
 import dayjs from '@helpers/datas';
 import Button from '@components/Button';
+import Title from '@components/Title';
 import { Colors } from '@styles/theme';
 import {
   Container,
   Wrapper,
   ButtonContainer,
   Header,
-  Title,
   NumberWrapper,
 } from './styles';
 

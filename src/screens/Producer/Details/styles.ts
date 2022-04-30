@@ -20,7 +20,7 @@ export const Wrapper = styled.View`
   margin: 8px 0;
 `;
 
-export const Title = styled.Text`
+export const TitleCard = styled.Text`
   color: ${Colors.purple};
   font-size: 20px;
 `;
