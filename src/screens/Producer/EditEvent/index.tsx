@@ -50,10 +50,16 @@ const EditEvent = (): JSX.Element => {
     descricao: Yup.string().required('Descrição é um campo obrigatório'),
     statusEvento: Yup.string().required('Status é um campo obrigatório'),
     categoriaId: Yup.string().required('Categoria é um campo obrigatório'),
-    dataHoraFim: Yup.date().required('Data de inicio é um campo obrigatório'),
-    dataHoraInicio: Yup.date().required('Data de fim é um campo obrigatório'),
-    horaDeFim: Yup.date().required('Hora de inicio é um campo obrigatório'),
-    horaDeInicio: Yup.date().required('Hora de fim é um campo obrigatório'),
+    dataHoraFim: Yup.date().required(
+      'Data de encerramento é um campo obrigatório',
+    ),
+    dataHoraInicio: Yup.date().required(
+      'Data de inicio é um campo obrigatório',
+    ),
+    horaDeFim: Yup.date().required(
+      'Hora de encerramento é um campo obrigatório',
+    ),
+    horaDeInicio: Yup.date().required('Hora de inicio é um campo obrigatório'),
     logradouro: Yup.string().required('Logradouro é um campo obrigatório'),
     numero: Yup.number().required('Número é um campo obrigatório'),
     bairro: Yup.string().required('Bairro é um campo obrigatório'),
@@ -305,7 +311,7 @@ const EditEvent = (): JSX.Element => {
           control={control}
           name="dataHoraInicio"
           minimumDate={new Date()}
-          label="Data de ínicio"
+          label="Data de inicio"
         />
         <DataPicker
           errors={errors}
