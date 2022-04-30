@@ -77,7 +77,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     } catch (err) {
       if (err.response) {
         showMessage({
-          message: err.response.data.error_description,
+          message: 'Verifique seu email ou senha',
           type: 'danger',
           icon: 'danger',
           duration: 5000,
@@ -92,7 +92,6 @@ export const AuthProvider: React.FC = ({ children }) => {
       }
       throw new Error(err);
     }
-    console.log('aqui no login');
   }, []);
 
   const signOut = useCallback(async () => {
