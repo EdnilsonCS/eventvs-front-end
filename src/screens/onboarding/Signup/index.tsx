@@ -10,6 +10,7 @@ import AuthService from '@services/AuthService';
 import { useNavigation } from '@react-navigation/core';
 import { showMessage } from 'react-native-flash-message';
 import Button from '@components/Button';
+import * as CPFUtil from '@utils/cpf';
 import { Colors } from '@styles/theme';
 import {
   Container,
@@ -31,7 +32,11 @@ export default function SignUp(): JSX.Element {
   const navigation = useNavigation();
   const schema = Yup.object().shape({
     nome: Yup.string().required('Nome obrigatório'),
-    cpf: Yup.string().required('Cpf é um campo obrigatório'),
+    cnpj: Yup.string()
+      .test('cpf', 'Digite um cpf válido', value => {
+        return CPFUtil.isValid(value);
+      })
+      .required('O CPF é um campo obrigatório'),
     email: Yup.string()
       .email('Esse email não é válido')
       .required('E-mail obrigatório'),
