@@ -1,10 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+
 import AuthService from './AuthService';
 
 const api = axios.create({
-  baseURL: 'http://192.168.0.4:8080',
+  baseURL: 'http://192.168.1.109:8080',
 });
 
 api.interceptors.response.use(
