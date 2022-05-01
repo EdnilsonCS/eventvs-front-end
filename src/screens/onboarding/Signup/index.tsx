@@ -32,7 +32,7 @@ export default function SignUp(): JSX.Element {
   const navigation = useNavigation();
   const schema = Yup.object().shape({
     nome: Yup.string().required('Nome obrigatório'),
-    cnpj: Yup.string()
+    cpf: Yup.string()
       .test('cpf', 'Digite um cpf válido', value => {
         return CPFUtil.isValid(value);
       })
@@ -100,9 +100,9 @@ export default function SignUp(): JSX.Element {
             duration: 3000,
           });
         }
-      } catch (err) {
+      } catch (err: any) {
         showMessage({
-          message: 'Não conseguimos realizar seu cadastro.',
+          message: err.response.data.message,
           type: 'danger',
           icon: 'danger',
           duration: 3000,
