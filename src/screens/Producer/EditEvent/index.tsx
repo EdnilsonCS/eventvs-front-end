@@ -61,7 +61,9 @@ const EditEvent = (): JSX.Element => {
     ),
     horaDeInicio: Yup.date().required('Hora de inicio é um campo obrigatório'),
     logradouro: Yup.string().required('Logradouro é um campo obrigatório'),
-    numero: Yup.number().required('Número é um campo obrigatório'),
+    numero: Yup.number()
+      .required('Número é um campo obrigatório')
+      .max(10, 'O Campo ser menor que 10 caracteres'),
     bairro: Yup.string().required('Bairro é um campo obrigatório'),
     cidade: Yup.string().required('Cidade é um campo obrigatório'),
     estado: Yup.string().required('Estado é um campo obrigatório'),
@@ -175,9 +177,9 @@ const EditEvent = (): JSX.Element => {
         icon: 'success',
         duration: 3000,
       });
-    } catch (err) {
+    } catch (err: any) {
       showMessage({
-        message: 'Erro ao fazer login, check suas credenciais',
+        message: err.response.data.message,
         type: 'danger',
         icon: 'danger',
         duration: 3000,
