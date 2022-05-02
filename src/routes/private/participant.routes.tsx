@@ -1,9 +1,6 @@
 import React from 'react';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import Octicons from 'react-native-vector-icons/Octicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Feather from 'react-native-vector-icons/Feather';
 
 import SubscribesScreen from '@screens/Participant/Subscribes';
 import EventScreen from '@screens/Participant/Event';
@@ -20,21 +17,6 @@ export type RootTabParamList = {
 export type ProfileScreenProps = BottomTabBarProps<RootTabParamList>;
 
 const Tab = createMaterialBottomTabNavigator<RootTabParamList>();
-
-const icons: any = {
-  [PrivateRoutesConstants.Subscribes]: {
-    lib: Octicons,
-    name: 'browser',
-  },
-  [PrivateRoutesConstants.Event]: {
-    lib: MaterialCommunityIcons,
-    name: 'calendar-month-outline',
-  },
-  [PrivateRoutesConstants.Profile]: {
-    lib: Feather,
-    name: 'user',
-  },
-};
 
 const ParticipantNavigation: React.FC = () => {
   return (
