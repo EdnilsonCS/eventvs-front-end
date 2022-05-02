@@ -15,6 +15,7 @@ export const ContainerModal = styled.View`
 export const Container = styled.View`
   padding: 0 16px;
   background-color: whitesmoke;
+  flex: 1;
 `;
 
 export const Header = styled.Text`

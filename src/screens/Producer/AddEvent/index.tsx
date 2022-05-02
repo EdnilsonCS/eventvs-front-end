@@ -28,6 +28,7 @@ import {
 } from './styles';
 
 const AddEvent = (): JSX.Element => {
+  const [isLoading, setLoading] = useState(false);
   const statusEvent = [
     {
       id: 'PUBLICADO',
@@ -101,6 +102,7 @@ const AddEvent = (): JSX.Element => {
     name: 'cep',
   });
   const handleCreateNewEvent = async (data: any): Promise<void> => {
+    setLoading(true);
     const endereco = {
       logradouro: data.logradouro,
       numero: data.numero,
@@ -173,6 +175,7 @@ const AddEvent = (): JSX.Element => {
         duration: 3000,
       });
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -378,6 +381,7 @@ const AddEvent = (): JSX.Element => {
         <ButtonContainer>
           <Button
             variant="primary"
+            isLoading={isLoading}
             onPress={handleSubmit(handleCreateNewEvent)}
           >
             Cadastrar

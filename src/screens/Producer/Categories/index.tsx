@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { showMessage } from 'react-native-flash-message';
 import CategoryService, { ICategory } from '@services/CategoryService';
 import Input from '@components/Input';
@@ -13,6 +13,7 @@ import { Colors } from '@styles/theme';
 import { Container, Wrapper, ButtonContainer, Header } from './styles';
 
 const AddCategory = (): JSX.Element => {
+  const [isLoading, setLoading] = useState(false);
   const navigation = useNavigation();
   const schema = Yup.object().shape({
     nome: Yup.string().required('Titulo é um campo obrigatório'),
@@ -34,6 +35,7 @@ const AddCategory = (): JSX.Element => {
   });
 
   const handleCreateNewEvent = async (data: ICategory): Promise<void> => {
+    setLoading(true);
     try {
       await CategoryService.createNewCategory(data);
       setValue('nome', '');
@@ -52,6 +54,7 @@ const AddCategory = (): JSX.Element => {
         duration: 3000,
       });
     }
+    setLoading(false);
   };
 
   return (
@@ -76,7 +79,10 @@ const AddCategory = (): JSX.Element => {
         />
 
         <ButtonContainer>
-          <Button onPress={handleSubmit(handleCreateNewEvent)}>
+          <Button
+            onPress={handleSubmit(handleCreateNewEvent)}
+            isLoading={isLoading}
+          >
             Cadastrar
           </Button>
         </ButtonContainer>

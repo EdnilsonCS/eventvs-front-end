@@ -1,22 +1,31 @@
 import React from 'react';
-import { Button as BaseComp } from 'react-native-paper';
+import { ActivityIndicator } from 'react-native-paper';
 import { FC } from 'react';
-import { PrimaryButton, SecondaryButton, TertiaryButton } from './styles';
+import { Colors } from '@styles/theme';
+import { TouchableOpacityProps } from 'react-native';
+import {
+  PrimaryButton,
+  SecondaryButton,
+  TertiaryButton,
+  TextButton,
+} from './styles';
 
 enum ButtonVariants {
   'primary',
   'secondary',
   'tertiary',
 }
-export type ButtonProps = React.ComponentProps<typeof BaseComp> & {
+export type ButtonProps = TouchableOpacityProps & {
   variant?: keyof typeof ButtonVariants;
   isLoading?: boolean;
   mode?: 'contained' | undefined;
+  children: string;
 };
 
 const Button: FC<ButtonProps> = ({
   variant = 'primary',
   children,
+  isLoading = false,
   ...buttonProps
 }) => {
   const Component = {
@@ -25,7 +34,15 @@ const Button: FC<ButtonProps> = ({
     tertiary: TertiaryButton,
   }[variant];
 
-  return <Component {...buttonProps}>{children}</Component>;
+  return (
+    <Component disabled={isLoading} {...buttonProps}>
+      {isLoading ? (
+        <ActivityIndicator animating color={Colors.white} size={20} />
+      ) : (
+        <TextButton>{children}</TextButton>
+      )}
+    </Component>
+  );
 };
 
 export default Button;

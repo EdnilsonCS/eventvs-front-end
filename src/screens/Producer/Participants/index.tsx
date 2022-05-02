@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import ParticipantsService, {
   IParticipantes,
 } from '@services/ParticipantsService';
+import LoaderIndicator from '@components/LoaderIndicator';
 import {
   Bold,
   Container,
@@ -23,12 +24,14 @@ interface RouteParams {
   id: number;
 }
 const Published: React.FC = () => {
+  const [isLoading, setLoading] = useState(true);
   const [participantes, setParticipantes] = useState<IParticipantes[]>([]);
   const { params } = useRoute();
   const routeParams = params as RouteParams;
   const navigation = useNavigation();
   useEffect(() => {
     const getEventDetail = async (): Promise<void> => {
+      setLoading(true);
       const data = await ParticipantsService.getParticipantsByEventId(
         routeParams.id,
       );
@@ -36,40 +39,47 @@ const Published: React.FC = () => {
     };
 
     getEventDetail();
+    setLoading(false);
   }, [routeParams.id]);
 
   return (
     <Container>
       <Header>Detalhes</Header>
-      <Card>
-        <View>
-          <Wrapper>
-            <TitleCard>
-              <Bold>Participantes</Bold>
-            </TitleCard>
+      {isLoading ? (
+        <LoaderIndicator />
+      ) : (
+        <>
+          <Card>
+            <View>
+              <Wrapper>
+                <TitleCard>
+                  <Bold>Participantes</Bold>
+                </TitleCard>
 
-            <NumberOfParticipantsText>
-              <Bold>{participantes.length}</Bold>
-            </NumberOfParticipantsText>
-          </Wrapper>
-        </View>
-        <WrapperParticipante>
-          {participantes.map(item => (
-            <NameParticipante key={Math.random().toString()}>
-              {item.participante.pessoa.nome}
-            </NameParticipante>
-          ))}
-        </WrapperParticipante>
-      </Card>
-      <ButtonContainer>
-        <Button
-          variant="tertiary"
-          style={{ marginBottom: 14 }}
-          onPress={() => navigation.goBack()}
-        >
-          Voltar
-        </Button>
-      </ButtonContainer>
+                <NumberOfParticipantsText>
+                  <Bold>{participantes.length}</Bold>
+                </NumberOfParticipantsText>
+              </Wrapper>
+            </View>
+            <WrapperParticipante>
+              {participantes.map(item => (
+                <NameParticipante key={Math.random().toString()}>
+                  {item.participante.pessoa.nome}
+                </NameParticipante>
+              ))}
+            </WrapperParticipante>
+          </Card>
+          <ButtonContainer>
+            <Button
+              variant="tertiary"
+              style={{ marginBottom: 14 }}
+              onPress={() => navigation.goBack()}
+            >
+              Voltar
+            </Button>
+          </ButtonContainer>
+        </>
+      )}
     </Container>
   );
 };

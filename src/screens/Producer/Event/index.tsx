@@ -1,5 +1,5 @@
 import React from 'react';
-import { Colors, Menu } from 'react-native-paper';
+import { Menu } from 'react-native-paper';
 import Card from '@components/Card';
 import SearchInput from '@components/SearchInput';
 import { useState } from 'react';
@@ -12,6 +12,9 @@ import { PrivateRoutesConstants } from '@routes/constants.routes';
 import FilterModal, { DataFilter } from '@components/FilterModal';
 import dayjs from '@helpers/datas';
 import { useRef } from 'react';
+
+import { Colors } from '@styles/theme';
+import LoaderIndicator from '@components/LoaderIndicator';
 import {
   Container,
   Header,
@@ -21,6 +24,7 @@ import {
 } from './styles';
 
 export default function Event(): JSX.Element {
+  const [isLoading, setLoading] = useState(true);
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   const [events, setEvents] = useState<IEvent[]>([]);
@@ -28,12 +32,14 @@ export default function Event(): JSX.Element {
   const [oldArray, setOldArray] = useState<IEvent[]>([]);
 
   const getEventsList = async (): Promise<void> => {
+    setLoading(true);
     const data = await EventService.getEvents();
     const eventsNotPublic = await EventService.getEventsNaoPublicado();
 
     const eventsList = [...data, ...eventsNotPublic];
 
     setEvents(eventsList);
+    setLoading(false);
   };
 
   const onHandleSearchFilter = async (filterString: string): Promise<void> => {
@@ -65,6 +71,7 @@ export default function Event(): JSX.Element {
   }, [navigation]);
 
   const onHandleFilter = async (data: DataFilter): Promise<void> => {
+    setLoading(true);
     let filterEvents: IEvent[] = [];
     if (data.statusEvento === 'PUBLICADO') {
       let dataFilter: IEvent[] = [];
@@ -162,6 +169,7 @@ export default function Event(): JSX.Element {
     });
 
     setEvents(filterEvents);
+    setLoading(false);
   };
 
   return (
@@ -189,39 +197,45 @@ export default function Event(): JSX.Element {
         </Menu>
       </ContainerMenu>
       <Header>Eventvs</Header>
-      <SearchInput
-        onChangeText={e => onHandleSearchFilter(e)}
-        placeholder="Pesquisar..."
-        placeholderTextColor={Colors.white}
-      />
-      <ContainerModal>
-        <FilterModal
-          ref={filterRefModal}
-          onHandleFilter={onHandleFilter}
-          onClean={() => getEventsList()}
-        />
-      </ContainerModal>
-      <Wrapper>
-        {events.map(event => (
-          <Card
-            onPress={() =>
-              navigation.navigate(PrivateRoutesConstants.EventDetail, {
-                id: event.id,
-              })
-            }
-            key={event.id}
-            title={event.nome}
-            logradouro={event.endereco.logradouro}
-            numero={event.endereco.numero}
-            bairro={event.endereco.bairro}
-            cidade={event.endereco.cidade}
-            estado={event.endereco.estado}
-            dataHoraInicio={event.dataHoraInicio}
-            dataHoraFim={event.dataHoraFim}
-            description={event.descricao}
+      {isLoading ? (
+        <LoaderIndicator />
+      ) : (
+        <>
+          <SearchInput
+            onChangeText={e => onHandleSearchFilter(e)}
+            placeholder="Pesquisar..."
+            placeholderTextColor={Colors.white}
           />
-        ))}
-      </Wrapper>
+          <ContainerModal>
+            <FilterModal
+              ref={filterRefModal}
+              onHandleFilter={onHandleFilter}
+              onClean={() => getEventsList()}
+            />
+          </ContainerModal>
+          <Wrapper>
+            {events.map(event => (
+              <Card
+                onPress={() =>
+                  navigation.navigate(PrivateRoutesConstants.EventDetail, {
+                    id: event.id,
+                  })
+                }
+                key={event.id}
+                title={event.nome}
+                logradouro={event.endereco.logradouro}
+                numero={event.endereco.numero}
+                bairro={event.endereco.bairro}
+                cidade={event.endereco.cidade}
+                estado={event.endereco.estado}
+                dataHoraInicio={event.dataHoraInicio}
+                dataHoraFim={event.dataHoraFim}
+                description={event.descricao}
+              />
+            ))}
+          </Wrapper>
+        </>
+      )}
     </Container>
   );
 }

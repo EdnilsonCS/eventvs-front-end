@@ -31,6 +31,7 @@ interface RouteParams {
   id: number;
 }
 const EditEvent = (): JSX.Element => {
+  const [isLoading, setLoading] = useState(false);
   const statusEvent = [
     {
       id: 'PUBLICADO',
@@ -108,6 +109,7 @@ const EditEvent = (): JSX.Element => {
     name: 'cep',
   });
   const handleCreateNewEvent = async (data: any): Promise<void> => {
+    setLoading(true);
     const endereco = {
       logradouro: data.logradouro,
       numero: data.numero,
@@ -185,10 +187,12 @@ const EditEvent = (): JSX.Element => {
         duration: 3000,
       });
     }
+    setLoading(false);
   };
 
   useEffect(() => {
     const getEvent = async (): Promise<void> => {
+      setLoading(true);
       const data = await EventService.getEventDetail(routeParams.id);
       setValue('logradouro', data.endereco.logradouro);
       setValue('numero', String(data.endereco.numero));
@@ -204,6 +208,7 @@ const EditEvent = (): JSX.Element => {
       setValue('horaDeFim', dayjs(data.dataHoraFim).toDate());
       setValue('categoriaId', String(data.categoria.id));
       setValue('statusEvento', data.statusEvento);
+      setLoading(false);
     };
 
     getEvent();
@@ -410,7 +415,12 @@ const EditEvent = (): JSX.Element => {
           options={formattedCitys}
         />
         <ButtonContainer>
-          <Button onPress={handleSubmit(handleCreateNewEvent)}>Editar</Button>
+          <Button
+            isLoading={isLoading}
+            onPress={handleSubmit(handleCreateNewEvent)}
+          >
+            Editar
+          </Button>
         </ButtonContainer>
 
         <ButtonContainer>

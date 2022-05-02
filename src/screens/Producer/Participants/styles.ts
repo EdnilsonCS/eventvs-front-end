@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   padding: 0 16px;
+  flex: 1;
 `;
 export const Card = styled.View`
   border-width: 1px;
