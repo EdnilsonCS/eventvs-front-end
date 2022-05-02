@@ -160,7 +160,7 @@ const Published: React.FC = () => {
         )}
 
         <Button
-          variant="secondary"
+          variant="tertiary"
           style={{ marginBottom: 14 }}
           onPress={() => navigation.goBack()}
         >

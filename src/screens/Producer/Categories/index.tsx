@@ -83,7 +83,7 @@ const AddCategory = (): JSX.Element => {
 
         <ButtonContainer>
           <Button
-            variant="secondary"
+            variant="tertiary"
             onPress={() => navigation.navigate(PrivateRoutesConstants.Event)}
           >
             Voltar

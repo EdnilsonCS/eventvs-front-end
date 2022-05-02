@@ -1,11 +1,12 @@
 import React from 'react';
 import { Button as BaseComp } from 'react-native-paper';
 import { FC } from 'react';
-import { PrimaryButton, SecondaryButton } from './styles';
+import { PrimaryButton, SecondaryButton, TertiaryButton } from './styles';
 
 enum ButtonVariants {
   'primary',
   'secondary',
+  'tertiary',
 }
 export type ButtonProps = React.ComponentProps<typeof BaseComp> & {
   variant?: keyof typeof ButtonVariants;
@@ -21,6 +22,7 @@ const Button: FC<ButtonProps> = ({
   const Component = {
     primary: PrimaryButton,
     secondary: SecondaryButton,
+    tertiary: TertiaryButton,
   }[variant];
 
   return <Component {...buttonProps}>{children}</Component>;

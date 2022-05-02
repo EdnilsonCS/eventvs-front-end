@@ -63,7 +63,7 @@ const Published: React.FC = () => {
       </Card>
       <ButtonContainer>
         <Button
-          variant="secondary"
+          variant="tertiary"
           style={{ marginBottom: 14 }}
           onPress={() => navigation.goBack()}
         >
