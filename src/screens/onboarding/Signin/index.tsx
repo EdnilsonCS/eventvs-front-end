@@ -14,7 +14,9 @@ import {
   Container,
   Header,
   CreateAccountContainer,
+  RecoverPasswordContainer,
   CreateAccountText,
+  RecoverPasswordText,
 } from './styles';
 
 export default function Signin(): JSX.Element {
@@ -76,6 +78,16 @@ export default function Signin(): JSX.Element {
           Login
         </Button>
       </ButtonContainer>
+      <RecoverPasswordContainer
+        onPress={() => navigation.navigate(PublicRoutesConstants.RecoverPassword)}
+      >
+        <RecoverPasswordText>Recuperar senha</RecoverPasswordText>
+        <MaterialCommunityiIcons
+          name="arrow-right"
+          color={Colors.black}
+          size={20}
+        />
+      </RecoverPasswordContainer>
       <CreateAccountContainer
         onPress={() => navigation.navigate(PublicRoutesConstants.CreateAccount)}
       >

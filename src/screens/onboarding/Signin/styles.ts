@@ -23,7 +23,18 @@ export const CreateAccountContainer = styled.TouchableOpacity`
   align-items: center;
 `;
 
+export const RecoverPasswordContainer = styled.TouchableOpacity`
+  align-self: center;
+  flex-direction: row;
+  align-items: center;
+`;
+
 export const CreateAccountText = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+export const RecoverPasswordText = styled.Text`
   font-size: 16px;
   font-weight: bold;
 `;
